@@ -31,7 +31,7 @@
 <body>
     <form id="form1" runat="server">
         <header class="site-header">
-            <div class="hero">
+            <%--<div class="hero">
                 <div class="contenido-header">
                     <nav class="redes-sociales">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -51,7 +51,7 @@
                 </div>
 
             </div>
-            <!--,hero-->
+            <!--,hero-->--%>
         </header>
 
         <div class="barra">
