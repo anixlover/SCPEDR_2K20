@@ -1,0 +1,170 @@
+#body {
+    background-color: #330503;
+    width: 100%;
+    padding: 160px 0;
+}
+
+    #body h1 {
+        font-family: sans-serif;
+    }
+
+img {
+    padding: 30px;
+    width: 150px;
+    display: block;
+    margin: auto;
+}
+
+#tittle {
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 45px;
+}
+
+.form-id {
+    color: white;
+    text-align: center;
+    font-family: sans-serif;
+    position: relative;
+}
+
+.username-input {
+    text-align: center;
+}
+
+.password-input {
+    text-align: center;
+    position: relative;
+}
+
+.form-id input {
+    width: 540px;
+    height: 90%;
+    color: white;
+    font-size: 20px;
+    padding-top: 30px;
+    border: none;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    background: #763626;
+    margin: 10px;
+}
+
+.form-id .label-name {
+    position: absolute;
+    bottom: 122px;
+    color: white;
+    font-size: 18px;
+    padding-left: 15px;
+}
+
+    .form-id .label-name::after {
+        content: " ";
+        position: absolute;
+        left: 10px;
+        bottom: -33px;
+        height: 0%;
+        width: 550px;
+        border-bottom: 2px solid white;
+    }
+
+
+.form-id .label-name2 {
+    position: absolute;
+    bottom: 45px;
+    color: white;
+    font-size: 18px;
+    padding-left: 15px;
+}
+
+    .form-id .label-name2::after {
+        content: "";
+        position: absolute;
+        left: 10px;
+        bottom: -35px;
+        height: 0px;
+        width: 550px;
+        border-bottom: 2px solid white;
+    }
+
+.button {
+    text-align: center;
+}
+
+    .button input[type=submit] {
+        text-align: center;
+        border: none;
+        position: relative;
+        display: inline-block;
+        padding: 12px 36px;
+        margin: 10px 0px;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        letter-spacing: 0.5px;
+        border-radius: 40px;
+        background: #922924;
+        padding: 15px 240px;
+    }
+
+/*.Login-button3 {
+    text-align: left;
+}*/
+
+
+/*.Login-button3 {
+    text-align: left;
+    border: none;
+    position: relative;
+    display: inline-block;
+    padding: 12px 36px;
+    margin: 10px 0px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    border-radius: 40px;
+    background: #922924;
+    padding: 14px 255px;
+}*/
+
+/*.Log-in-button span {
+    font-size: 15px;
+    font-family: sans-serif;
+}*/
+
+/*.forgot span{
+    text-align: center;
+    position: relative;
+    top: 10px;
+    left: 480px;
+     left: 50px; 
+}*/
+
+/*.span{
+    color: white;
+}
+
+.point-class{
+    color:white;
+}
+
+.Point p{
+    text-align: center;
+    position: relative;
+    width: 5px;
+    padding: 5px;
+    margin: 5px;
+    left: 640px;
+    top: -20px;
+}
+
+.Sign-up span{
+    text-align: center;
+    position: relative;
+    top: -47px;
+    left: 690px;
+ 
+}*/
+
