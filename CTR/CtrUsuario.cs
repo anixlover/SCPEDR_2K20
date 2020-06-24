@@ -89,7 +89,7 @@ namespace CTR
                 return;
             }
             DtoUsuario objuser4 = new DtoUsuario();
-            objuser3.VU_Correo = Objusuario.VU_Correo;
+            objuser4.VU_Correo = Objusuario.VU_Correo;
             correcto = !objDaoUsuario.SelectUsuarioXcorreo(objuser4);
             if (!correcto)
             {

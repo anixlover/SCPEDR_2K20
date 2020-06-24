@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
 
     <meta name="theme-color" content="#fafafa">
+     <script src="plugins/sweetalert/sweetalert.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
