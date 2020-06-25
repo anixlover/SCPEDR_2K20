@@ -151,4 +151,5 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
         txtExtranjero.Visible = true;
         txtDNI.Visible = false;
     }
+    //fasdj
 }
