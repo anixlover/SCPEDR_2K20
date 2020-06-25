@@ -27,10 +27,12 @@
                                     <div class="row clearfix">
                                         <div class="col-sm-12">
                                             <div class="form-group form-float">
-                                                <label class="form-label">DNI </label>
+                                                <asp:RadioButton ID="RadioButton1" runat="server" Text="DNI" GroupName="documento" AutoPostBack="True" OnCheckedChanged="RadioButton1_CheckedChanged" EnableTheming="True" ForeColor="Black" />
+                                                <asp:RadioButton ID="RadioButton2" runat="server" Text="Carnet de Extranjería" GroupName="documento" AutoPostBack="True" OnCheckedChanged="RadioButton2_CheckedChanged" ForeColor="Black" />
                                                 <div class="form-line ">
                                                     <div class="form-line">
-                                                        <asp:TextBox ID="txtDNI" class="form-control" runat="server"  type="number"></asp:TextBox>
+                                                        <asp:TextBox ID="txtDNI" class="form-control" runat="server"  type="text" placeholder="DNI" pattern="[0-9]+" MinLength="8" MaxLength="8" ></asp:TextBox>
+                                                        <asp:TextBox ID="txtExtranjero" class="form-control" runat="server"  type="text" placeholder="Código de Extranjería" pattern="[0-9]+" MinLength="9" MaxLength="9" ></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>

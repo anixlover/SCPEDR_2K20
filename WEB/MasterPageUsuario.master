@@ -72,7 +72,7 @@
                     <a href="InspeccionarCatalogo.aspx">Catalogo</a>
                     <a href="ideas.html">Ideas</a>
                     <a href="Login.aspx">Iniciar Sesion</a>
-                    <a href="RegistrarClienteUsuarioExterno.aspx">Registrate</a>
+                    <a href="RegistrarClienteUE_1.aspx">Registrate</a>
                 </nav>
             </div>
             <!--.contenedor-->

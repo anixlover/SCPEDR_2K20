@@ -15,7 +15,8 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             _log.CustomWriteOnLog("Registro de usuario", "_______________________________________________________________________________ENTRO A FUNCION REGISTRAR_____________________________________________________________________");
-
+            RadioButton1.Checked = true;
+            txtExtranjero.Visible = false;
         }
     }
     protected void btnRegistrar_Click(object sender, EventArgs e)
@@ -27,6 +28,7 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
                 //lblMsje.Text = "COMPLETE EL FORMULARIO!!";
                 return;
             }
+
             //DtoUsuario objuser = new DtoUsuario(txtDNI.Text, txtNombres.Text, txtApellidos.Text, Convert.ToInt32(txtCelular.Text), Convert.ToDateTime(txtFechNac.Text), txtCorreo.Text, txtContraseña.Text, 1);
             DtoUsuario objuser = new DtoUsuario();
             _log.CustomWriteOnLog("Registro de usuario", "_______________________________________________________________________________ENTRO A FUNCION REGISTRAR_____________________________________________________________________");
@@ -40,8 +42,15 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
             _log.CustomWriteOnLog("Registro de usuario", "txtCorreo = " + txtCorreo.Text);
             _log.CustomWriteOnLog("Registro de usuario", "txtContrasenia = " + txtContrasenia.Text);
 
+            if (RadioButton1.Checked == true)
+            {
+                objuser.PK_VU_Dni = txtDNI.Text;
+            }
+            if (RadioButton2.Checked == true)
+            {
+                objuser.PK_VU_Dni = txtExtranjero.Text;
+            }
 
-            objuser.PK_VU_Dni = txtDNI.Text;
             objuser.VU_Nombre = txtNombres.Text;
             objuser.VU_Apellidos = txtApellidos.Text;
             objuser.IU_Celular = Convert.ToInt32(txtCelular.Text);
@@ -59,6 +68,8 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
             msjeRegistrar(objuser);
             if (objuser.error == 77)
             {
+                txtFechaNacimiento.Text = "00/00/00 00:00:00";
+                txtExtranjero.Text = "";
                 txtDNI.Text = "";
                 txtNombres.Text = "";
                 txtApellidos.Text = "";
@@ -72,7 +83,6 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
         catch (Exception ex)
         {
             _log.CustomWriteOnLog("Registro de usuario", "Error  = " + ex.Message);
-
             throw;
         }
 
@@ -128,5 +138,17 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
     protected void btnCancelar_Click(object sender, EventArgs e)
     {
         
+    }
+
+    protected void RadioButton1_CheckedChanged(object sender, EventArgs e)
+    {
+        txtDNI.Visible = true;
+        txtExtranjero.Visible = false;
+    }
+
+    protected void RadioButton2_CheckedChanged(object sender, EventArgs e)
+    {
+        txtExtranjero.Visible = true;
+        txtDNI.Visible = false;
     }
 }
