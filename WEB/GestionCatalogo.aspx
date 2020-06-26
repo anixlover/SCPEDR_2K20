@@ -66,8 +66,9 @@
                                     <Columns>
                                         <asp:BoundField DataField="PK_IM_Cod" HeaderText="Codigo" />
                                         <asp:BoundField DataField="VTM_Nombre" HeaderText="Tipo de moldura" />
-                                        <asp:BoundField DataField="DM_Medida" HeaderText="Unidad de m" />
+                                        <asp:BoundField DataField="DM_Medida" HeaderText="Medida" />
                                         <asp:BoundField DataField="VTM_UnidadMetrica" HeaderText="Unidad metrica" />
+                                        <asp:BoundField DataField="DM_Precio" HeaderText="Precio" />
                                         <asp:BoundField DataField="IM_estado" HeaderText="Estado" />
 
                                         <asp:ButtonField ButtonType="button" HeaderText="Detalles" CommandName="Ver" Text="Ver">

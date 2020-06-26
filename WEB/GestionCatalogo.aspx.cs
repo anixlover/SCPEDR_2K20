@@ -115,14 +115,14 @@ public partial class GestionCatalogo : System.Web.UI.Page
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            TableCell statusCell = e.Row.Cells[4];
+            TableCell statusCell = e.Row.Cells[5];
             if (statusCell.Text == "1")
             {
-                statusCell.Text = "Habilitado";
+                statusCell.Text = "H";
             }
             if (statusCell.Text == "0")
             {
-                statusCell.Text = "Deshabilitado";
+                statusCell.Text = "D";
             }
         }
     }
