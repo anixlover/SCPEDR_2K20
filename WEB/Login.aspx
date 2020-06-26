@@ -12,7 +12,7 @@
 </head>
 <body id="body">
     <%--logo--%>
-    <img src="img/logo2.png" />
+    <a href="Home.aspx"><img src="img/logo2.png" />
 
     <%--tittle--%>
     <h1 id="tittle">Decormolduras & Rosetones SAC</h1>

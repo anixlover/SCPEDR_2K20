@@ -16,6 +16,7 @@ namespace CTR
             {
                 using (File.CreateText(strPath))
                 {
+
                 }
             }
         }

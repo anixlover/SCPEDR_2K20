@@ -734,6 +734,38 @@ div.descripcion-moldura {
         background: rgba(4, 4, 4, 0.66)
     }
 
+/**Nosotros**/
+.contenido-nosotros {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 2rem;
+    font-size: 1.3em;
+}
+
+    .contenido-nosotros img {
+        text-align: center;
+    }
+
+    .contenido-nosotros span {
+        text-transform: capitalize;
+        font-weight: bolder;
+    }
+
+@media (min-width: 768px) .contenido-nosotros {
+    display: flex;
+    justify-content: space-between;
+}
+
+/**HTML Ideas**/
+
+div.contenido-ideas {
+    text-align: center;
+}
+
+    div.contenido-ideas img {
+        height: 420px;
+        width: 500px;
+    }
 
 
 

@@ -200,18 +200,8 @@
 	<script src="js/demo.js"></script>
         <script>
             function cargarInformacion(PK_IM_Cod) {
-                //$('#txtMedidaModal').val(medida);
-                //$('#txtUnidadMetricaModal').val(unidad);
-                //$('#txtPrecioModal').val(precio);
-                //$('#txtDescripcionModal').val(descripcion);
-                //alert("Informacion del pk " + PK_IM_Cod);
-
                 
-
                 location.href = `DescripcionMoldura.aspx?id=${PK_IM_Cod}`;
-                //location.href = "DescripcionMoldura.aspx?id= ";
-                //$('#ImageFile').attr("src", imagen);
-                //$('#defaultmodal').modal({ show: true });
 
             }
         </script>
