@@ -1,6 +1,6 @@
-﻿<%--<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Home.aspx.cs" Inherits="Home" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Ideas.aspx.cs" Inherits="Ideas" %>
 
-<!DOCTYPE html>
+<%--<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&family=PT+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arvo&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
@@ -55,7 +56,7 @@
                     </nav>
                     <div class="informacion-evento">
                         <div class="clearfix">
-                            <p class="fecha"><i class="far fa-calendar-alt"></i>25/06/2020</p>
+                            <p class="fecha"><i class="far fa-calendar-alt"></i>29/05/2020</p>
                             <p class="ciudad"><i class="fas fa-map-marker-alt"></i>Lima, Perú</p>
                         </div>
 
@@ -82,7 +83,7 @@
                 <nav class="navegacion-principal clearfix">
                     <a href="Nosotros.aspx">Nosotros</a>
                     <a href="InspeccionarCatalogoU.aspx">Catalogo</a>
-                    <a href="Ideas.aspx">Ideas</a>
+                    <a href="Ideas.apsx">Ideas</a>
                     <a href="Login.aspx">Iniciar Sesion</a>
                     <a href="RegistrarClienteUE_1.aspx">Registrate</a>
                 </nav>
@@ -91,94 +92,28 @@
         </div>
         <!--.barra-->
 
-        <section class="seccion contenedor">
-            <h2>Los mejores acabados en molduras para realzar los distintos ambientes</h2>
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis, accusantium. Quisquam quibusdam quod
-      voluptatem laborum voluptate, provident sint, asperiores reprehenderit cupiditate facere temporibus doloremque,
-      explicabo magni? Porro, accusamus vitae. Rem.
-            </p>
-        </section>
-        <!--seccion-->
-        <section class="nosotros contenedor seccion">
-            <div class="programa-nosotros"></div>
-            <h2>Sobre nosotros</h2>
-            <div class="icono-nosotros clearfix">
-                <div class="detalle">
-                    <i class="fas fa-award"></i>
-                    <h3>CALIDAD</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis aut cupiditate nobis, quia totam dignissimos iusto. Ab, velit! Ab rem fuga repellat hic autem velit harum quibusdam doloribus facilis nulla?</p>
-                </div>
+        <main class="contenedor">
+    <h2>Ideas</h2>
 
-                <div class="detalle">
-                    <i class="fas fa-hand-holding-usd"></i>
-                    <h3>MEJOR PRECIO</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque iste culpa consequuntur? Iusto molestias
-            porro ad excepturi illum nulla quam magni aperiam doloribus, quas veritatis labore laudantium,
-            necessitatibus illo culpa.
-                    </p>
-                </div>
-
-                <div class="detalle">
-                    <i class="far fa-clock"></i>
-                    <h3>A TIEMPO</h3>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis a sunt corrupti eius laborum molestias adipisci asperiores! Vero, id corporis dolorem, vitae praesentium saepe, commodi soluta ratione voluptate nobis optio?</p>
-                </div>
-            </div>
-            <!--Icono nosotros-->
-            </div><!--Propgrama nosotros-->
-        </section>
-        <!--Nosotros-->
-
-        <section class="catalogo contenedor seccion">
-            <h2>Catalogo</h2>
-            <ul class="lista-moldura clearfix">
-                <li>
-                    <div class="moldura">
-                        <img loading="lazy" src="img/RC_1.jpg" alt="imagen roseton" class="tamaño">
-                        <p>Roseton Clasico</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="moldura">
-                        <img loading="lazy" src="img/CC_1.JPG" alt="imagen roseton" class="tamaño">
-                        <p>Cornisa Clasico</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="moldura">
-                        <img loading="lazy" src="img/BC_1.JPG" alt="imagen roseton" class="tamaño">
-                        <p>Baquetón Clasico</p>
-                    </div>
-                </li>
-                <a href="InspeccionarCatalogoU.aspx" class="button float-right">Ver todos</a>
-            </ul>
-        </section>
-        <!--Catalogo-->
-        >
-
-  <div class="contador parallax">
-      <div class="ideas clearfix">
-          <h3>¿No sabes donde colocar las molduras?</h3>
-          <p>Da clic en el boton para más idea que te oriente en como decorar el hambiente de tu hogar o trabajo.</p>
-          <a href="#" class="button float-right">Ideas</a>
-      </div>
-  </div>
-        <!--Parallax-->
+    <div class="contenido-ideas">
+       <br > <img src="img/Idea1.jpg" /> <br />
+        <br >  <img src="img/Idea2.jpg" /><br />
+        <br >  <img src="img/Idea3.jpg" /><br />
+        <br >  <img src="img/Idea4.jpg" /><br />
+    </div>
+            </main>
 
 
-        <section class="mapa seccion">
 
-            <h2>Nuestra ubicación</h2>
-            <div id="mapa" class="mapa">
-            </div>
 
-            
 
-        </section>
-            <!--mapa-->
 
+
+
+
+
+
+        
         <footer class="site-footer">
             <div class="contenedor clearfix">
                 <div class="footer-informacion">
@@ -223,3 +158,4 @@
 </body>
 
 </html>
+

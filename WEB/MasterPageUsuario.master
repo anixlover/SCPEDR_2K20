@@ -68,9 +68,9 @@
                     <span></span>
                 </div>
                 <nav class="navegacion-principal clearfix">
-                    <a href="nosotros.html">Nosotros</a>
-                    <a href="InspeccionarCatalogo.aspx">Catalogo</a>
-                    <a href="ideas.html">Ideas</a>
+                    <a href="Nosotros.aspx">Nosotros</a>
+                    <a href="InspeccionarCatalogoU.aspx">Catalogo</a>
+                    <a href="Ideas.aspx">Ideas</a>
                     <a href="Login.aspx">Iniciar Sesion</a>
                     <a href="RegistrarClienteUE_1.aspx">Registrate</a>
                 </nav>
