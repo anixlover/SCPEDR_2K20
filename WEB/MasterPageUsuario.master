@@ -12,13 +12,14 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
-    
+
     <link href="plugins/node-waves/waves.css" rel="stylesheet" />
     <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&family=PT+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/Aplicacion/MasterUsuario.css">
     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="plugins/animate-css/animate.css" rel="stylesheet" />
 
@@ -68,15 +69,34 @@
                     <span></span>
                 </div>
                 <nav class="navegacion-principal clearfix">
-                    <a href="Nosotros.aspx">Nosotros</a>
+<%--                    <a href="Nosotros.aspx">Nosotros</a>
                     <a href="InspeccionarCatalogoU.aspx">Catalogo</a>
                     <a href="Ideas.aspx">Ideas</a>
                     <a href="Login.aspx">Iniciar Sesion</a>
-                    <a href="RegistrarClienteUE_1.aspx">Registrate</a>
+                    <a href="RegistrarClienteUE_1.aspx">Registrate</a>--%>
+                    <div class="btn-group clearfix right" role="group">
+                    <a href="Nosotros.aspx" type="button" class="btn btnCustomMaster waves-effect">Nosotros</a>
+                    <a href="InspeccionarCatalogoU.aspx" class="btn btnCustomMaster waves-effect">Catalogo</a>
+                    <a href="Ideas.aspx" class="btn btnCustomMaster waves-effect">Ideas</a>
+                    <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+
+<%--                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btnCustomMaster waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Dropdown link</a></li>
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Dropdown link</a></li>
+                        </ul>
+                    </div>--%>
+                </div>
                 </nav>
+                
             </div>
             <!--.contenedor-->
         </div>
+
         <!--.barra-->
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
@@ -112,14 +132,15 @@
         <!-- Jquery Core Js -->
 
         <!-- Bootstrap Core Js -->
+         <script src="../../plugins/jquery/jquery.min.js"></script>
         <script src="../../plugins/bootstrap/js/bootstrap.js"></script>
         <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
         <script src="../../plugins/bootstrap-notify/bootstrap-notify.js"></script>
         <script src="../../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
         <script src="js/vendor/modernizr-3.8.0.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<%--        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>--%>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
@@ -132,6 +153,9 @@
         </script>
         <script src="https://www.google-analytics.com/analytics.js" async></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <script src="../../plugins/node-waves/waves.js"></script>
     </form>
 </body>
 </html>

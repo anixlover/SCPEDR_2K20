@@ -12,77 +12,69 @@
 </head>
 <body id="body">
     <%--logo--%>
-    <a href="Home.aspx"><img src="img/logo2.png" />
+    <a href="Home.aspx">
+        <img src="img/logo2.png" /></a>
 
-    <%--tittle--%>
-    <h1 id="tittle">Decormolduras & Rosetones SAC</h1>
+        <%--tittle--%>
+        <h1 id="tittle">Decormolduras & Rosetones SAC</h1>
 
-    <%--content principal--%>
-    <form id="form2" runat="server" class="auto-style1">
-        <div class="form-id">
+        <%--content principal--%>
+        <form id="form2" runat="server" class="auto-style1">
+            <section id="content">
+                <div class="form-id">
+                <div class="form-id">
+                    <div class="username-input">
+                        <label for="exampleInputEmail1" class="label-name">
+                            Codigo Usuario
+                        </label>
+                        <asp:TextBox ID="txtDni" required name="dni" CssClass="form-control" runat="server"></asp:TextBox>
 
-           
-            <div class="form-id">
-                <div class="username-input">
-                    <label for="exampleInputEmail1" class="label-name">
-                        Codigo Usuario
-                    </label>
-                    <asp:TextBox ID="txtDni" required name="dni" CssClass="form-control" runat="server" ></asp:TextBox>
+                    </div>
+                    <%--input pass--%>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1" class="label-name2">
+                            Contraseña
 
-                </div>
-                <%--input pass--%>
-                <div class="form-group">
-                    <label for="exampleInputPassword1" class="label-name2">
-                        Contraseña
-
-                    </label>
-                    <asp:TextBox ID="txtContraseña" required name="pass" type="password"
-                        CssClass="form-control" runat="server"></asp:TextBox>
+                        </label>
+                        <asp:TextBox ID="txtContraseña" required name="pass" type="password"
+                            CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
                 </div>
             </div>
+            <%--button succes--%>
+                <asp:Label ID="mostrarMensaje" runat="server" ForeColor="#CC0000"></asp:Label>
+            <div class="button">
+                <asp:Button ID="btnLogin" runat="server" Class="Login-button" type="submit"
+                    Text="Ingresar" OnClick="btnLogin_Click" />
+            </div>
+            </section>
+        </form>
 
-            <%--opcional no delte--%>
-            <%--            <div class="forgot">
-                <a style="text-decoration: none" class="a" href="#"><span class="span">Contraseña olvidada?</span></a>
-                        </div>
-            --%>
-        </div>
+        <script type="text/javascript">
+            function validarInput() {
+                document.getElementById("btnLogin").disabled = !document.getElementById("txtDni").value.length;
+            }
+        </script>
 
-        <%--button succes--%>
-        <div class="button">
-            <asp:Button ID="btnLogin" runat="server" Class="Login-button" type="submit"
-                Text="Ingresar" OnClick="btnLogin_Click" />
-        </div>
-    </form>
 
-     <script type="text/javascript">
-         function validarInput()
-         {
-             document.getElementById("btnLogin").disabled = !document.getElementById("txtDni").value.length;
-         }
-    </script>
 
-    
-
-    <script type="text/javascript">
-        function solonumeros(n) {
-            key = e.keyCode || e.which;
-            teclado = Int32Array(key);
-            numeros = "0123456789";
-            especiales = "8-37-38-46-146";
-            teclado_especial = false;
-            for (var i in especiales) {
-                if (key == especiales[i]) {
-                    teclado_especial = true; break;
+        <script type="text/javascript">
+            function solonumeros(n) {
+                key = e.keyCode || e.which;
+                teclado = Int32Array(key);
+                numeros = "0123456789";
+                especiales = "8-37-38-46-146";
+                teclado_especial = false;
+                for (var i in especiales) {
+                    if (key == especiales[i]) {
+                        teclado_especial = true; break;
+                    }
                 }
+                if (numeros.indexOf(teclado) == -1 && !teclado_especial) {
+                    return false;
+                }
+
             }
-            if (numeros.indexOf(teclado) == -1 && !teclado_especial) {
-                return false;
-            }
-
-        }
-    </script>
-
-
+        </script>
 </body>
 </html>

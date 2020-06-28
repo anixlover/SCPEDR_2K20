@@ -82,5 +82,65 @@ namespace DAO
             conexion.Close();
             return hayRegistros;
         }
+        public int validacionLogin(string usuario, string clave)
+        {
+
+            int valor_retornado = 0;
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM T_USUARIO as U WHERE" +
+                " U.PK_VU_Dni = '" + usuario + "' AND U.VU_Contrasenia = '" + clave + "'", conexion);
+
+
+
+            Console.WriteLine(cmd);
+            conexion.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {    //valor_retornado = reader[0].ToString();
+                valor_retornado = int.Parse(reader[0].ToString());
+
+            }
+            conexion.Close();
+
+            return valor_retornado;
+        }
+
+        public DtoUsuario datosUsuario(String usuario)
+        {
+            SqlCommand cmd = new SqlCommand("select U.FK_ITU_Cod," +
+                "U.VU_Nombre," +
+                "U.VU_Apellidos," +
+                "U.VU_Correo, " +
+                "U.PK_VU_Dni," +
+                "U.IU_Celular," +
+                "U.DTU_FechaNac" +
+                " from T_Usuario as U " +
+                "where U.PK_VU_Dni = '" + usuario + "'", conexion);
+
+            DtoUsuario usuarioDto = new DtoUsuario();
+            DtoTipoUsuario tipousuarioDto = new DtoTipoUsuario();
+
+
+
+            conexion.Open();
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                tipousuarioDto.PK_ITU_Cod = int.Parse(reader[0].ToString());
+                usuarioDto.FK_ITU_Cod = int.Parse(reader[0].ToString());
+                usuarioDto.VU_Nombre = reader[1].ToString();
+                usuarioDto.VU_Apellidos = reader[2].ToString();
+                usuarioDto.VU_Correo = reader[3].ToString();
+                usuarioDto.PK_VU_Dni = reader[4].ToString();
+                usuarioDto.IU_Celular = int.Parse(reader[5].ToString());
+                usuarioDto.DTU_FechaNac = DateTime.Parse(reader[6].ToString());
+
+            }
+            conexion.Close();
+
+            return (usuarioDto);
+        }
     }
 }
