@@ -86,7 +86,7 @@ public partial class Login : System.Web.UI.Page
                 else
                 {
                     string script = @"<script type='text/javascript'>
-                                      location.href='../Inicio.aspx';
+                                      location.href='../GestionCatalogo.aspx';
                                   </script>";
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "alert", script, false);
                 }
