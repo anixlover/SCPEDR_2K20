@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CtrMoldura.cs" />
-    <Compile Include="CtrSolicitudxMoldura.cs" />
+    <Compile Include="CtrMolduraxUsuario.cs" />
     <Compile Include="CtrTipoMoldura.cs" />
     <Compile Include="CtrUsuario.cs" />
     <Compile Include="Ctr_Solicitud.cs" />

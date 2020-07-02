@@ -44,7 +44,7 @@
     <Compile Include="ConexionBD.cs" />
     <Compile Include="DaoMoldura.cs" />
     <Compile Include="DaoSolicitud.cs" />
-    <Compile Include="DaoSolicitudxMoldura.cs" />
+    <Compile Include="DaoMolduraxUsuario.cs" />
     <Compile Include="DaoTipoMoldura.cs" />
     <Compile Include="DaoUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

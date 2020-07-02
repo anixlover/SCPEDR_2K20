@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="DtoMoldura.cs" />
     <Compile Include="DtoSolicitud.cs" />
-    <Compile Include="DtoSolicitudxMoldura.cs" />
+    <Compile Include="DtoMolduraxUsuario.cs" />
     <Compile Include="DtoTipoMoldura.cs" />
     <Compile Include="DtoTipoUsuario.cs" />
     <Compile Include="DtoUsuario.cs" />
