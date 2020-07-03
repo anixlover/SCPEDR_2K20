@@ -767,9 +767,11 @@ div.contenido-ideas {
         width: 500px;
     }
 
+/**Button Lista Deseo**/
 
+div.descripcion-moldura .button.transparente:hover {
 
-
+}
 /*
 ==========================================================================
    Helper classes

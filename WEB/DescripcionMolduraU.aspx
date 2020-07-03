@@ -14,7 +14,9 @@
         <p>Precio: S./<asp:Label ID="txtprecio" runat="server"></asp:Label></p>
         <p>Descripción:<asp:Label ID="txtdescripcion" runat="server"></asp:Label></p>
         <a href="#" class="button" onclick="btn_regresar()">Regresar</a>
+        <a href="#" class="button" onclick="btn_regresar()"> <i class="far fa-star"></i></a>
     </div>
+
 </section>
 </asp:Content>
 

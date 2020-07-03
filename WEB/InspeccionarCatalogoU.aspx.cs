@@ -97,6 +97,8 @@ public partial class InspeccionarCatalogoU : System.Web.UI.Page
                          "<p>Precio: S./" + DM_Precio + "</p>" +
                          "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarInformacion(" + PK_IM_Cod + ")'>Detalles</asp:button>" +
                            "</div>" +
+                           "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarListaDeseo(" + PK_IM_Cod + ")'>Agregar lista de deseos</asp:button>" +
+                           "</div>" +
                         " </li>";
 
                 ListaMoldura.InnerHtml = HtmlRepeater;
@@ -183,6 +185,8 @@ public partial class InspeccionarCatalogoU : System.Web.UI.Page
                          "<p>Precio: S./" + DM_Precio + "</p>" +
                          "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarInformacion(" + PK_IM_Cod + ")'>Detalles</asp:button>" +
                            "</div>" +
+                           "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarListaDeseo(" + PK_IM_Cod + ")'>Agregar lista de deseos</asp:button>" +
+                           "</div>" +
                         " </li>";
 
                 ListaMoldura.InnerHtml = HtmlRepeater;
@@ -258,6 +262,8 @@ public partial class InspeccionarCatalogoU : System.Web.UI.Page
                          "<p>Mide: " + DM_Medida + "</p>" +
                          "<p>Precio: S./" + DM_Precio + "</p>" +
                          "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarInformacion(" + PK_IM_Cod + ")'>Detalles</asp:button>" +
+                           "</div>" +
+                           "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarListaDeseo(" + PK_IM_Cod + ")'>Agregar lista de deseos</asp:button>" +
                            "</div>" +
                         " </li>";
 
@@ -335,6 +341,8 @@ public partial class InspeccionarCatalogoU : System.Web.UI.Page
                          "<p>Precio: S./" + DM_Precio + "</p>" +
                          "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarInformacion(" + PK_IM_Cod + ")'>Detalles</asp:button>" +
                            "</div>" +
+                           "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarListaDeseo(" + PK_IM_Cod + ")'>Agregar lista de deseos</asp:button>" +
+                           "</div>" +
                         " </li>";
 
                 ListaMoldura.InnerHtml = HtmlRepeater;
@@ -410,6 +418,8 @@ public partial class InspeccionarCatalogoU : System.Web.UI.Page
                          "<p>Mide: " + DM_Medida + "</p>" +
                          "<p>Precio: S./" + DM_Precio + "</p>" +
                          "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarInformacion(" + PK_IM_Cod + ")'>Detalles</asp:button>" +
+                           "</div>" +
+                           "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarListaDeseo(" + PK_IM_Cod + ")'>Agregar lista de deseos</asp:button>" +
                            "</div>" +
                         " </li>";
 
@@ -487,6 +497,8 @@ public partial class InspeccionarCatalogoU : System.Web.UI.Page
                          "<p>Precio: S./" + DM_Precio + "</p>" +
                          "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarInformacion'>Detalles</asp:button>" +
                            "</div>" +
+                           "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarListaDeseo(" + PK_IM_Cod + ")'>Agregar lista de deseos</asp:button>" +
+                           "</div>" +
                         " </li>";
 
                 ListaMoldura.InnerHtml = HtmlRepeater;
@@ -563,6 +575,8 @@ public partial class InspeccionarCatalogoU : System.Web.UI.Page
                          "<p>Precio: S./" + DM_Precio + "</p>" +
                          "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarInformacion(" + PK_IM_Cod + ")'>Detalles</asp:button>" +
                            "</div>" +
+                           "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarListaDeseo(" + PK_IM_Cod + ")'>Agregar lista de deseos</asp:button>" +
+                           "</div>" +
                         " </li>";
 
                 ListaMoldura.InnerHtml = HtmlRepeater;
@@ -637,6 +651,8 @@ public partial class InspeccionarCatalogoU : System.Web.UI.Page
                          "<p>Mide: " + DM_Medida + "</p>" +
                          "<p>Precio: S./" + DM_Precio + "</p>" +
                          "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarInformacion(" + PK_IM_Cod + ")'>Detalles</asp:button>" +
+                           "</div>" +
+                           "<button id='btnSave' class='btn btn-primary nextBtn-2' onClick='cargarListaDeseo(" + PK_IM_Cod + ")'>Agregar lista de deseos</asp:button>" +
                            "</div>" +
                         " </li>";
 
