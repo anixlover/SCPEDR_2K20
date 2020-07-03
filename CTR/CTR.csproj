@@ -46,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CtrMoldura.cs" />
+    <Compile Include="CtrMolduraxUsuario.cs" />
     <Compile Include="CtrTipoMoldura.cs" />
     <Compile Include="CtrUsuario.cs" />
+    <Compile Include="Ctr_Solicitud.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />

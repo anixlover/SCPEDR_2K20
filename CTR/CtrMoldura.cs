@@ -63,6 +63,9 @@ namespace CTR
         {
             return objDaoMoldura.ListarTodoMolduras(objDtoMoldura);
         }
-        
+        public int StockMoldura_(DtoMoldura objDtoMoldura)
+        {
+            return objDaoMoldura.StockMoldura(objDtoMoldura);
+        }
     }
 }

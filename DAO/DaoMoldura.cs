@@ -224,5 +224,24 @@ namespace DAO
             conexion.Close();
             return dtmolduras;
         }
+        public int StockMoldura(DtoMoldura objMoldura)
+        {
+
+            int valor_retornado = 0;
+            SqlCommand cmd = new SqlCommand("SELECT IM_Stock FROM T_Moldura WHERE PK_IM_Cod="+ objMoldura.PK_IM_Cod);
+            
+            Console.WriteLine(cmd);
+            conexion.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                valor_retornado = int.Parse(reader[0].ToString());
+
+            }
+            conexion.Close();
+
+            return valor_retornado;
+        }
     }
 }
