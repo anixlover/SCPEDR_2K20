@@ -102,7 +102,8 @@ public partial class DescripcionMolduraU : System.Web.UI.Page
         {
             if (Session["DNIUsuario"] == null)
             {
-                Response.Redirect("~/Login.aspx");
+                Response.Cookies.Add(new HttpCookie("returnUrl", Request.Url.PathAndQuery));
+                Response.Redirect("Login.aspx");
             }
             else
             {

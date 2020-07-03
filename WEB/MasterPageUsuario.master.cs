@@ -79,7 +79,12 @@ public partial class MasterPageUsuario : System.Web.UI.MasterPage
     protected void btnCerrarSesion_ServerClick(object sender, EventArgs e)
     {
         Session.Clear();
+        Session.Remove("id_perfil");
         Session.Abandon();
+        HttpContext.Current.Session.Abandon();
+        Session.RemoveAll();
+        Session["id_perfil"] = null;
         Response.Redirect("~/Login.aspx");
+       
     }
 }

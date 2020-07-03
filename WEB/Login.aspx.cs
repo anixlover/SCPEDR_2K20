@@ -19,6 +19,12 @@ public partial class Login : System.Web.UI.Page
 
         if (!IsPostBack)
         {
+            Session.Clear();
+            Session.Remove("id_perfil");
+            Session.Abandon();
+            HttpContext.Current.Session.Abandon();
+            Session.RemoveAll();
+            Session["id_perfil"] = null;
             conexion = new SqlConnection(ConexionBD.CadenaConexion);
         }
 
@@ -78,10 +84,22 @@ public partial class Login : System.Web.UI.Page
 
                 if (Session["id_perfil"].ToString() == "1")
                 {
-                    string script = @"<script type='text/javascript'>
+                    HttpCookie returnCookie = Request.Cookies["returnUrl"];
+                    if ((returnCookie == null) || string.IsNullOrEmpty(returnCookie.Value))
+                    {
+                        string script = @"<script type='text/javascript'>
                                       location.href='../InspeccionarCatalogoU.aspx';
                                   </script>";
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "alert", script, false);
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "alert", script, false);
+                    }
+                    else
+                    {
+                        HttpCookie deleteCookie = new HttpCookie("returnUrl");
+                        deleteCookie.Expires = DateTime.Now.AddDays(-1);
+                        Response.Cookies.Add(deleteCookie);
+                        Response.Redirect(returnCookie.Value);
+                    }
+                                        
                 }
                 else
                 {
