@@ -64,7 +64,7 @@ public partial class MasterPageUsuario : System.Web.UI.MasterPage
                         <ul class='dropdown-menu bcColor'>
                             <li><a href='javascript:void(0);' class=' waves-effect waves-block'>Favoritos</a></li>
                             <li><a href='javascript:void(0);' class=' waves-effect waves-block'>Mis pedidos</a></li>
-                            <li><a href='Login.aspx' class=' waves-effect waves-block'>Cerrar sesión</a></li>
+                            <li><a id='btnCerrarSesion' runat='server' onserverclick='btnCerrarSesion_ServerClick' class=' waves-effect waves-block'>Cerrar sesión</a></li>
                         </ul>
                     </div>
                     ");
@@ -75,5 +75,11 @@ public partial class MasterPageUsuario : System.Web.UI.MasterPage
     protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
     {
 
+    }
+    protected void btnCerrarSesion_ServerClick(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Session.Abandon();
+        Response.Redirect("~/Login.aspx");
     }
 }

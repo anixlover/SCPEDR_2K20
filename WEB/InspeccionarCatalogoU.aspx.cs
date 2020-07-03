@@ -24,7 +24,7 @@ public partial class InspeccionarCatalogoU : System.Web.UI.Page
         {
             try
             {
-                btnTodos_Click(sender,e);
+                //btnTodos_Click(sender,e);
             }
             catch (Exception ex)
             {

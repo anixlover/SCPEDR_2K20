@@ -19,11 +19,29 @@ public partial class MasterPage : System.Web.UI.MasterPage
             Log.WriteOnLog("-------------------------------------------------------------------------------------------------------------");
                 int perfil = int.Parse(Session["id_perfil"].ToString());
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-            throw;
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("~/Login.aspx");
         }
 
 	}
+
+    protected void UsuarioOption_ServerClick(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void AdministradorOption_ServerClick(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnCerrarSesion_ServerClick(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Session.Abandon();
+        Response.Redirect("~/Login.aspx");
+    }
 }

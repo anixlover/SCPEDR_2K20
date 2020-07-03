@@ -34,27 +34,6 @@
 <body>
     <form id="form1" runat="server">
         <header class="site-header">
-            <%--<div class="hero">
-                <div class="contenido-header">
-                    <nav class="redes-sociales">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </nav>
-                    <div class="informacion-evento">
-                        <div class="clearfix">
-                            <p class="fecha"><i class="far fa-calendar-alt"></i>29/05/2020</p>
-                            <p class="ciudad"><i class="fas fa-map-marker-alt"></i>Lima, Perú</p>
-                        </div>
-
-                        <h1 class="nombre-sitio">Decormolduras & Rosetones S.A.C</h1>
-                        <p class="slogan">Los mejores acabados en <span>molduras</span> para realzar los distintos ambientes</p>
-                    </div>
-                    <!--informacion evento -->
-                </div>
-
-            </div>
-            <!--,hero-->--%>
         </header>
 
         <div class="barra">
@@ -69,27 +48,11 @@
                     <span></span>
                 </div>
                 <nav class="navegacion-principal clearfix">
-<%--                    <a href="Nosotros.aspx">Nosotros</a>
-                    <a href="InspeccionarCatalogoU.aspx">Catalogo</a>
-                    <a href="Ideas.aspx">Ideas</a>
-                    <a href="Login.aspx">Iniciar Sesion</a>
-                    <a href="RegistrarClienteUE_1.aspx">Registrate</a>--%>
                     <div class="btn-group clearfix right" role="group">
                     <a href="Nosotros.aspx" type="button" class="btn btnCustomMaster waves-effect">Nosotros</a>
                     <a href="InspeccionarCatalogoU.aspx" class="btn btnCustomMaster waves-effect">Catalogo</a>
                     <a href="Ideas.aspx" class="btn btnCustomMaster waves-effect">Ideas</a>
                     <asp:Literal ID="Literal1" runat="server"></asp:Literal>
-
-<%--                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btnCustomMaster waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Dropdown link</a></li>
-                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Dropdown link</a></li>
-                        </ul>
-                    </div>--%>
                 </div>
                 </nav>
                 
@@ -156,6 +119,13 @@
 
     <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
     <script src="../../plugins/node-waves/waves.js"></script>
+        <script>
+            $("#btnCerrarSesion").click(function (e) {
+                sessionStorage.clear();
+                sessionStorage.removeItem('id_perfil');
+                window.location = 'Login.aspx';
+            });
+        </script>
     </form>
 </body>
 </html>
