@@ -18,6 +18,9 @@ namespace CTR
         objDaoSXM = new DaoMolduraxUsuario();
         }
 
-
+        public void registrarNuevaMoldura(DtoMolduraxUsuario objDtoMolduraxUsuario)
+        {
+            objDaoSXM.InsertarMolduraxUsuario(objDtoMolduraxUsuario);
+        }
     }
 }
