@@ -110,13 +110,13 @@ public partial class DescripcionMolduraU : System.Web.UI.Page
 
                 objDtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
                 objDtoMolduraxUsuario.FK_IM_Cod = int.Parse(Request.Params["Id"]);
-                objDtoMolduraxUsuario.ISM_Cantidad = int.Parse(txtDescripcionModal.Text);
-                objDtoMolduraxUsuario.DSM_Precio = double.Parse(txtPrecioAprox.Value);
+                objDtoMolduraxUsuario.IMU_Cantidad = int.Parse(txtDescripcionModal.Text);
+                objDtoMolduraxUsuario.DMU_Precio = double.Parse(txtPrecioAprox.Value);
 
                 _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.FK_VU_Cod = " + objDtoMolduraxUsuario.FK_VU_Cod);
                 _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.FK_IM_Cod = " + objDtoMolduraxUsuario.FK_IM_Cod.ToString());
-                _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.ISM_Cantidad = " + objDtoMolduraxUsuario.ISM_Cantidad.ToString());
-                _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.DSM_Precio = " + objDtoMolduraxUsuario.DSM_Precio.ToString());
+                _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.ISM_Cantidad = " + objDtoMolduraxUsuario.IMU_Cantidad.ToString());
+                _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.DSM_Precio = " + objDtoMolduraxUsuario.DMU_Precio.ToString());
 
                 objCtrMolduraxUsuario.registrarNuevaMoldura(objDtoMolduraxUsuario);
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#confirmacionmodal').modal('show');</script>", false);
@@ -134,7 +134,7 @@ public partial class DescripcionMolduraU : System.Web.UI.Page
     }
     protected void btnAceptarRedirigir_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Administrar_Solicitud_Pedido.aspx");
+        Response.Redirect("~/CarritoCompras.aspx?Id="+ Session["DNIUsuario"]);
 
     }
 }

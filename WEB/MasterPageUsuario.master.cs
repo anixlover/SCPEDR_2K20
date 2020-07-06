@@ -11,7 +11,7 @@ public partial class MasterPageUsuario : System.Web.UI.MasterPage
     {
         try
         {
-            if (Session["id_perfil"] ==null)
+            if (Session["id_perfil"] == null)
             {
                 perfil_Socio();
                 Session.Clear();
@@ -55,6 +55,7 @@ public partial class MasterPageUsuario : System.Web.UI.MasterPage
     public void perfil_Socio_Logeado()
     {
         string nombreusuario = Session["NombreUsuario"].ToString();
+        string dni = Session["DNIUsuario"].ToString();
         string html = string.Format(@"
                          <div class='btn-group' role='group'>
                         <button type='button' class='btn btnCustomMaster waves-effect dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
@@ -64,6 +65,7 @@ public partial class MasterPageUsuario : System.Web.UI.MasterPage
                         <ul class='dropdown-menu bcColor'>
                             <li><a href='javascript:void(0);' class=' waves-effect waves-block'>Favoritos</a></li>
                             <li><a href='javascript:void(0);' class=' waves-effect waves-block'>Mis pedidos</a></li>
+                            <li><a id='btnCarrito' runat='server' onClick='cargarId(" + dni +@")' class=' waves-effect waves-block'>Carrito Compras</a></li>
                             <li><a id='btnCerrarSesion' runat='server' onserverclick='btnCerrarSesion_ServerClick' class=' waves-effect waves-block'>Cerrar sesión</a></li>
                         </ul>
                     </div>
@@ -76,6 +78,7 @@ public partial class MasterPageUsuario : System.Web.UI.MasterPage
     {
 
     }
+    
     protected void btnCerrarSesion_ServerClick(object sender, EventArgs e)
     {
         Session.Clear();
@@ -85,6 +88,6 @@ public partial class MasterPageUsuario : System.Web.UI.MasterPage
         Session.RemoveAll();
         Session["id_perfil"] = null;
         Response.Redirect("~/Login.aspx");
-       
+
     }
 }

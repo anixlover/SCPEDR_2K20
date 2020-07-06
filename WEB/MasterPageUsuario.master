@@ -126,6 +126,13 @@
                 window.location = 'Login.aspx';
             });
         </script>
+        <script>
+        function cargarId(dni) {
+
+            location.href = `CarritoCompras.aspx?id=${dni}`;
+
+        }
+</script>
     </form>
 </body>
 </html>
