@@ -21,6 +21,8 @@ namespace DAO
                 //return @"data source=HELLO; initial catalog=BD_SCPEDR; integrated security=SSPI;";
                 //Conexion Ana
                 //return @"data source=DESKTOP-4LVLNRM; initial catalog=BD_SCPEDR; integrated security=SSPI;";
+                //Conexion Ana
+                return "data source=(Local); initial catalog=BD_SCPEDR; integrated security=SSPI;";
             }
         }
     }

@@ -42,11 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConexionBD.cs" />
+    <Compile Include="DaoDatoFactura.cs" />
     <Compile Include="DaoMoldura.cs" />
+    <Compile Include="DaoPago.cs" />
     <Compile Include="DaoSolicitud.cs" />
     <Compile Include="DaoMolduraxUsuario.cs" />
     <Compile Include="DaoTipoMoldura.cs" />
     <Compile Include="DaoUsuario.cs" />
+    <Compile Include="DaoVoucher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

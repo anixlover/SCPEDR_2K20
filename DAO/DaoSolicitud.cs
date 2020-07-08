@@ -52,5 +52,13 @@ namespace DAO
 
             return valor_retornado;
         }
+        public void UpdateEstadoSolicitud(DtoSolicitud objsolicitud)
+        {
+            string update = "UPDATE T_Solicitud SET FK_ISE_Cod = 2 Where PK_IS_Cod=" + objsolicitud.PK_IS_Cod;
+            SqlCommand unComando = new SqlCommand(update, conexion);
+            conexion.Open();
+            unComando.ExecuteNonQuery();
+            conexion.Close();
+        }
     }
 }

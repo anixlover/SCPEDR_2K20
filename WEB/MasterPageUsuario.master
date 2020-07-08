@@ -25,6 +25,14 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
 
+    <style>
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+        }
+    </style>
+
     <meta name="theme-color" content="#fafafa">
     <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     <script src="plugins/sweetalert/sweetalert.min.js"></script>
