@@ -129,7 +129,9 @@
         <script>
         function cargarId(dni) {
 
-            location.href = `CarritoCompras.aspx?id=${dni}`;
+            //location.href = `CarritoCompras.aspx?id=${dni}`;
+            location.href = `CarritoCompras.aspx`;
+
 
         }
 </script>

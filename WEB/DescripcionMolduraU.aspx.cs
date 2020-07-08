@@ -134,7 +134,7 @@ public partial class DescripcionMolduraU : System.Web.UI.Page
     }
     protected void btnAceptarRedirigir_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/CarritoCompras.aspx?Id="+ Session["DNIUsuario"]);
+        Response.Redirect("~/CarritoCompras.aspx");
 
     }
 }

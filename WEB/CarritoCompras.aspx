@@ -1,30 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUsuario.master" AutoEventWireup="true" CodeFile="CarritoCompras.aspx.cs" Inherits="CarritoCompras" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <%--<script src="../../plugins/jquery-datatable/jquery.dataTables.js"></script>--%>
+    <script src="../../plugins/momentjs/moment.js"></script>
 
     <link href="../../plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-    <script>$(function () {
-            $(".dataTable").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable({
-                "bProcessing": false,
-                "bLengthChange": false,
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Buscar registros",
-                    lengthMenu: "Mostrar _MENU_ registros",
-                    paginate: {
-                        first: "Primero",
-                        last: "&Uacute;ltimo",
-                        next: "Siguiente",
-                        previous: "Anterior"
-                    },
+    <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
-                }, "bLengthChange": false,
-                "bFilter": true,
-                "bInfo": false,
-                "bAutoWidth": false,
-                responsive: true
-            });
-        });</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
@@ -51,7 +34,14 @@
                                 <asp:BoundField DataField="VTM_Nombre" HeaderText="Tipo Moldura" />
                                 <asp:BoundField DataField="IMU_Cantidad" HeaderText="Cantidad" />
                                 <asp:BoundField DataField="DMU_Precio" HeaderText="Precio" />
-
+                                <asp:TemplateField HeaderText="Seleccione">
+                                    <EditItemTemplate>
+                                        <asp:CheckBox ID="CheckBox1" runat="server" />
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="CheckBox1" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:ButtonField ButtonType="button" HeaderText="Detalles" CommandName="Ver" Text="Ver">
                                     <ControlStyle CssClass="btn btn-warning" />
                                 </asp:ButtonField>
@@ -81,7 +71,7 @@
                 <asp:UpdatePanel runat="server" ID="updPanelModal" UpdateMode="Always">
                     <ContentTemplate>
                         <div class="modal-header navbar">
-                            <h4 class="modal-title" id="tituloModal" runat="server" style="color: white;"></h4>
+                            <h4 class="modal-title" id="tituloModal" runat="server">Detalles y actualización</h4>
                         </div>
                         <div class="modal-body">
 
@@ -111,7 +101,7 @@
                                                 <div class="form-line focused">
                                                     <div class="form-line">
                                                         <asp:TextBox ID="txtDescripcionModal" class="form-control" runat="server" ReadOnly></asp:TextBox>
-                                                        <asp:TextBox ID="txtprecior" class="form-control" runat="server"></asp:TextBox>
+                                                        <input id="txtprecior" class="form-control" runat="server" clientidmode="Static" type="hidden" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -173,7 +163,7 @@
                                                     <div class="form-line">
                                                         <asp:UpdatePanel runat="server">
                                                             <ContentTemplate>
-                                                                <input type="text" ID="txtPrecioModal" class="form-control" runat="server" ReadOnly ClientIDMode="Static" />
+                                                                <input type="text" id="txtPrecioModal" class="form-control" runat="server" readonly clientidmode="Static" />
                                                             </ContentTemplate>
                                                         </asp:UpdatePanel>
                                                     </div>
@@ -194,14 +184,10 @@
             </div>
         </div>
     </div>
-    <script>
-        function checkCantidad() {
-            var iNum = parseInt($('#txtcantidadModal').val());
-            var iNum2 = parseInt($('#txtprecior').text());
-            var resultado = iNum * iNum2;
-            $('#txtPrecioModal').val(resultado.toString());
-        }
-    </script>
+    <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
+
+
+    <%--<script src="../../plugins/jquery-datatable/jquery.dataTables.js"></script>--%>
     <script src="../../plugins/jquery-datatable/jquery.dataTables.js"></script>
     <script src="../../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
     <script src="../../plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
@@ -211,5 +197,50 @@
     <script src="../../plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
     <script src="../../plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
     <script src="../../plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+    <script>$(function () {
+            $(".dataTable").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable({
+                "bProcessing": false,
+                "bLengthChange": false,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Buscar registros",
+                    lengthMenu: "Mostrar _MENU_ registros",
+                    paginate: {
+                        first: "Primero",
+                        last: "&Uacute;ltimo",
+                        next: "Siguiente",
+                        previous: "Anterior"
+                    },
+
+                }, "bLengthChange": false,
+                "bFilter": true,
+                "bInfo": false,
+                "bAutoWidth": false,
+                responsive: true
+            });
+        });</script>
+    <script>
+        function checkCantidad() {
+            var iNum = parseInt($('#txtcantidadModal').val());
+            var iNum2 = parseInt($('#txtprecior').val());
+            var resultado = iNum * iNum2;
+            $('#txtPrecioModal').val(resultado.toString());
+        }
+        function showSuccessMessage2() {
+            $('#defaultmodal').modal('hide');
+            //setTimeout(function () {
+            //    swal({
+            //        title: "Todo guardado",
+            //        text: "Pulsa el botón y se te redirigirá",
+            //        type: "success"
+            //    });
+            //}, 1000);
+            Swal.fire(
+                'Excelente',
+                'Todo Actualizado!',
+                'success'
+            );
+        }
+    </script>
 </asp:Content>
 
