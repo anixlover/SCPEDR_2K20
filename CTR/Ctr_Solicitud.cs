@@ -23,6 +23,10 @@ namespace CTR
         {
             objDaoSolicitud.RegistrarSolicitud_LD(objsolicitud);
         }
+        public void ActualizarEstado(DtoSolicitud objsolicitud)
+        {
+            objDaoSolicitud.UpdateEstadoSolicitud(objsolicitud);
+        }
 
         public int CantidadSolicitud()
         {
