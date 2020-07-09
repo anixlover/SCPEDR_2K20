@@ -100,7 +100,7 @@
         <p>Descripción:<asp:Label ID="txtdescripcion" runat="server"></asp:Label></p>
         <a href="#" class="button" onclick="btn_regresar()">Regresar</a>
     </div>
-</section>
+</section>  
 
 
 

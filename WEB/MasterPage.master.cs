@@ -19,10 +19,11 @@ public partial class MasterPage : System.Web.UI.MasterPage
             Log.WriteOnLog("-------------------------------------------------------------------------------------------------------------");
                 int perfil = int.Parse(Session["id_perfil"].ToString());
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-            throw;
+            Session.Clear();
+            Session.Abandon();
+            //throw;
         }
 
 	}

@@ -49,6 +49,7 @@
     <Compile Include="CtrSolicitudxMoldura.cs" />
     <Compile Include="CtrTipoMoldura.cs" />
     <Compile Include="CtrUsuario.cs" />
+    <Compile Include="CtrVenta.cs" />
     <Compile Include="Ctr_Solicitud.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

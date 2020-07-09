@@ -47,6 +47,7 @@
     <Compile Include="DaoSolicitudxMoldura.cs" />
     <Compile Include="DaoTipoMoldura.cs" />
     <Compile Include="DaoUsuario.cs" />
+    <Compile Include="DaoVenta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

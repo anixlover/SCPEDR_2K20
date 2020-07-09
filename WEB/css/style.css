@@ -2960,7 +2960,9 @@ section.content {
       position: absolute;
       top: 20px;
       right: 15px;
-      list-style: none; }
+      list-style: none;
+    left: 608px;
+}
       .card .header .header-dropdown .dropdown-menu li {
         display: block !important; }
       .card .header .header-dropdown li {

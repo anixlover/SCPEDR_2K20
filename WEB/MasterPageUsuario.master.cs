@@ -48,7 +48,7 @@ public partial class MasterPageUsuario : System.Web.UI.MasterPage
     {
         string html = string.Format(@"
                        <a href='Login.aspx'>Iniciar Sesion</a>
-<a href='RegistrarClienteUE_1.aspx'>Registrate</a>
+                        <a href='RegistrarClienteUE_1.aspx'>Registrate</a>
                     ");
         this.Literal1.Text = html;
     }
