@@ -9,35 +9,45 @@ using DTO;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+
 
 public partial class CarritoCompras : System.Web.UI.Page
 {
     CtrMolduraxUsuario objCtrMXU = new CtrMolduraxUsuario();
     DtoMolduraxUsuario objDtoMXU = new DtoMolduraxUsuario();
+    DtoSolicitud objDtoSolicitud = new DtoSolicitud();
+    Ctr_Solicitud objCtrSolicitud = new Ctr_Solicitud();
     Log _log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
-        try
+        if (!IsPostBack)
         {
-            if (Session["DNIUsuario"]!=null)
+            _log.CustomWriteOnLog("carrito de compra", "Carga de pagina");
+            try
             {
-                objDtoMXU.FK_VU_Cod = Session["DNIUsuario"].ToString();
-                UpdatePanel.Update();
-                gvCarrito.DataSource = objCtrMXU.listarMoldurasxusuario(objDtoMXU);
-                gvCarrito.DataBind();
+                if (Session["DNIUsuario"] != null)
+                {
+                    objDtoMXU.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                    UpdatePanel.Update();
+                    gvCarrito.DataSource = objCtrMXU.listarMoldurasxusuario(objDtoMXU);
+                    gvCarrito.DataBind();
+
+                    if (gvCarrito.Rows.Count == 0)
+                    {
+                        btncrear.Visible = false;
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Response.Redirect("Login.aspx");
+                _log.CustomWriteOnLog("carrito de compra", ex.Message + "Stac" + ex.StackTrace);
             }
         }
-        catch (Exception ex)
-        {
-            _log.CustomWriteOnLog("carrito de compra", ex.Message + "Stac" + ex.StackTrace);
-
-            throw;
-        }
-
     }
 
     protected void gvCarrito_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -136,12 +146,6 @@ public partial class CarritoCompras : System.Web.UI.Page
         }
     }
 
-
-    protected void btnPagar_Click(object sender, EventArgs e)
-    {
-
-    }
-
     protected void btnActualizar_Click(object sender, EventArgs e)
     {
         try
@@ -171,6 +175,77 @@ public partial class CarritoCompras : System.Web.UI.Page
         catch (Exception ex)
         {
             _log.CustomWriteOnLog("carrito de compra", ex.Message + "Stac" + ex.StackTrace);
+        }
+    }
+
+    protected void btnPagar_Click1(object sender, EventArgs e)
+    {
+        _log.CustomWriteOnLog("carrito de compra", "Entro");
+        try
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.AddRange(new DataColumn[2] { new DataColumn("PK_IMU_Cod"), new DataColumn("VM_Descripcion") });
+            List<int> termsList = new List<int>();
+            List<double> listprecio = new List<double>();
+
+            foreach (GridViewRow row in gvCarrito.Rows)
+            {
+                if (row.RowType == DataControlRowType.DataRow)
+                {
+                    CheckBox chkRow = (row.Cells[0].FindControl("CheckBox1") as CheckBox);
+                    if (chkRow.Checked)
+                    {
+                        string IdSeleccionados = (row.Cells[2].FindControl("lblCountry") as Label).Text;
+                        string IdSeleccionadosPrecio = (row.Cells[2].FindControl("lblPrecioItems") as Label).Text;
+                        _log.CustomWriteOnLog("carrito de compra", "IDseleccionado:" + IdSeleccionados.ToString());
+                        _log.CustomWriteOnLog("carrito de compra", "IdSeleccionadosPrecio:" + IdSeleccionadosPrecio.ToString());
+
+                        termsList.Add(int.Parse(IdSeleccionados));
+                        listprecio.Add(double.Parse(IdSeleccionadosPrecio));
+
+                    }
+                }
+            }
+            double total = listprecio.Sum();
+            _log.CustomWriteOnLog("carrito de compra", "Suma total de items seleccionados:" + total.ToString());
+
+            if (termsList.Count >= 0)
+            {
+                _log.CustomWriteOnLog("carrito de compra", "termsList.Count :  " + termsList.Count);
+                int ValorDevuelto;
+
+
+                objDtoSolicitud.DS_ImporteTotal = total;
+                objCtrSolicitud.RegistrarSolicitud_LD(objDtoSolicitud);
+                ValorDevuelto = objDtoSolicitud.PK_IS_Cod;
+
+
+                for (int i = 0; i < termsList.Count; i++)
+                {
+
+                    _log.CustomWriteOnLog("carrito de compra", "Valor ID de solicitud retornado :  " + ValorDevuelto.ToString());
+
+                    objDtoMXU.PK_IMU_Cod = termsList[i];
+                    objDtoMXU.FK_IS_Cod = ValorDevuelto;
+                    _log.CustomWriteOnLog("carrito de compra", "Para actualizar la moldura x usuario Id :  " + objDtoMXU.PK_IMU_Cod);
+                    _log.CustomWriteOnLog("carrito de compra", "Para actualizar la moldura x usuario IdSolicitud :  " + objDtoMXU.FK_IS_Cod);
+
+                    objCtrMXU.actualizarMXUSol(objDtoMXU);
+                    _log.CustomWriteOnLog("carrito de compra", "Actualizado Id= " + termsList[i]);
+
+                }
+                objDtoMXU.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                UpdatePanel.Update();
+                gvCarrito.DataSource = objCtrMXU.listarMoldurasxusuario(objDtoMXU);
+                gvCarrito.DataBind();
+                Utils.AddScriptClientUpdatePanel(UpdatePanel, "showCancelMessage()");
+
+            }
+        }
+        catch (Exception ex)
+        {
+            _log.CustomWriteOnLog("carrito de compra", "Error : " + ex.Message + "Stac" + ex.StackTrace);
+
         }
     }
 }

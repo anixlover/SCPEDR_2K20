@@ -92,6 +92,18 @@ namespace DAO
             command.ExecuteNonQuery();
             conexion.Close();
         }
+        public void actualizarMXUSol(DtoMolduraxUsuario objmxu)
+        {
+            SqlCommand command = new SqlCommand("SP_ActualizarSol_MXU_C", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@id", objmxu.PK_IMU_Cod);
+            command.Parameters.AddWithValue("@sol", objmxu.FK_IS_Cod);
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
+        
+
     }
     
 }
