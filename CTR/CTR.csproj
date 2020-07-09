@@ -45,11 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CtrDatoFactura.cs" />
     <Compile Include="CtrMoldura.cs" />
-    <Compile Include="CtrSolicitudxMoldura.cs" />
+    <Compile Include="CtrMolduraxUsuario.cs" />
+    <Compile Include="CtrPago.cs" />
     <Compile Include="CtrTipoMoldura.cs" />
     <Compile Include="CtrUsuario.cs" />
-    <Compile Include="CtrVenta.cs" />
+    <Compile Include="CtrVoucher.cs" />
     <Compile Include="Ctr_Solicitud.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -43,4 +43,34 @@
 
         }
 </script>
+    <script>
+        function cargarListaDeseo(PK_IM_Cod) {
+            var deseoList = [];
+            var newItem = {
+                id: PK_IM_Cod
+            };
+            console.log(newItem)
+            deseoList.push(newItem)
+            localStorageDeseoList(deseoList);
+        }
+
+        function getDeseoList() {
+            var storeList = localStorage.getItem('localDeseoList');
+            if (storeList == null) {
+                deseoList = [];
+            } else {
+                deseoList = JSON.parse(storeList);
+            }
+            return deseoList;
+        }
+        function localStorageDeseoList(plist) {
+            localStorage.setItem('localDeseoList', JSON.stringify((plist)));
+        }
+    </script>
+    <script>
+        function saveLista() {
+            
+        }
+    </script>
+
 </asp:Content>

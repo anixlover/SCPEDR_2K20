@@ -40,12 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DtoDatoFactura.cs" />
     <Compile Include="DtoMoldura.cs" />
+    <Compile Include="DtoPago.cs" />
     <Compile Include="DtoSolicitud.cs" />
-    <Compile Include="DtoSolicitudxMoldura.cs" />
+    <Compile Include="DtoMolduraxUsuario.cs" />
     <Compile Include="DtoTipoMoldura.cs" />
     <Compile Include="DtoTipoUsuario.cs" />
     <Compile Include="DtoUsuario.cs" />
+    <Compile Include="DtoVoucher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

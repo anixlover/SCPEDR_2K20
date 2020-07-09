@@ -23,8 +23,25 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             Session.Clear();
             Session.Abandon();
-            //throw;
+            Response.Redirect("~/Login.aspx");
         }
 
 	}
+
+    protected void UsuarioOption_ServerClick(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void AdministradorOption_ServerClick(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnCerrarSesion_ServerClick(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Session.Abandon();
+        Response.Redirect("~/Login.aspx");
+    }
 }

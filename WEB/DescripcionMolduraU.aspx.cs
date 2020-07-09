@@ -14,9 +14,13 @@ using System.Web.UI.HtmlControls;
 public partial class DescripcionMolduraU : System.Web.UI.Page
 {
     CtrMoldura objCtrMoldura = new CtrMoldura();
+    CtrMolduraxUsuario objCtrMolduraxUsuario = new CtrMolduraxUsuario();
     CtrTipoMoldura objCtrTipoMoldura = new CtrTipoMoldura();
     DtoMoldura objDtoMoldura = new DtoMoldura();
     DtoTipoMoldura objDtoTipoMoldura = new DtoTipoMoldura();
+    DtoMolduraxUsuario objDtoMolduraxUsuario = new DtoMolduraxUsuario();
+
+
     Log _log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -90,5 +94,47 @@ public partial class DescripcionMolduraU : System.Web.UI.Page
     public void btn_regresar_click(object sender, EventArgs e)
     {
         Response.Redirect("~/InspeccionarCatalogoU.aspx");
+    }
+
+    protected void btnAgregarCompraMoldura_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Session["DNIUsuario"] == null)
+            {
+                Response.Cookies.Add(new HttpCookie("returnUrl", Request.Url.PathAndQuery));
+                Response.Redirect("Login.aspx");
+            }
+            else
+            {
+
+                objDtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                objDtoMolduraxUsuario.FK_IM_Cod = int.Parse(Request.Params["Id"]);
+                objDtoMolduraxUsuario.IMU_Cantidad = int.Parse(txtDescripcionModal.Text);
+                objDtoMolduraxUsuario.DMU_Precio = double.Parse(txtPrecioAprox.Value);
+
+                _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.FK_VU_Cod = " + objDtoMolduraxUsuario.FK_VU_Cod);
+                _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.FK_IM_Cod = " + objDtoMolduraxUsuario.FK_IM_Cod.ToString());
+                _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.ISM_Cantidad = " + objDtoMolduraxUsuario.IMU_Cantidad.ToString());
+                _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.DSM_Precio = " + objDtoMolduraxUsuario.DMU_Precio.ToString());
+
+                objCtrMolduraxUsuario.registrarNuevaMoldura(objDtoMolduraxUsuario);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#confirmacionmodal').modal('show');</script>", false);
+
+            }
+        }
+        catch (Exception ex)
+        {
+            _log.CustomWriteOnLog("AgregarCompraMoldura", "Error en agregar a carrito" + ex.Message + " StackTrace " +ex.StackTrace);
+
+            throw;
+        }
+
+
+    }
+    protected void btnAceptarRedirigir_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/CarritoCompras.aspx");
+
     }
 }
