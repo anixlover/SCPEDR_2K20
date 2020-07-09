@@ -18,12 +18,9 @@ namespace DAO
         }
         public void RegistrarSolicitud_LD(DtoSolicitud objsolicitud)
         {
-            SqlCommand command = new SqlCommand("SP_Registrar_Solicitud_LD", conexion);
+            SqlCommand command = new SqlCommand("SP_RegistrarSolicitud_C", conexion);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@id", objsolicitud.PK_IS_Cod);
-            command.Parameters.AddWithValue("@cant", objsolicitud.IS_Cantidad);
-            command.Parameters.AddWithValue("@impT", objsolicitud.DS_ImporteTotal);
-            command.Parameters.AddWithValue("@fk_dni", objsolicitud.FK_VU_Dni);
+            command.Parameters.AddWithValue("@impt", objsolicitud.DS_ImporteTotal);
             command.Parameters.Add("@NewId", SqlDbType.Int).Direction = ParameterDirection.Output;
             conexion.Open();
            
@@ -51,6 +48,14 @@ namespace DAO
             conexion.Close();
 
             return valor_retornado;
+        }
+        public void UpdateEstadoSolicitud(DtoSolicitud objsolicitud)
+        {
+            string update = "UPDATE T_Solicitud SET FK_ISE_Cod = 2 Where PK_IS_Cod=" + objsolicitud.PK_IS_Cod;
+            SqlCommand unComando = new SqlCommand(update, conexion);
+            conexion.Open();
+            unComando.ExecuteNonQuery();
+            conexion.Close();
         }
     }
 }

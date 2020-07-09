@@ -9,9 +9,10 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="manifest" href="site.webmanifest">
+    <%--<link rel="manifest" href="site.webmanifest">--%>
     <link rel="apple-touch-icon" href="icon.png">
     <!-- Place favicon.ico in the root directory -->
+        <script src="plugins/jquery/jquery.min.js"></script>
 
     <link href="plugins/node-waves/waves.css" rel="stylesheet" />
     <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
@@ -25,9 +26,17 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
 
+    <style>
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+        }
+    </style>
+
     <meta name="theme-color" content="#fafafa">
-    <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
-    <script src="plugins/sweetalert/sweetalert.min.js"></script>
+    <%--<link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />--%>
+    <%--<script src="plugins/sweetalert/sweetalert.min.js"></script>--%>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -61,8 +70,9 @@
         </div>
 
         <!--.barra-->
-        <div>
+        <div class="container">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                <
             </asp:ContentPlaceHolder>
         </div>
         <footer class="site-footer">
@@ -95,7 +105,7 @@
         <!-- Jquery Core Js -->
 
         <!-- Bootstrap Core Js -->
-         <script src="../../plugins/jquery/jquery.min.js"></script>
+         <%--<script src="../../plugins/jquery/jquery.min.js"></script>--%>
         <script src="../../plugins/bootstrap/js/bootstrap.js"></script>
         <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
         <script src="../../plugins/bootstrap-notify/bootstrap-notify.js"></script>
@@ -104,7 +114,7 @@
         <script src="js/vendor/modernizr-3.8.0.min.js"></script>
 <%--        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>--%>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
+        <script>//window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
         <script src="js/main.js"></script>
@@ -115,7 +125,7 @@
             ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
         </script>
         <script src="https://www.google-analytics.com/analytics.js" async></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <%--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>--%>
 
     <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
     <script src="../../plugins/node-waves/waves.js"></script>
@@ -129,7 +139,9 @@
         <script>
         function cargarId(dni) {
 
-            location.href = `CarritoCompras.aspx?id=${dni}`;
+            //location.href = `CarritoCompras.aspx?id=${dni}`;
+            location.href = `CarritoCompras.aspx`;
+
 
         }
 </script>

@@ -152,9 +152,9 @@ h2 {
 }
 
 h2::after {
-  content: '';
-  margin: 0 auto;
-  background-image: url(../img/separador_2.png);
+  /*content: '';*/
+  /*margin: 0 auto;*/
+  /*background-image: url(../img/separador_2.png);*/
   height: 60px;
   width: 214px;
   display: block;
@@ -710,6 +710,7 @@ div.descripcion-moldura {
 .entrada {
     margin-bottom: 10px;
     border: 1px solid #aaa;
+    width: 296px;
 }
 
 
