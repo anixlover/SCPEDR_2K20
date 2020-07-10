@@ -9,7 +9,15 @@ using CTR;
 
 public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 {
-    Log log = new Log();
+    CtrMoldura objCtrMoldura = new CtrMoldura();
+    DtoMoldura objDtoMoldura = new DtoMoldura();
+    DtoTipoMoldura objDtoTipoMoldura = new DtoTipoMoldura();
+    CtrMolduraxUsuario objCtrMXU = new CtrMolduraxUsuario();
+    DtoMolduraxUsuario objDtoMXU = new DtoMolduraxUsuario(); 
+    DtoSolicitud objDtoSolicitud = new DtoSolicitud();
+    Ctr_Solicitud objCtrSolicitud = new Ctr_Solicitud();
+
+    Log _log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
         if(!Page.IsPostBack)
@@ -29,6 +37,24 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
             Label12.Visible = false;
             txtcomentariop.Visible = false;
 
+
+            try
+            {
+                if (Session["DNIUsuario"] != null)
+                {
+                    objDtoMXU.FK_VU_Cod = Session["DNIUsuario"].ToString();
+
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 
@@ -92,10 +118,20 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
         txtcomentariop.Visible = true;
     }
 
+    public void ObtenerMoldura ()
+    {
+
+        objDtoMoldura.PK_IM_Cod = int.Parse(txtcodigo.Text);
+    }
+
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         try
         {
+            objDtoMoldura.PK_IM_Cod = int.Parse(txtcodigo.Text);
+            objCtrMoldura.ObtenerMoldura(objDtoMoldura, objDtoTipoMoldura);
+            txtmedida.Text = objDtoMoldura.DM_Medida.ToString() + objDtoTipoMoldura.VTM_UnidadMetrica.ToString();
+            txtprecio.Text = objDtoMoldura.DM_Precio.ToString();
 
         }
         catch (Exception)
@@ -107,6 +143,27 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
     protected void btnEnviar_Click(object sender, EventArgs e)
     {
+        try
+        {
+            objDtoMXU.FK_IM_Cod = int.Parse(txtcodigo.Text);
+            objDtoMXU.IMU_Cantidad = int.Parse(txtcantidad.Text);
+            objDtoMXU.DMU_Precio = double.Parse(txtprecio.Text);
+            objDtoMXU.FK_VU_Cod = Session["DNIUsuario"].ToString();
+            objCtrMXU.registrarMXU(objDtoMXU);
+        }
+        catch (Exception)
+        {
 
+            throw;
+        }
+
+    }
+
+
+    protected void btnCalcular_Click(object sender, EventArgs e)
+    {
+        double x = double.Parse(txtcantidad.Text);
+        double y = double.Parse(txtprecio.Text);
+        txtimporte.Text = Convert.ToString(x * y);
     }
 }

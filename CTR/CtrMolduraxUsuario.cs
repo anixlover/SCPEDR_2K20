@@ -42,6 +42,10 @@ namespace CTR
         {
             objDaoSXM.actualizarMXUSol(objdtoMolduraxUsuario);
         }
+        public void registrarMXU (DtoMolduraxUsuario objDtoMolduraxUsuario)
+        {
+            objDaoSXM.registrarMXU(objDtoMolduraxUsuario); 
+        }
         
     }
 }

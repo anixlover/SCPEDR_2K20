@@ -35,6 +35,10 @@
                 <asp:Label ID="Label2" runat="server" Text="Medida: "></asp:Label><asp:TextBox ID="txtmedida" runat="server"></asp:TextBox>
                 <asp:Label ID="Label3" runat="server" Text="Precio(u): "></asp:Label><asp:TextBox ID="txtprecio" runat="server"></asp:TextBox>
                 <asp:Label ID="Label4" runat="server" Text="Cantidad: "></asp:Label><asp:TextBox ID="txtcantidad" runat="server" TextMode="Number"></asp:TextBox>
+                <asp:LinkButton runat="server" ID="LinkButton1" CssClass="calcular" OnClick="btnCalcular_Click" > 
+                                            <i class="fas fa-calculator"></i> calcular
+                                        </asp:LinkButton>
+                <br />
                 <asp:Label ID="Label5" runat="server" Text="Importe: "></asp:Label><asp:TextBox ID="txtimporte" runat="server"></asp:TextBox>
                 <br />
                 <br />
