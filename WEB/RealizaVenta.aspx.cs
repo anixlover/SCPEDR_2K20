@@ -14,7 +14,7 @@ using System.Data.SqlClient;
 
 public partial class RealizaVenta : System.Web.UI.Page
 {
-    CtrVenta objCtrVenta = new CtrVenta();
+    //CtrVenta objCtrVenta = new CtrVenta();
     DtoUsuario objuser = new DtoUsuario();
     DtoMoldura objdtomoldura = new DtoMoldura();
     SqlConnection conexion = new SqlConnection(ConexionBD.CadenaConexion);
