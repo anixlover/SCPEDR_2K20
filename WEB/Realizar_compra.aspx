@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
      <style type="text/css">
         .salto {
-            width: 301px;
+            width: 257px;
         }
     </style>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
@@ -38,8 +38,10 @@
                     <div class="entrada" style="text-align: center">                        
                         Imagen del vaucher:<br />
                         &nbsp;<asp:Image ID="Image1" runat="server" class="rounded"/>
-                            <asp:FileUpload ID="FileUpload1" accept="image/*" runat="server" onchange="ImagePreview(this);" Width="100%" ForeColor="Black" />                            
-                        <asp:RadioButton runat="server" Text="Boleta" GroupName="pago" ID="rbBoleta" AutoPostBack="True" OnCheckedChanged="rbBoleta_CheckedChanged"></asp:RadioButton>
+                            <asp:FileUpload ID="FileUpload1" accept="image/*" runat="server" onchange="ImagePreview(this);" Width="100%" ForeColor="Black" style="color:transparent"/>
+                    </div>
+                    <div class="entrada" style="text-align: center">
+                                                <asp:RadioButton runat="server" Text="Boleta" GroupName="pago" ID="rbBoleta" AutoPostBack="True" OnCheckedChanged="rbBoleta_CheckedChanged"></asp:RadioButton>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:RadioButton runat="server" Text="Factura" GroupName="pago" ID="rbFactura" AutoPostBack="True" OnCheckedChanged="rbFactura_CheckedChanged"></asp:RadioButton>
                     </div>
@@ -53,9 +55,8 @@
                         <asp:TextBox ID="txtImporte" name="texto" runat="server" class="controls" type="text" step="any" BackColor="white" BorderColor="Black"></asp:TextBox>
                     </div>
                     <div class="entrada"style="text-align: center">
-                        <asp:Label ID="Label6" runat="server" Text="Fecha:         "></asp:Label>
+                        <asp:Label ID="lblfecha" runat="server" Text="..."></asp:Label>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:TextBox ID="txtFecha" runat="server" class="controls" type="date" Width="167px"></asp:TextBox>
                         </div>
                     <div class="entrada" style="align-items:center; text-align: center">
                         <asp:CheckBox runat="server" text="Nuevo RUC" ID="checkboxRUC" AutoPostBack="True" OnCheckedChanged="checkboxRUC_CheckedChanged" ></asp:CheckBox>
