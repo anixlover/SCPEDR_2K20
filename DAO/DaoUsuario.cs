@@ -42,7 +42,9 @@ namespace DAO
             bool hayRegistros = reader.Read();
             if (hayRegistros)
             {
+                
                 objuser.PK_VU_Dni = (string)reader[0];
+                
                 objuser.IU_Celular = (int)reader[3];
             }
             else objuser.error = 1;

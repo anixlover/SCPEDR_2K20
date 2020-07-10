@@ -43,16 +43,18 @@
                                 <ul class="header-dropdown m-r--5">
                                  
                                 </ul>
+
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <asp:DropDownList runat="server" ID="ddl_TipoMoldura" CssClass=" bootstrap-select form-control"></asp:DropDownList>
                                     </div>
+                                    
                                     <div class="col-sm-2">
-
                                         <asp:LinkButton runat="server" ID="btnSearch" CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float" OnClick="btnSearch_Click">
                                             <i class="material-icons">search</i>
                                         </asp:LinkButton>
                                     </div>
+
                                     <div class="col-sm-1">
                                         <asp:LinkButton runat="server" CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float" OnClick="btnRegistrar_Click">
                                                 <i class="material-icons">add</i>
@@ -88,6 +90,7 @@
                 </asp:UpdatePanel>
             </div>
         </div>
+
         <div class="modal fade" id="defaultmodal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">

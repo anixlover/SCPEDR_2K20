@@ -72,6 +72,7 @@
                                 </div>
 
                                 <div class="col-md-6">
+                                    <%--<a href="Inicio.aspx">Inicio.aspx</a>--%>
                                     <div class="row clearfix">
                                         <div class="col-sm-12">
                                             <div class="form-group form-float">
