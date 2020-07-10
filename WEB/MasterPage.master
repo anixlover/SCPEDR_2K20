@@ -27,9 +27,11 @@
 
     <script src="plugins/jquery/jquery.min.js"></script>
     <title>SCPEDR</title>
-
+    
     <asp:ContentPlaceHolder ID="cph_header" runat="server">
     </asp:ContentPlaceHolder>
+    <%--select item--%>
+    
 </head>
 <body class="theme-red">
     <!-- NAVBAR CAMBIAR COLOR -->

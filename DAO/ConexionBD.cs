@@ -20,9 +20,9 @@ namespace DAO
                 //Conexion Maciel
                 //return @"data source=HELLO; initial catalog=BD_SCPEDR; integrated security=SSPI;";
                 //Conexion Ana
-                //return @"data source=DESKTOP-4LVLNRM; initial catalog=BD_SCPEDR; integrated security=SSPI;";
-                //Conexion Ana
-                return "data source=(Local); initial catalog=BD_SCPEDR; integrated security=SSPI;";
+                //return @"data source=(Local); initial catalog=BD_SCPEDR; integrated security=SSPI;";
+                //ConexionBD alvar0
+                return "server = DESKTOP-IAELG6V\\SQLEXPRESS ; database=BD_SCPEDR ; integrated security = true;";
             }
         }
     }
