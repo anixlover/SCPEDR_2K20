@@ -18,6 +18,8 @@ public partial class CarritoCompras : System.Web.UI.Page
     DtoMolduraxUsuario objDtoMXU = new DtoMolduraxUsuario();
     DtoSolicitud objDtoSolicitud = new DtoSolicitud();
     Ctr_Solicitud objCtrSolicitud = new Ctr_Solicitud();
+    DtoMoldura objDtoMoldura = new DtoMoldura();
+    CtrMoldura objctrmoldura = new CtrMoldura();
     Log _log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -66,6 +68,7 @@ public partial class CarritoCompras : System.Web.UI.Page
 
                 //_log.CustomWriteOnLog("carrito de compra", "imagen" + objDtoMoldura.VBM_Imagen.ToString());
                 _log.CustomWriteOnLog("carrito de compra", "PK_IMU_Cod" + objDtoMXU.PK_IMU_Cod.ToString());
+                _log.CustomWriteOnLog("carrito de compra", "codigoMoldura" + objDtoMoldura.PK_IM_Cod.ToString());
                 _log.CustomWriteOnLog("carrito de compra", "descripcion" + objDtoMoldura.VM_Descripcion);
                 _log.CustomWriteOnLog("carrito de compra", "tipomoldura" + dtoTipoMoldura.VTM_Nombre);
                 _log.CustomWriteOnLog("carrito de compra", "medida" + objDtoMoldura.DM_Medida.ToString());
@@ -74,6 +77,7 @@ public partial class CarritoCompras : System.Web.UI.Page
                 _log.CustomWriteOnLog("carrito de compra", "precio" + objDtoMXU.DMU_Precio.ToString());
 
                 txtcodigoModal.Text = objDtoMXU.PK_IMU_Cod.ToString();
+                txtcodM.Text = objDtoMoldura.PK_IM_Cod.ToString();
                 txtDescripcionModal.Text = objDtoMoldura.VM_Descripcion;
                 txtprecior.Value = objDtoMoldura.DM_Precio.ToString();
                 txtTMModal.Text = dtoTipoMoldura.VTM_Nombre;
@@ -148,33 +152,47 @@ public partial class CarritoCompras : System.Web.UI.Page
 
     protected void btnActualizar_Click(object sender, EventArgs e)
     {
-        try
-        {
-            _log.CustomWriteOnLog("carrito de compra", "Entro a funcion actualizar");
-            objDtoMXU.PK_IMU_Cod = Convert.ToInt32(txtcodigoModal.Text);
-            objDtoMXU.IMU_Cantidad = Convert.ToInt32(txtcantidadModal.Text);
-            objDtoMXU.DMU_Precio = Convert.ToDouble(txtPrecioModal.Value);
-            _log.CustomWriteOnLog("carrito de compra", "objDtoMXU.PK_IMU_Cod :" + objDtoMXU.PK_IMU_Cod.ToString());
-            _log.CustomWriteOnLog("carrito de compra", "objDtoMXU.IMU_Cantidadr :" + objDtoMXU.IMU_Cantidad.ToString());
-            _log.CustomWriteOnLog("carrito de compra", "objDtoMXU.DMU_Precio :" + objDtoMXU.DMU_Precio.ToString());
+        _log.CustomWriteOnLog("carrito de compra", "moldura" + txtcodM.Text);
+        objDtoMoldura.PK_IM_Cod = Convert.ToInt32(txtcodM.Text);
+        int stock = objctrmoldura.StockMoldura_(objDtoMoldura);
+        _log.CustomWriteOnLog("carrito de compra", "stock: "+stock.ToString());
 
-            objCtrMXU.actualizarMXU(objDtoMXU);
-            _log.CustomWriteOnLog("carrito de compra", "Paso funcion :");
+        if (Convert.ToInt32(txtcantidadModal.Text) < stock) { 
+            try
+            {
+                _log.CustomWriteOnLog("carrito de compra", "Entro a funcion actualizar");
+                objDtoMXU.PK_IMU_Cod = Convert.ToInt32(txtcodigoModal.Text);
+                objDtoMXU.IMU_Cantidad = Convert.ToInt32(txtcantidadModal.Text);
+                objDtoMXU.DMU_Precio = Convert.ToDouble(txtPrecioModal.Value);
+                _log.CustomWriteOnLog("carrito de compra", "objDtoMXU.PK_IMU_Cod :" + objDtoMXU.PK_IMU_Cod.ToString());
+                _log.CustomWriteOnLog("carrito de compra", "objDtoMXU.IMU_Cantidadr :" + objDtoMXU.IMU_Cantidad.ToString());
+                _log.CustomWriteOnLog("carrito de compra", "objDtoMXU.DMU_Precio :" + objDtoMXU.DMU_Precio.ToString());
 
-            objDtoMXU.FK_VU_Cod = Session["DNIUsuario"].ToString();
-            _log.CustomWriteOnLog("carrito de compra", "objDtoMXU.FK_VU_Cod :" + objDtoMXU.FK_VU_Cod);
+                objCtrMXU.actualizarMXU(objDtoMXU);
+                _log.CustomWriteOnLog("carrito de compra", "Paso funcion :");
 
-            UpdatePanel.Update();
-            gvCarrito.DataSource = objCtrMXU.listarMoldurasxusuario(objDtoMXU);
-            _log.CustomWriteOnLog("carrito de compra", "listarmolduraxusuario paso");
-            Utils.AddScriptClientUpdatePanel(UpdatePanel, "showSuccessMessage2()");
+                objDtoMXU.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                _log.CustomWriteOnLog("carrito de compra", "objDtoMXU.FK_VU_Cod :" + objDtoMXU.FK_VU_Cod);
 
-            gvCarrito.DataBind();
+                UpdatePanel.Update();
+                gvCarrito.DataSource = objCtrMXU.listarMoldurasxusuario(objDtoMXU);
+                _log.CustomWriteOnLog("carrito de compra", "listarmolduraxusuario paso");
+                Utils.AddScriptClientUpdatePanel(UpdatePanel, "showSuccessMessage2()");
 
+                gvCarrito.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                _log.CustomWriteOnLog("carrito de compra", ex.Message + "Stac" + ex.StackTrace);
+            }
         }
-        catch (Exception ex)
+        else
         {
-            _log.CustomWriteOnLog("carrito de compra", ex.Message + "Stac" + ex.StackTrace);
+            string m = "cantidad supera al stock";
+            _log.CustomWriteOnLog("carrito de compra", m);
+            mensaje.InnerText = m;
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#confirmacionmodal').modal('show');</script>", false);
         }
     }
 
@@ -247,5 +265,11 @@ public partial class CarritoCompras : System.Web.UI.Page
             _log.CustomWriteOnLog("carrito de compra", "Error : " + ex.Message + "Stac" + ex.StackTrace);
 
         }
+    }
+
+
+    protected void btnAceptarRedirigir_Click(object sender, EventArgs e)
+    {
+
     }
 }

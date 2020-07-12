@@ -228,7 +228,7 @@ namespace DAO
         {
 
             int valor_retornado = 0;
-            SqlCommand cmd = new SqlCommand("SELECT IM_Stock FROM T_Moldura WHERE PK_IM_Cod="+ objMoldura.PK_IM_Cod);
+            SqlCommand cmd = new SqlCommand("SELECT IM_Stock FROM T_Moldura WHERE PK_IM_Cod="+ objMoldura.PK_IM_Cod,conexion);
             
             Console.WriteLine(cmd);
             conexion.Open();
