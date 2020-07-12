@@ -9,7 +9,6 @@ using DTO;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 
 
 public partial class CarritoCompras : System.Web.UI.Page
