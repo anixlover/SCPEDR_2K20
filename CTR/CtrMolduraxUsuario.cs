@@ -22,6 +22,10 @@ namespace CTR
         {
             objDaoSXM.InsertarMolduraxUsuario(objDtoMolduraxUsuario);
         }
+        public void registrarNuevaMoldura2(DtoMolduraxUsuario objDtoMolduraxUsuario)
+        {
+            objDaoSXM.InsertarMolduraxUsuariox2(objDtoMolduraxUsuario);
+        }
         public DataTable listarMoldurasxusuario(DtoMolduraxUsuario objdtoMolduraxUsuario)
         {
             return objDaoSXM.ListarMXU(objdtoMolduraxUsuario);

@@ -17,4 +17,11 @@ namespace DTO
         public int IM_Estado { get; set; }
         public int FK_ITM_Tipo { get; set; }
     }
+    public class DtoMolduraAgregada
+    {
+        public int Codigo { get; set; }
+        public int Cantidad { get; set; }
+        public double Precio { get; set; }
+        public double Subtotal { get; set; }
+    }
 }
