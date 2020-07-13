@@ -65,7 +65,7 @@ namespace DAO
         }
         public void UpdateEstadoSolicitud(DtoSolicitud objsolicitud)
         {
-            string update = "UPDATE T_Solicitud SET FK_ISE_Cod = 6, DTS_FechaEmicion='"+ DateTime.Today.Date +"' Where PK_IS_Cod=" + objsolicitud.PK_IS_Cod;
+            string update = "UPDATE T_Solicitud SET FK_ISE_Cod = 2, DTS_FechaEmicion='"+ DateTime.Today.Date +"' Where PK_IS_Cod=" + objsolicitud.PK_IS_Cod;
             SqlCommand unComando = new SqlCommand(update, conexion);
             conexion.Open();
             unComando.ExecuteNonQuery();

@@ -77,15 +77,20 @@ public partial class Realizar_compra : System.Web.UI.Page
 
     protected void btnEnviar_Click(object sender, EventArgs e)
     {
-        try
-        {
-            objpago = new DtoPago();
-            objpagoneg = new CtrPago();
-            if (txtImporte.Text == null | txtNumOp.Text == null | txtnewRUC.Text == null)
+
+            if (txtImporte.Text == "" | txtNumOp.Text == "")
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>Swal.fire({icon: 'error',title: 'ERROR!',text: 'Espacios en BLANCO!!'})</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
                 return;
             }
+            if (txtnewRUC.Text == "" && rbFactura.Checked == true && checkboxRUC.Checked == true)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
+                return;
+            }
+            objpago = new DtoPago();
+            objpagoneg = new CtrPago();
+            
             if (rbFactura.Checked == true && checkboxRUC.Checked == true)
             {
                 objfacturaneg = new CtrDatoFactura();
@@ -98,6 +103,7 @@ public partial class Realizar_compra : System.Web.UI.Page
                 objpago.IP_TipoCertificado = 2;
                 objpago.VP_RUC = txtnewRUC.Text;
                 objfacturaneg.RegistrarDatoFactura(objfactura);
+                mostrarmsjFACTURA(objfactura);
             }
             if (rbFactura.Checked == true && checkboxRUC.Checked == false)
             {
@@ -130,40 +136,41 @@ public partial class Realizar_compra : System.Web.UI.Page
             objvou = new DtoVoucher();
             objvouneg = new CtrVoucher();
             int tamaño = FileUpload1.PostedFile.ContentLength;
+            if (tamaño == 0)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>sweetAlert('Oops...', 'suba la IMAGEN DEL VOUCHER!', 'error');</script>");
+                return;
+            }
             byte[] imagen = new byte[tamaño];
             FileUpload1.PostedFile.InputStream.Read(imagen, 0, tamaño);
             objvou.PK_VV_NumVoucher = txtNumOp.Text;
             objvou.VBV_Foto = imagen;
             objvou.DV_ImporteDepositado = Convert.ToDouble(txtImporte.Text);
-            objvou.VV_Comentario = "";
+            objvou.VV_Comentario = "";                   
 
+            objpagoneg.RegistrarPago(objpago);
+            mostrarmsjPAGO(objpago);
+            
             if (objpago.error == 77)
             {
-                objpagoneg.RegistrarPago(objpago);
-                objsolneg.ActualizarEstado(objsol);
                 objvouneg.RegistrarVoucher(objvou);
-            }            
-            mostrarmsjPAGO(objpago);
-            mostrarmsjFACTURA(objfactura);
+                objsolneg.ActualizarEstado(objsol);
+            }   
+        
             CargarRUCS();
-        }
-        catch (Exception)
-        {
-            throw;
-        }
     }
     public void mostrarmsjPAGO(DtoPago p) 
     {
         switch (p.error)
         {
             case 3:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>Swal.fire({icon: 'error',title: 'ERROR!',text: 'Importe INSUFICIENTE!!'})</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Importe INSUFICIENTE!!'})</script>");
                 break;
             case 4:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>Swal.fire({icon: 'error',title: 'ERROR!',text: 'Importe INVALIDO!!'})</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Importe INVALIDO!!'})</script>");
                 break;
             case 77:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>Swal.fire('Registro Exitoso!','Pago REGISTRADO!!','success')</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','Pago REGISTRADO!!','success')</script>");
                 break;
         }
     }
@@ -172,7 +179,7 @@ public partial class Realizar_compra : System.Web.UI.Page
         switch (d.error)
         {
             case 2:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>Swal.fire({icon: 'error',title: 'ERROR!',text: 'RUC DUPLICADA para este usuario!! pero...'})</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'RUC DUPLICADA para este usuario!! pero...'})</script>");
                 break;
         }
     }

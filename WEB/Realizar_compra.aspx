@@ -36,7 +36,7 @@
 
             <div class="formulario">                    
                     <div class="entrada" style="text-align: center; align-items:center">                        
-                        Imagen del vaucher:<br />
+                        Imagen del voucher:<br />
                         &nbsp;<asp:Image ID="Image1" runat="server" class="rounded"/>
                             <asp:FileUpload ID="FileUpload1" accept="image/*" runat="server" onchange="ImagePreview(this);" ForeColor="Black" style="color:transparent" Width="152px"/>
                     </div>
