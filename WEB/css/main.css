@@ -699,6 +699,8 @@ div.descripcion-moldura {
 .formulario {
     background: #fdfbfb;
     padding: 21px;
+    width: 364px;
+    margin-left: 0px;
 }
 
 .controls {
@@ -710,7 +712,7 @@ div.descripcion-moldura {
 .entrada {
     margin-bottom: 10px;
     border: 1px solid #aaa;
-    width: 296px;
+    width: 334px;
 }
 
 
@@ -858,6 +860,16 @@ div.pedido-personalizado a.cuadrado {
     .enviar:hover {
         color: white;
     }
+
+.calcular {
+    background-color: #337ab7;
+    text-align: center;
+    height: 2.5em;
+    padding: 15px 15px;
+    color: white;
+    box-shadow: 0px 2px 2px rgba(0,0,0,0.29);
+    text-decoration: none;
+}
 
 
 /*

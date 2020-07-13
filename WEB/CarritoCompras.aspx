@@ -103,6 +103,7 @@
                                                 <div class="form-line focused">
                                                     <div class="form-line">
                                                         <asp:TextBox ID="txtcodigoModal" class="form-control" runat="server" ReadOnly></asp:TextBox>
+                                                        <asp:TextBox ID="txtcodM" class="form-control" runat="server" Visible="false"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -190,7 +191,11 @@
 
                         </div>
                         <div class="modal-footer btn-group-sm">
-                            <asp:Button ID="btnActualizar" runat="server" Text="Actualizar" CssClass="btn btn-success btn-group-sm" OnClick="btnActualizar_Click" />
+                            <asp:UpdatePanel ID="UpdatePanelA" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:Button ID="btnActualizar" runat="server" Text="Actualizar" CssClass="btn btn-success btn-group-sm" OnClick="btnActualizar_Click" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Cerrar</button>
                         </div>
                     </ContentTemplate>
@@ -225,6 +230,24 @@
             </div>
         </div>
     </div>
+     <div class="modal fade" id="confirmacionmodal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <asp:UpdatePanel runat="server" ID="UpdatePanel2" UpdateMode="Always">
+                        <ContentTemplate>
+                            <div class="modal-body">
+                                <h4 id="mensaje" runat="server"></h4>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button runat="server" ID="btnAceptarRedirigir" CssClass="button" Text="Ir a pedido personalizado" OnClick="btnAceptarRedirigir_Click" />
+
+                                <button type="button" class="btn btn-link waves-effect button" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
 
     <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
 
@@ -293,6 +316,27 @@
                     window.location.href = "Paginadesolicitudes.aspx";
                 } else {
                     $('#exampleModal').modal('hide');
+                }
+            });
+        }
+    </script>
+    <script>
+        function showStockMessage(mensaje, id) {
+            swal({
+                title: "Stock Invalido",
+                text: mensaje,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "solicitar pedido personalizado",
+                cancelButtonText: "cancelar",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    window.location.href = `pedidoPersonalizado.aspx?id=${id}`;
+                } else {
+                    $('#defaultmodal').modal('hide');
                 }
             });
         }

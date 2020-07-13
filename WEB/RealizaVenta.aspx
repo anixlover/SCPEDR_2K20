@@ -255,7 +255,6 @@
                                         
                                         <asp:GridView ID="gv2" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" OnSelectedIndexChanged="gv2_SelectedIndexChanged" OnRowDeleting="gv2_SelectedIndexChanged">
                                             <Columns>
-
                                                 <asp:ButtonField ButtonType="button" HeaderText="Accion" CommandName="delete" Text="Borrar">
                                                     <ControlStyle CssClass="btn btn-warning" />
                                                 </asp:ButtonField>

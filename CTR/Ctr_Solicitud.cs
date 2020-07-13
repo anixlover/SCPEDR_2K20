@@ -23,6 +23,10 @@ namespace CTR
         {
             objDaoSolicitud.RegistrarSolicitud_LD(objsolicitud);
         }
+        public void RegistrarSolicitud_LD2(DtoSolicitud objsolicitud)
+        {
+            objDaoSolicitud.RegistrarSolicitud_LD2(objsolicitud);
+        }
         public void ActualizarEstado(DtoSolicitud objsolicitud)
         {
             objDaoSolicitud.UpdateEstadoSolicitud(objsolicitud);
@@ -31,6 +35,11 @@ namespace CTR
         public int CantidadSolicitud()
         {
             return objDaoSolicitud.CantidadSolicitudes();
+        }
+
+        public DataTable TablaConsultaEstado(DtoSolicitud objsolicitud)
+        {
+            return objDaoSolicitud.ConsultarEstadoPago(objsolicitud);
         }
 
     }
