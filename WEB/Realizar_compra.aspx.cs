@@ -136,9 +136,13 @@ public partial class Realizar_compra : System.Web.UI.Page
             objvou.VBV_Foto = imagen;
             objvou.DV_ImporteDepositado = Convert.ToDouble(txtImporte.Text);
             objvou.VV_Comentario = "";
-            objpagoneg.RegistrarPago(objpago);
-            objsolneg.ActualizarEstado(objsol);
-            objvouneg.RegistrarVoucher(objvou);
+
+            if (objpago.error == 77)
+            {
+                objpagoneg.RegistrarPago(objpago);
+                objsolneg.ActualizarEstado(objsol);
+                objvouneg.RegistrarVoucher(objvou);
+            }            
             mostrarmsjPAGO(objpago);
             mostrarmsjFACTURA(objfactura);
             CargarRUCS();

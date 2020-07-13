@@ -272,8 +272,8 @@ public partial class RealizaVenta : System.Web.UI.Page
 
         int a = gv2.SelectedIndex;
         _log.CustomWriteOnLog("realizarVenta", "a = " + a);
-        we
-        string xcxcxc = dt["Codigo"][a];
+        //we
+        //string xcxcxc = dt["Codigo"][a];
         DataRow[] _row = dt.Select("Codigo= " + txtcodigo.Text);
         foreach (DataRow row in _row)
             row.Delete();
