@@ -71,5 +71,29 @@ namespace DAO
             unComando.ExecuteNonQuery();
             conexion.Close();
         }
+
+        public DataTable ConsultarEstadoPago(DtoSolicitud objcep)
+        {
+            /* DataTable dtcep = null;
+             conexion.Open();
+             SqlCommand command = new SqlCommand("SP_ConsultarEstadoPago", conexion);
+             command.Parameters.AddWithValue("@PK_IS_Cod", objcep.PK_IS_Cod);
+             SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+             command.CommandType = CommandType.StoredProcedure;
+             dtcep = new DataTable();
+             daAdaptador.Fill(dtcep);
+             conexion.Close();
+             return dtcep;
+            */
+            DataTable dtcep = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_ConsultarEstadoPago", conexion);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtcep = new DataTable();
+            daAdaptador.Fill(dtcep);
+            conexion.Close();
+            return dtcep;
+        }
     }
 }
