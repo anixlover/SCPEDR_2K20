@@ -30,6 +30,20 @@ namespace DAO
             }
             conexion.Close();
         }
+        public void RegistrarSolicitud_LD2(DtoSolicitud objsolicitud)
+        {
+            SqlCommand command = new SqlCommand("SP_RegistrarSolicitud_C_2", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@impt", objsolicitud.DS_ImporteTotal);
+            command.Parameters.Add("@NewId", SqlDbType.Int).Direction = ParameterDirection.Output;
+            conexion.Open();
+
+            using (SqlDataReader dr = command.ExecuteReader())
+            {
+                objsolicitud.PK_IS_Cod = Convert.ToInt32(command.Parameters["@NewId"].Value);
+            }
+            conexion.Close();
+        }
         public int CantidadSolicitudes()
         {
 
@@ -51,7 +65,7 @@ namespace DAO
         }
         public void UpdateEstadoSolicitud(DtoSolicitud objsolicitud)
         {
-            string update = "UPDATE T_Solicitud SET FK_ISE_Cod = 2, DTS_FechaEmicion='"+ DateTime.Today.Date +"' Where PK_IS_Cod=" + objsolicitud.PK_IS_Cod;
+            string update = "UPDATE T_Solicitud SET FK_ISE_Cod = 6, DTS_FechaEmicion='"+ DateTime.Today.Date +"' Where PK_IS_Cod=" + objsolicitud.PK_IS_Cod;
             SqlCommand unComando = new SqlCommand(update, conexion);
             conexion.Open();
             unComando.ExecuteNonQuery();

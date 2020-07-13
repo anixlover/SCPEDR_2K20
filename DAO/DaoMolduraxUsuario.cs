@@ -29,6 +29,20 @@ namespace DAO
             command.ExecuteNonQuery();
             conexion.Close();
         }
+        public void InsertarMolduraxUsuariox2(DtoMolduraxUsuario objMolduraxUsuario)
+        {
+            SqlCommand command = new SqlCommand("SP_Registrar_MXU_C_2", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@idU", objMolduraxUsuario.FK_VU_Cod);
+            command.Parameters.AddWithValue("@idM", objMolduraxUsuario.FK_IM_Cod);
+            command.Parameters.AddWithValue("@cant", objMolduraxUsuario.IMU_Cantidad);
+            command.Parameters.AddWithValue("@pre", objMolduraxUsuario.DMU_Precio);
+            command.Parameters.AddWithValue("@fkSolCod", objMolduraxUsuario.FK_IS_Cod);
+
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
         public DataTable ListarMXU(DtoMolduraxUsuario objmxu)
         {
             DataTable dtmxu = null;
@@ -98,6 +112,19 @@ namespace DAO
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@id", objmxu.PK_IMU_Cod);
             command.Parameters.AddWithValue("@sol", objmxu.FK_IS_Cod);
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
+        public void registrarMXU(DtoMolduraxUsuario objMolduraxUsuario)
+        {
+            SqlCommand command = new SqlCommand("SP_Registrar_MXU_P", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@idU", objMolduraxUsuario.FK_VU_Cod);
+            command.Parameters.AddWithValue("@idM", objMolduraxUsuario.FK_IM_Cod);
+            command.Parameters.AddWithValue("@cant", objMolduraxUsuario.IMU_Cantidad);
+            command.Parameters.AddWithValue("@pre", objMolduraxUsuario.DMU_Precio);
+
             conexion.Open();
             command.ExecuteNonQuery();
             conexion.Close();
