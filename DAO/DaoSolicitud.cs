@@ -113,5 +113,43 @@ namespace DAO
             unComando.ExecuteNonQuery();
             conexion.Close();
         }
+        public void RegistrarSolicitud_LD2(DtoSolicitud objsolicitud)
+        {
+            SqlCommand command = new SqlCommand("SP_RegistrarSolicitud_C_2", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@impt", objsolicitud.DS_ImporteTotal);
+            command.Parameters.Add("@NewId", SqlDbType.Int).Direction = ParameterDirection.Output;
+            conexion.Open();
+
+            using (SqlDataReader dr = command.ExecuteReader())
+            {
+                objsolicitud.PK_IS_Cod = Convert.ToInt32(command.Parameters["@NewId"].Value);
+            }
+            conexion.Close();
+        }
+        public DataTable ConsultarEstadoPago(DtoSolicitud objcep)
+        {
+            /* DataTable dtcep = null;
+             conexion.Open();
+             SqlCommand command = new SqlCommand("SP_ConsultarEstadoPago", conexion);
+             command.Parameters.AddWithValue("@PK_IS_Cod", objcep.PK_IS_Cod);
+             SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+             command.CommandType = CommandType.StoredProcedure;
+             dtcep = new DataTable();
+             daAdaptador.Fill(dtcep);
+             conexion.Close();
+             return dtcep;
+            */
+            DataTable dtcep = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_ConsultarEstadoPago", conexion);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtcep = new DataTable();
+            daAdaptador.Fill(dtcep);
+            conexion.Close();
+            return dtcep;
+        }
+
     }
 }

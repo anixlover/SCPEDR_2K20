@@ -41,6 +41,7 @@ namespace CTR
         {
             objDaoSolicitud.RegistrarSolicitud_LD2(objsolicitud);
         }
+
         public void ActualizarEstado(DtoSolicitud objsolicitud)
         {
             objDaoSolicitud.UpdateEstadoSolicitud(objsolicitud);

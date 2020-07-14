@@ -254,6 +254,7 @@ namespace DAO
         }
         public double Aprox(DtoMoldura objMoldura)
         {
+            SqlConnection con = new SqlConnection(@"data source=DESKTOP-4LVLNRM; initial catalog=BD_SCPEDR; integrated security=SSPI;");
             double aprox = 0;
             SqlCommand cmd = new SqlCommand("select sum(DM_Precio)/ COUNT(*) as promedio from T_Moldura where FK_ITM_Moldura = "+objMoldura.FK_ITM_Tipo);
             Console.WriteLine(cmd);
