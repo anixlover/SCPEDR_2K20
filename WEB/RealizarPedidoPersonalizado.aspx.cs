@@ -4,8 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
+using System.Data;
 using DTO;
 using CTR;
+using DAO;
+using System.Configuration;
+
+using System.Data.SqlClient;
+using System.Drawing;
 
 public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 {
@@ -22,6 +29,9 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
     {
         if(!Page.IsPostBack)
         {
+
+            OpcionesTipoMoldura();
+            _log.CustomWriteOnLog("registrar pedido personalizado", "carga datos por catalogo");
             rbCatalogo.Checked = true;
             Label7.Visible = false;
             Image1.Visible = false;
@@ -50,10 +60,9 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                     Response.Redirect("Login.aspx");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                _log.CustomWriteOnLog("pedido personalizado", ex.Message + "Stac" + ex.StackTrace);
             }
         }
     }
@@ -114,8 +123,22 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
         txtcantidadp.Visible = true;
         Label11.Visible = true;
         txtimporteaprox.Visible = true;
+        txtimporteaprox.Enabled = false;
         Label12.Visible = true;
         txtcomentariop.Visible = true;
+    }
+
+    public void OpcionesTipoMoldura()
+    {
+        DataSet ds = new DataSet();
+        ds = objCtrMoldura.OpcionesTipoMoldura();
+        ddlTipoMoldura.DataSource = ds;
+        ddlTipoMoldura.DataTextField = "VTM_Nombre";
+        ddlTipoMoldura.DataValueField = "PK_ITM_Tipo";
+        ddlTipoMoldura.DataBind();
+        ddlTipoMoldura.Items.Insert(0, new ListItem("Seleccione", "0"));
+        _log.CustomWriteOnLog("pedido personalizado", "Termino de llenar el ddl");
+
     }
 
     public void ObtenerMoldura ()
@@ -128,10 +151,15 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
     {
         try
         {
-            objDtoMoldura.PK_IM_Cod = int.Parse(txtcodigo.Text);
-            objCtrMoldura.ObtenerMoldura(objDtoMoldura, objDtoTipoMoldura);
-            txtmedida.Text = objDtoMoldura.DM_Medida.ToString() + objDtoTipoMoldura.VTM_UnidadMetrica.ToString();
-            txtprecio.Text = objDtoMoldura.DM_Precio.ToString();
+                _log.CustomWriteOnLog("pedido perzanalizado", "entro a busqueda");
+                objDtoMoldura.PK_IM_Cod = int.Parse(txtcodigo.Text);
+                _log.CustomWriteOnLog("pedido personalizado", "objDtoMoldura.PK_IM_Cod : " + objDtoMoldura.PK_IM_Cod);
+                objCtrMoldura.ObtenerMoldura(objDtoMoldura, objDtoTipoMoldura);
+                txtmedida.Text = objDtoMoldura.DM_Medida.ToString() + objDtoTipoMoldura.VTM_UnidadMetrica.ToString();
+                _log.CustomWriteOnLog("pedido personalizado", " devolvio objDtoMoldura.DM_Medida y objDtoTipoMoldura.VTM_UnidadMetrica : " + objDtoMoldura.DM_Medida + " " + objDtoTipoMoldura.VTM_UnidadMetrica);
+                txtprecio.Text = objDtoMoldura.DM_Precio.ToString();
+                _log.CustomWriteOnLog("pedido personalizado", "devolvio objDtoMoldura.DM_Precio : " + objDtoMoldura.DM_Precio);
+
 
         }
         catch (Exception)
@@ -145,16 +173,49 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
     {
         try
         {
-            objDtoMXU.FK_IM_Cod = int.Parse(txtcodigo.Text);
-            objDtoMXU.IMU_Cantidad = int.Parse(txtcantidad.Text);
-            objDtoMXU.DMU_Precio = double.Parse(txtprecio.Text);
-            objDtoMXU.FK_VU_Cod = Session["DNIUsuario"].ToString();
-            objCtrMXU.registrarMXU(objDtoMXU);
-        }
-        catch (Exception)
-        {
+            if (rbCatalogo.Checked == true)
+            {
 
-            throw;
+                objDtoSolicitud.VS_TipoSolicitud = "Personalizado";
+                objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidad.Text);
+                objDtoSolicitud.DS_ImporteTotal = double.Parse(txtimporte.Text);
+                objDtoSolicitud.VS_Comentario = txtcomentariop.Text;
+                objDtoSolicitud.DTS_FechaEmicion = DateTime.Today.Date;
+                objDtoSolicitud.IS_EstadoPago = 1; //estado pendiente
+                objCtrSolicitud.RegistrarSolcitud_PC(objDtoSolicitud);
+                int Nsolicitud = objDtoSolicitud.PK_IS_Cod;
+
+                objDtoMXU.FK_IM_Cod = int.Parse(txtcodigo.Text);
+                objDtoMXU.IMU_Cantidad = int.Parse(txtcantidad.Text);
+                objDtoMXU.DMU_Precio = double.Parse(txtprecio.Text);
+                objDtoMXU.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                objCtrMXU.registrarMXU(objDtoMXU);
+            }
+            if (rbPropio.Checked == true)
+            {
+                _log.CustomWriteOnLog("pedido personalizado", "La función es de creación");
+                objDtoSolicitud.VS_TipoSolicitud = "Personalizado";
+                objDtoSolicitud.DS_Medida = double.Parse(txtmedidap.Text);
+                objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidadp.Text);
+                objDtoSolicitud.DS_PrecioAprox = double.Parse(txtimporteaprox.Text);
+                objDtoSolicitud.VS_Comentario = txtcomentariop.Text;
+                objDtoSolicitud.DTS_FechaEmicion = DateTime.Today.Date;
+                objDtoSolicitud.IS_EstadoPago = 1; //estado pendiente
+                objCtrSolicitud.RegistrarSolcitud_PP(objDtoSolicitud);
+                int Nsolicitud = objDtoSolicitud.PK_IS_Cod;
+                Utils.AddScriptClientUpdatePanel(upBotonEnviar,"uploadFileDocumentsSolicitud(" + objDtoSolicitud.PK_IS_Cod + ");");
+                Utils.AddScriptClient("showSuccessMessage2()");
+                _log.CustomWriteOnLog("pedido personalizado", "PK_IS_Cod valor retornado " + objDtoSolicitud.PK_IS_Cod);
+                _log.CustomWriteOnLog("pedido personalizado", "Agregado");
+                _log.CustomWriteOnLog("pedido personalizado", "Completado");
+            }
+            
+
+
+        }
+        catch (Exception ex)
+        {
+            _log.CustomWriteOnLog("pedido personalizado", "Error  = " + ex.Message + "posicion" + ex.StackTrace);
         }
 
     }
@@ -162,8 +223,35 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
     protected void btnCalcular_Click(object sender, EventArgs e)
     {
-        double x = double.Parse(txtcantidad.Text);
-        double y = double.Parse(txtprecio.Text);
-        txtimporte.Text = Convert.ToString(x * y);
+        double aprox;
+        if (rbCatalogo.Checked == true)
+        {
+            double x = double.Parse(txtcantidad.Text);
+            double y = double.Parse(txtprecio.Text);
+            txtimporte.Text = Convert.ToString(x * y);
+        }
+        if (rbPropio.Checked == true)
+        {
+            
+            if (ddlTipoMoldura.SelectedValue != "0")
+            {
+                //objDtoTipoMoldura.PK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
+                objDtoMoldura.FK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
+                aprox = objCtrMoldura.Aprox(objDtoMoldura);
+                //txtimporteaprox.Text = Convert.ToString(objCtrMoldura.PrecioAprox(objDtoMoldura));
+                txtimporteaprox.Text = Convert.ToString(aprox);
+                if (aprox == 0)
+                {
+                    txtimporteaprox.Text = "";
+                    ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'No hay tipo de moldura seleccionado!!'})</script>");
+                    return;
+                }
+            }
+
+
+
+
+        }
+
     }
 }

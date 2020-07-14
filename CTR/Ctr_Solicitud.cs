@@ -19,6 +19,20 @@ namespace CTR
             objDaoSolicitud = new DaoSolicitud();
         }
 
+        public void RegistrarSolcitud_PC(DtoSolicitud objsolicitud)
+        {
+            objDaoSolicitud.RegistrarSolcitud_PC(objsolicitud);
+        }
+        public void RegistrarSolcitud_PP(DtoSolicitud objsolicitud)
+        {
+            objDaoSolicitud.RegistrarSolicitud_PP(objsolicitud);
+        }
+
+        public void RegistrarImgSolicitudP(byte[] bytes, int id)
+        {
+            objDaoSolicitud.RegistrarImgSolicitudP(bytes, id);
+        }
+
         public void RegistrarSolicitud_LD(DtoSolicitud objsolicitud)
         {
             objDaoSolicitud.RegistrarSolicitud_LD(objsolicitud);
@@ -27,6 +41,7 @@ namespace CTR
         {
             objDaoSolicitud.RegistrarSolicitud_LD2(objsolicitud);
         }
+
         public void ActualizarEstado(DtoSolicitud objsolicitud)
         {
             objDaoSolicitud.UpdateEstadoSolicitud(objsolicitud);
