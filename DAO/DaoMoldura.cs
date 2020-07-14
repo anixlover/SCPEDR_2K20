@@ -243,5 +243,30 @@ namespace DAO
 
             return valor_retornado;
         }
+        public void PrecioAprox(DtoMoldura objMoldura)
+        {
+            SqlCommand command = new SqlCommand("SP_PrecioAprox", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@idtipomol", objMoldura.FK_ITM_Tipo);
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
+        public double Aprox(DtoMoldura objMoldura)
+        {
+            double aprox = 0;
+            SqlCommand cmd = new SqlCommand("select sum(DM_Precio)/ COUNT(*) as promedio from T_Moldura where FK_ITM_Moldura = "+objMoldura.FK_ITM_Tipo);
+            Console.WriteLine(cmd);
+            conexion.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                aprox = double.Parse(reader[0].ToString());
+
+            }
+            conexion.Close();
+
+            return aprox;
+        }
     }
 }

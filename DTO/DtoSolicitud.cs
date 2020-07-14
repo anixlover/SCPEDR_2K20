@@ -18,7 +18,12 @@ namespace DTO
         public string VS_Comentario { get; set; }
         public DateTime DTS_FechaEmicion { get; set; }
         public DateTime DTS_FechaRegistro { get; set; }
+
+        public int IS_EstadoPago { get; set; }
+
+        //Esto no existre en la tabla actual T_Solicitud en la bd 
         public string FK_VU_Dni { get; set; }
+        //
         public int FK_ISE_Cod { get; set; }
     }
 }
