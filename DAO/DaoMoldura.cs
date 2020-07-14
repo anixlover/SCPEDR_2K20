@@ -254,20 +254,31 @@ namespace DAO
         }
         public double Aprox(DtoMoldura objMoldura)
         {
-            SqlConnection con = new SqlConnection(@"data source=DESKTOP-4LVLNRM; initial catalog=BD_SCPEDR; integrated security=SSPI;");
-            double aprox = 0;
-            SqlCommand cmd = new SqlCommand("select sum(DM_Precio)/ COUNT(*) as promedio from T_Moldura where FK_ITM_Moldura = "+objMoldura.FK_ITM_Tipo);
+            //SqlConnection con = new SqlConnection(@"data source=DESKTOP-4LVLNRM; initial catalog=BD_SCPEDR; integrated security=SSPI;");
+            //double aprox = 0;
+            SqlCommand cmd = new SqlCommand("select sum(DM_Precio)/ COUNT(*) as promedio from T_Moldura where FK_ITM_Moldura = " + objMoldura.FK_ITM_Tipo, conexion);
             Console.WriteLine(cmd);
             conexion.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                aprox = double.Parse(reader[0].ToString());
+            string aprox = cmd.ExecuteScalar().ToString();
+            //SqlDataReader reader = cmd.ExecuteReader();
+            //if (reader.Read())
+            //{
+            //    aprox = double.Parse(reader[0].ToString());
 
-            }
+            //}
             conexion.Close();
-
-            return aprox;
+            if (aprox == "")
+            {
+                return 0;
+            }
+            //return aprox;
+            return Convert.ToDouble(aprox);
+            /** 
+             * SqlCommand unComando = new SqlCommand("select DS_ImporteTotal from T_Solicitud where PK_IS_Cod =" + objsolicitud.FK_IS_Cod, conexion);
+            conexion.Open();
+            var ultimo = unComando.ExecuteScalar().ToString();
+            conexion.Close();
+            return Convert.ToDouble(ultimo);**/
         }
     }
 }

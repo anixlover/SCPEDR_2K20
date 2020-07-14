@@ -123,6 +123,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
         txtcantidadp.Visible = true;
         Label11.Visible = true;
         txtimporteaprox.Visible = true;
+        txtimporteaprox.Enabled = false;
         Label12.Visible = true;
         txtcomentariop.Visible = true;
     }
@@ -231,12 +232,26 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
         }
         if (rbPropio.Checked == true)
         {
-            ddlTipoMoldura.SelectedValue = objDtoMoldura.FK_ITM_Tipo.ToString();
-            aprox = objCtrMoldura.Aprox(objDtoMoldura);
-            //txtimporteaprox.Text = Convert.ToString(objCtrMoldura.PrecioAprox(objDtoMoldura));
-            txtimporteaprox.Text = Convert.ToString(aprox);
-        }
+            
+            if (ddlTipoMoldura.SelectedValue != "0")
+            {
+                //objDtoTipoMoldura.PK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
+                objDtoMoldura.FK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
+                aprox = objCtrMoldura.Aprox(objDtoMoldura);
+                //txtimporteaprox.Text = Convert.ToString(objCtrMoldura.PrecioAprox(objDtoMoldura));
+                txtimporteaprox.Text = Convert.ToString(aprox);
+                if (aprox == 0)
+                {
+                    txtimporteaprox.Text = "";
+                    ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'No hay tipo de moldura seleccionado!!'})</script>");
+                    return;
+                }
+            }
 
+
+
+
+        }
 
     }
 }
