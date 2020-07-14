@@ -23,7 +23,7 @@ public partial class Realizar_compra : System.Web.UI.Page
     SqlConnection conexion = new SqlConnection("data source=(Local); initial catalog=BD_SCPEDR; integrated security=SSPI;");
     protected void Page_Load(object sender, EventArgs e)
     {
-        //Label5.Text = "71257736";
+        Label5.Text = "71257736";
         if (!IsPostBack)
         {
             txtnewRUC.Visible = false;
@@ -34,7 +34,6 @@ public partial class Realizar_compra : System.Web.UI.Page
             lblfecha.Text = DateTime.Today.Date.ToString();
             CargarRUCS();
         }
-        if (Session["DNIUsuario"] != null) { Label5.Text = Session["DNIUsuario"].ToString(); }
     }
 
     protected void rbBoleta_CheckedChanged(object sender, EventArgs e)
