@@ -226,12 +226,12 @@ namespace DAO
         }
         public int StockMoldura(DtoMoldura objMoldura)
         {
-
+            SqlConnection con=new SqlConnection(@"data source=ALE\SQLEXPRESS; initial catalog=BD_SCPEDR; integrated security=SSPI;");
             int valor_retornado = 0;
-            SqlCommand cmd = new SqlCommand("SELECT IM_Stock FROM T_Moldura WHERE PK_IM_Cod="+ objMoldura.PK_IM_Cod,conexion);
+            SqlCommand cmd = new SqlCommand("SELECT IM_Stock FROM T_Moldura WHERE PK_IM_Cod="+ objMoldura.PK_IM_Cod,con);
             
             Console.WriteLine(cmd);
-            conexion.Open();
+            con.Open();
             SqlDataReader reader = cmd.ExecuteReader();
 
             if (reader.Read())
@@ -239,7 +239,7 @@ namespace DAO
                 valor_retornado = int.Parse(reader[0].ToString());
 
             }
-            conexion.Close();
+            con.Close();
 
             return valor_retornado;
         }
