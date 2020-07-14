@@ -67,5 +67,13 @@ namespace CTR
         {
             return objDaoMoldura.StockMoldura(objDtoMoldura);
         }
+        public void PrecioAprox(DtoMoldura objMoldura)
+        {
+            objDaoMoldura.PrecioAprox(objMoldura);
+        }
+        public double Aprox(DtoMoldura objMoldura) 
+        {
+            return objDaoMoldura.Aprox(objMoldura);
+        }
     }
 }
