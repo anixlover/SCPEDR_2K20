@@ -45,6 +45,7 @@
     <Compile Include="DtoPago.cs" />
     <Compile Include="DtoSolicitud.cs" />
     <Compile Include="DtoMolduraxUsuario.cs" />
+    <Compile Include="DtoSolicitudEstado.cs" />
     <Compile Include="DtoTipoMoldura.cs" />
     <Compile Include="DtoTipoUsuario.cs" />
     <Compile Include="DtoUsuario.cs" />
