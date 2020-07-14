@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using CTR;
+
 using DTO;
 using DAO;
 using System.Configuration;
@@ -14,7 +14,7 @@ using System.Data.SqlClient;
 
 public partial class RealizaVenta : System.Web.UI.Page
 {
-    //CtrVenta objCtrVenta = new CtrVenta();
+  
     DtoUsuario objuser = new DtoUsuario();
     DtoMoldura objdtomoldura = new DtoMoldura();
     SqlConnection conexion = new SqlConnection(ConexionBD.CadenaConexion);
@@ -32,7 +32,7 @@ public partial class RealizaVenta : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             _log.CustomWriteOnLog("Realizar Venta 1", "_______________________________________________________________________________ENTRO A FUNCION REALIZAR VENTA_____________________________________________________________________");
-            txtFactura.Visible = false;
+                txtFactura.Visible = false;
             Rbboleta.Checked = true;
 
             if (ViewState["Records"] == null)
@@ -48,12 +48,16 @@ public partial class RealizaVenta : System.Web.UI.Page
 
     protected void RbBoleta_CheckedChanged(object sender, EventArgs e)
     {
-       
+        DropDownList1.Visible = false;
     }
 
     protected void Rbfactura_CheckedChanged(object sender, EventArgs e)
     {
-       
+        DropDownList1.Visible = true;
+
+        cardpay.Visible = false;
+        gv2nd.Visible = false;
+        subtotal.Visible = false;
     }
 
     protected void ddl_TipoComprobante_SelectedIndexChanged(object sender, EventArgs e)

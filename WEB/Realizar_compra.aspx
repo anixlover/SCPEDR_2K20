@@ -35,10 +35,10 @@
         <div class="registrar-cliente">
 
             <div class="formulario">                    
-                    <div class="entrada" style="text-align: center">                        
-                        Imagen del vaucher:<br />
+                    <div class="entrada" style="text-align: center; align-items:center">                        
+                        Imagen del voucher:<br />
                         &nbsp;<asp:Image ID="Image1" runat="server" class="rounded"/>
-                            <asp:FileUpload ID="FileUpload1" accept="image/*" runat="server" onchange="ImagePreview(this);" Width="100%" ForeColor="Black" style="color:transparent"/>
+                            <asp:FileUpload ID="FileUpload1" accept="image/*" runat="server" onchange="ImagePreview(this);" ForeColor="Black" style="color:transparent" Width="152px"/>
                     </div>
                     <div class="entrada" style="text-align: center">
                                                 <asp:RadioButton runat="server" Text="Boleta" GroupName="pago" ID="rbBoleta" AutoPostBack="True" OnCheckedChanged="rbBoleta_CheckedChanged"></asp:RadioButton>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="entrada">
                         <asp:Label ID="Label2" runat="server" Text="Importe:                                  "></asp:Label>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:TextBox ID="txtImporte" name="texto" runat="server" class="controls" type="text" step="any" BackColor="white" BorderColor="Black"></asp:TextBox>
                     </div>
                     <div class="entrada"style="text-align: center">

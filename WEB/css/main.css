@@ -699,7 +699,8 @@ div.descripcion-moldura {
 .formulario {
     background: #fdfbfb;
     padding: 21px;
-    width: 262px;
+    width: 364px;
+    margin-left: 0px;
 }
 
 .controls {
@@ -711,7 +712,7 @@ div.descripcion-moldura {
 .entrada {
     margin-bottom: 10px;
     border: 1px solid #aaa;
-    width: 260px;
+    width: 334px;
 }
 
 

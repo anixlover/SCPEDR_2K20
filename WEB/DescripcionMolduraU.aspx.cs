@@ -107,20 +107,46 @@ public partial class DescripcionMolduraU : System.Web.UI.Page
             }
             else
             {
+                _log.CustomWriteOnLog("AgregarCompraMoldura", "moldura" + Request.Params["Id"].ToString());
+                objDtoMoldura.PK_IM_Cod = int.Parse(Request.Params["Id"]);
+                int stock = objCtrMoldura.StockMoldura_(objDtoMoldura);
+                _log.CustomWriteOnLog("AgregarCompraMoldura", "stock: " + stock.ToString());
+                int cant = Convert.ToInt32(txtDescripcionModal.Text);
 
-                objDtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
-                objDtoMolduraxUsuario.FK_IM_Cod = int.Parse(Request.Params["Id"]);
-                objDtoMolduraxUsuario.IMU_Cantidad = int.Parse(txtDescripcionModal.Text);
-                objDtoMolduraxUsuario.DMU_Precio = double.Parse(txtPrecioAprox.Value);
+                if (cant < stock)
+                {
+                    if (txtmetrica.Text == "Mt" && cant < 150 || txtmetrica.Text == "Cm" && cant < 30 || txtmetrica.Text == "M2" && cant < 40)
+                    {
+                        
+                                    objDtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                                    objDtoMolduraxUsuario.FK_IM_Cod = int.Parse(Request.Params["Id"]);
+                                    objDtoMolduraxUsuario.IMU_Cantidad = int.Parse(txtDescripcionModal.Text);
+                                    objDtoMolduraxUsuario.DMU_Precio = double.Parse(txtPrecioAprox.Value);
 
-                _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.FK_VU_Cod = " + objDtoMolduraxUsuario.FK_VU_Cod);
-                _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.FK_IM_Cod = " + objDtoMolduraxUsuario.FK_IM_Cod.ToString());
-                _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.ISM_Cantidad = " + objDtoMolduraxUsuario.IMU_Cantidad.ToString());
-                _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.DSM_Precio = " + objDtoMolduraxUsuario.DMU_Precio.ToString());
+                                    _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.FK_VU_Cod = " + objDtoMolduraxUsuario.FK_VU_Cod);
+                                    _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.FK_IM_Cod = " + objDtoMolduraxUsuario.FK_IM_Cod.ToString());
+                                    _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.ISM_Cantidad = " + objDtoMolduraxUsuario.IMU_Cantidad.ToString());
+                                    _log.CustomWriteOnLog("AgregarCompraMoldura", " objDtoMolduraxUsuario.DSM_Precio = " + objDtoMolduraxUsuario.DMU_Precio.ToString());
 
-                objCtrMolduraxUsuario.registrarNuevaMoldura(objDtoMolduraxUsuario);
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#confirmacionmodal').modal('show');</script>", false);
-
+                                    objCtrMolduraxUsuario.registrarNuevaMoldura(objDtoMolduraxUsuario);
+                                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#confirmacionmodal').modal('show');</script>", false);
+                            
+                     }
+                    else //tipo baquetones
+                    {
+                        string m = "cantidad supera el limmite permitido";
+                        _log.CustomWriteOnLog("carrito de compra", m);
+                        mensaje.InnerText = m;
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#confirmacionmodal1').modal('show');</script>", false);
+                    }
+                }
+                else //supera stock
+                {
+                    string m = "cantidad supera al stock";
+                    _log.CustomWriteOnLog("carrito de compra", m);
+                    mensaje.InnerText = m;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#confirmacionmodal1').modal('show');</script>", false);
+                }
             }
         }
         catch (Exception ex)
@@ -135,6 +161,11 @@ public partial class DescripcionMolduraU : System.Web.UI.Page
     protected void btnAceptarRedirigir_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/CarritoCompras.aspx");
+
+    }
+
+    protected void btnAceptarPP_Click(object sender, EventArgs e)
+    {
 
     }
 }

@@ -86,6 +86,24 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="confirmacionmodal1" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <asp:UpdatePanel runat="server" ID="UpdatePanel2" UpdateMode="Always">
+                        <ContentTemplate>
+                            <div class="modal-body">
+                                <h4 id="mensaje" runat="server"></h4>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button runat="server" ID="btnAceptarPP" CssClass="button" Text="Ir a pedido personalizado" OnClick="btnAceptarPP_Click" />
+
+                                <button type="button" class="btn btn-link waves-effect button" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
     </section>
     <script>
         function checkLength() {
