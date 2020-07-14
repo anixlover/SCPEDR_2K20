@@ -138,11 +138,27 @@
                                                 AutoPostBack="True" OnCheckedChanged="RbBoleta_CheckedChanged" EnableTheming="True"
                                                 ForeColor="Black" />
 
-                                            <asp:RadioButton ID="Rbfactura" runat="server" Text="Personalizado" GroupName="documento"
+                                            <asp:RadioButton ID="RbPersonalizado" runat="server" Text="Personalizado" GroupName="documento"
                                                 AutoPostBack="True" OnCheckedChanged="Rbfactura_CheckedChanged"
                                                 ForeColor="Black" />
 
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="col-sm-12">
+                                                    <div ID="ddl2" class="form-group form-float">
+                                                        <asp:DropDownList runat="server" ID="DropDownList1" CssClass=" bootstrap-select form-control" OnSelectedIndexChanged="ddl_TipoComprobante_SelectedIndexChanged" AutoPostBack="True">
+                                                            <asp:ListItem Text="Seleccionar" Selected="True" />
+                                                            <asp:ListItem Value="1" Text="Catalogo" />
+                                                            <asp:ListItem Value="2" Text="Diseño propio" />
+                                                        </asp:DropDownList>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <%--input codigo--%>
                                         <asp:Label ID="txtcodproducto" runat="server" class="form-label"><b>Codigo</b></asp:Label>
                                         <div class="form-group form-float">
@@ -205,8 +221,10 @@
                                     </div>
                                 </div>
 
+                                <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+                                
                                 <%--subtotal--%>
-                                <div class="col-md-6">
+                                <div id="subtotal" runat="server" class="col-md-6">
                                     <div class="col-sm-8">
                                         <div class="form-group form-float">
                                             <asp:Label ID="Label2" runat="server" class="form-label"><b>Subtotal S/</b></asp:Label>
@@ -232,7 +250,7 @@
                                 </div>
 
                                 <%--2nd gridv--%>
-                                <div class="col-md-12">
+                                <div id="gv2nd" runat="server" class="col-md-12">
                                     <div class="body table-responsive ">
                                         
                                         <asp:GridView ID="gv2" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" OnSelectedIndexChanged="gv2_SelectedIndexChanged" OnRowDeleting="gv2_SelectedIndexChanged">
@@ -262,6 +280,17 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <div class="col-sm-8">
+                                        <div class="form-group form-float">
+                                            <asp:LinkButton runat="server" ID="LinkButton1" CssClass="btn bg-indigo waves-effect" 
+                                                Style="float: right" Width="100%" Text="Enviar"
+                                                AutoPostBack="False" OnClick="btnCalcular"> <i class="material-icons">send</i> Enviar
+                                             </asp:LinkButton>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </asp:Panel>
                     </div>
@@ -270,7 +299,7 @@
         </div>
 
         <%--pay card--%>
-        <div class="row clearfix">
+        <div runat="server" ID="cardpay" class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card ">
                     <div class="header">

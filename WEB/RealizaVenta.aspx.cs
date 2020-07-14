@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using CTR;
+
 using DTO;
 using DAO;
 using System.Configuration;
@@ -14,7 +14,7 @@ using System.Data.SqlClient;
 
 public partial class RealizaVenta : System.Web.UI.Page
 {
-
+  
     DtoUsuario objuser = new DtoUsuario();
     DtoMoldura objdtomoldura = new DtoMoldura();
     SqlConnection conexion = new SqlConnection(ConexionBD.CadenaConexion);
@@ -23,7 +23,7 @@ public partial class RealizaVenta : System.Web.UI.Page
     DataTable dt = new DataTable();
 
 
-    double total = 0;
+    double total=0;
     double x;
     double y;
 
@@ -32,7 +32,7 @@ public partial class RealizaVenta : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             _log.CustomWriteOnLog("Realizar Venta 1", "_______________________________________________________________________________ENTRO A FUNCION REALIZAR VENTA_____________________________________________________________________");
-            txtFactura.Visible = false;
+                txtFactura.Visible = false;
             Rbboleta.Checked = true;
 
             if (ViewState["Records"] == null)
@@ -48,12 +48,16 @@ public partial class RealizaVenta : System.Web.UI.Page
 
     protected void RbBoleta_CheckedChanged(object sender, EventArgs e)
     {
-
+        DropDownList1.Visible = false;
     }
 
     protected void Rbfactura_CheckedChanged(object sender, EventArgs e)
     {
+        DropDownList1.Visible = true;
 
+        cardpay.Visible = false;
+        gv2nd.Visible = false;
+        subtotal.Visible = false;
     }
 
     protected void ddl_TipoComprobante_SelectedIndexChanged(object sender, EventArgs e)
@@ -106,7 +110,7 @@ public partial class RealizaVenta : System.Web.UI.Page
 
         }
     }
-
+   
     protected void detalle_RowCommand(object sender, GridViewCommandEventArgs e)
     {
 
@@ -128,7 +132,7 @@ public partial class RealizaVenta : System.Web.UI.Page
 
     }
 
-    protected void btnbuscar_Click(object sender, EventArgs e)
+    protected void btnbuscar_Click(object sender, EventArgs e)  
     {
         string Select = "SELECT * from T_Usuario where PK_VU_Dni = @Dni";
         SqlCommand unComando = new SqlCommand(Select, conexion);
@@ -146,7 +150,7 @@ public partial class RealizaVenta : System.Web.UI.Page
     }
 
     protected void btnBuscarProducto_Click(object sender, EventArgs e)
-    {
+    {   
         DataTable dt = null;
         conexion.Open();
         SqlCommand command = new SqlCommand("SP_Listar_Moldura_x_Codigo", conexion);
@@ -173,8 +177,8 @@ public partial class RealizaVenta : System.Web.UI.Page
             double a;
             double b;
             double resul;
-            string c = reader["DM_Precio"].ToString();
-
+           string c = reader["DM_Precio"].ToString();
+   
             a = double.Parse(txtcantidad.Text);
             b = double.Parse(c);
             resul = (a * b);
@@ -200,14 +204,9 @@ public partial class RealizaVenta : System.Web.UI.Page
     {
         //trigguer
         //insert
+       
 
-        int rowsGv2 = gv2.Rows.Count;
-
-
-        for (int i = 0; i < rowsGv2; i++)
-        {
-
-        }
+        
 
 
         //vuelto
@@ -218,10 +217,6 @@ public partial class RealizaVenta : System.Web.UI.Page
         r2 = double.Parse(txtimporteigv.Text);
         resto = r1 - r2;
         txtvuelto.Text = resto.ToString();
-
-
-
-
     }
 
     protected void btnagregar_Click(object sender, EventArgs e)
@@ -236,30 +231,30 @@ public partial class RealizaVenta : System.Web.UI.Page
         bool hayRegistros = reader.Read();
         if (hayRegistros)
         {
-            string c = reader["DM_Precio"].ToString();
-            dt = (DataTable)ViewState["Records"];
-            dt.Rows.Add(txtcodigo.Text, txtcantidad.Text, c, txtsubtotal.Text);
-
-            gv2.DataSource = dt;
-            gv2.DataBind();
+            string c = reader["DM_Precio"].ToString();      
+        dt = (DataTable)ViewState["Records"];
+        dt.Rows.Add(txtcodigo.Text,txtcantidad.Text, c, txtsubtotal.Text);
+            
+        gv2.DataSource = dt;
+        gv2.DataBind();
         }
 
-        //for (int i==0 ; gv2.Rows.ToString ;int++)
-        //{
-        //    valueCode.a
-        //}
-        //v = int.Parse(txtcodigo.Text);
+            //for (int i==0 ; gv2.Rows.ToString ;int++)
+            //{
+            //    valueCode.a
+            //}
+            //v = int.Parse(txtcodigo.Text);
 
 
 
 
 
 
-
-        //suma
+        
+            //suma
         x = double.Parse(txtsubtotal.Text);
         y = double.Parse(txtimporttot.Text);
-        total = x + y;
+        total = x+y;
         txtimporttot.Text = total.ToString();
         txtimporteigv.Text = total.ToString();
     }
@@ -268,48 +263,20 @@ public partial class RealizaVenta : System.Web.UI.Page
 
     protected void gv2_SelectedIndexChanged(object sender, EventArgs e)
     {
-
-
-        int a = gv2.SelectedIndex;
-        _log.CustomWriteOnLog("realizarVenta", "a = " + a);
-        //we
-        //string xcxcxc = dt["Codigo"][a];
-        DataRow[] _row = dt.Select("Codigo= " + txtcodigo.Text);
+       
+        dt = (DataTable)ViewState["Records"];
+        DataRow[] _row = dt.Select("Codigo= "+txtcodigo.Text);
         foreach (DataRow row in _row)
             row.Delete();
-
+            
         dt.AcceptChanges();
         ViewState["Records"] = dt;
         gv2.DataSource = (DataTable)ViewState["Records"];
         gv2.DataBind();
 
-        //restarrr importe total del 
+       //restarrr importe total del 
 
     }
-
-    protected void gv2_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-        if (e.CommandName == "delete")
-        {
-            try
-            {
-                int index = Convert.ToInt32(e.CommandArgument);
-                gv2.DeleteRow(index);
-                _log.CustomWriteOnLog("realizarVenta", "index= " + index);
-
-                //((DataTable)ViewState["Records"]).Rows[index].Delete();
-                //((DataTable)ViewState["Records"]).AcceptChanges();
-                //gv2.DataSource = (DataTable)ViewState["Records"];
-                //gv2.DataBind();
-            }
-            catch (Exception ex)
-            {
-
-            }
-            
-        }
-    }
-    
 }
 //DataTable dt = null;
 //conexion.Open();
