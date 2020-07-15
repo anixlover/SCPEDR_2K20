@@ -11,12 +11,15 @@ using System.Data;
 using System.Data.SqlClient;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-
+using ListItem = System.Web.UI.WebControls.ListItem;
 
 public partial class RealizarVenta_Marcial : System.Web.UI.Page
 {
-    DtoUsuario objuser = new DtoUsuario();
+
+    DtoMoldura objDtoMoldura = new DtoMoldura();
+    CtrMoldura objCtrMoldura = new CtrMoldura();
     DtoMoldura objdtomoldura = new DtoMoldura();
+    DtoUsuario objuser = new DtoUsuario();
     SqlConnection conexion = new SqlConnection(ConexionBD.CadenaConexion);
     Log _log = new Log();
     CtrMolduraxUsuario objCtrMolduraxUsuario = new CtrMolduraxUsuario();
@@ -39,6 +42,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 dt.Columns.Add("Subtotal");
                 ViewState["Records"] = dt;
             }
+            OpcionesTipoMoldura();
         }
     }
 
@@ -213,6 +217,11 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 updPanelSubTotal.Update();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Subtotal calculado', 'bottom', 'center', null, null);", true);
             }
+            else if (cbx_Personalizado.Checked == true)
+            {
+                txtimporttot.Text = precioAprox.ToString();
+                panelImpoTot.Update();
+            }
             else
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No se tiene el stock suficiente para proceder', 'bottom', 'center', null, null);", true);
@@ -308,5 +317,36 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
     protected void gv2_SelectedIndexChanged(object sender, EventArgs e)
     {
 
+    }
+
+    public void OpcionesTipoMoldura()
+    {
+        DataSet ds = new DataSet();
+        ds = objCtrMoldura.OpcionesTipoMoldura();
+        ddlTipoMoldura.DataSource = ds;
+        ddlTipoMoldura.DataTextField = "VTM_Nombre";
+        ddlTipoMoldura.DataValueField = "PK_ITM_Tipo";
+        ddlTipoMoldura.DataBind();
+        ddlTipoMoldura.Items.Insert(0, new ListItem("Seleccione", "0"));
+
+    }
+
+    protected void btnCalcularPersonalizado_Click(object sender, EventArgs e)
+    {
+        double aprox;
+
+        if (ddlTipoMoldura.SelectedValue != "0")
+        {
+            objDtoMoldura.FK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
+            aprox = objCtrMoldura.Aprox(objDtoMoldura);
+            txtpriceaprox.Text = Convert.ToString(aprox);
+            if (aprox == 0)
+            {
+                txtpriceaprox.Text = "";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No hay Tipo de moldura seleccionado!', 'bottom', 'center', null, null);", true);
+                return;
+            }
+            UpdatePanel2.Update();
+        }
     }
 }

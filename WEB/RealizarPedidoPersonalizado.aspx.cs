@@ -247,10 +247,6 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                     return;
                 }
             }
-
-
-
-
         }
 
     }

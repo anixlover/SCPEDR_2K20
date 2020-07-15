@@ -13,7 +13,7 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                    <div class="card">
+                    <div class="card" id="CardTipoComprobante" runat="server" hidden clientidmode="Static">
                         <div class="header">
                             <h2>Tipo comprobante    
                             </h2>
@@ -42,6 +42,8 @@
                     </div>
                 </div>
             </div>
+
+            <%--datos cliente--%>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card ">
@@ -89,9 +91,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <br />
-                                            <%--button search use r--%>
                                         </div>
                                     </div>
 
@@ -171,63 +171,178 @@
                                                 <div class="col-lg-6">
                                                     <div class="demo-checkbox">
                                                         <div class="demo-radio-button">
-                                                            <input type="radio" id="cbx_Personalizado" name="TipoPedido" class="radio-col-red" value="2" />
+                                                            <input runat="server" type="radio" id="cbx_Personalizado" name="TipoPedido" class="radio-col-red" value="2" />
                                                             <label for="cbx_Personalizado">Personalizado</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
+                                           <%-- <div class="col-sm-12" id="ddlPedidoMuestra" runat="server" hidden clientidmode="Static">
+                                                <asp:HiddenField runat="server" ID="HiddenField2" ClientIDMode="Static" />
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="col-sm-12">
+                                                            <div id="ddl2" class="form-group form-float">
+                                                                <asp:DropDownList runat="server" ID="ddlPedidoPor" CssClass=" bootstrap-select form-control" OnSelectedIndexChanged="ddl_TipoComprobante_SelectedIndexChanged" AutoPostBack="True">
+                                                                    <asp:ListItem Text="Seleccionar" Selected="True" />
+                                                                    <asp:ListItem Value="1" Text="Catalogo" />
+                                                                    <asp:ListItem Value="2" Text="Diseño propio" />
+                                                                </asp:DropDownList>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>--%>
+
+                                            <%--ddl pedido por--%>
+                                             <asp:Panel runat="server" ID="Panel3">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group form-float" >
+                                                                <asp:UpdatePanel runat="server" UpdateMode="Conditional"  ID="ddlPedidoMuestra" ClientIDMode="Static">
+                                                                    <ContentTemplate>
+                                                                    <asp:Label ID="Label6" runat="server" class="form-label"><b>Por :</b></asp:Label>
+                                                                        <asp:DropDownList runat="server"  ID="ddlPedidoPor" ClientIDMode="Static" CssClass=" bootstrap-select form-control" OnSelectedIndexChanged="ddl_TipoComprobante_SelectedIndexChanged">
+                                                                            <asp:ListItem Text="Seleccionar" Selected="True" />
+                                                                            <asp:ListItem Value="1" Text="Catalogo" />
+                                                                            <asp:ListItem Value="2" Text="Diseño Propio" />
+                                                                        </asp:DropDownList>
+                                                                    </ContentTemplate>
+                                                                </asp:UpdatePanel>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </asp:Panel>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <%--input codigo--%>
-                                    <div class="col-md-6">
 
-                                        <asp:Label ID="txtcodproducto" runat="server" class="form-label"><b>Codigo</b></asp:Label>
-                                        <div class="form-group form-float">
-                                            <div class="col-sm-10">
-                                                <div class="form-line">
-                                                    <asp:TextBox ID="txtcodigo" class="form-control" runat="server" type="text"
-                                                        pattern="[0-8]+" MinLength="8" MaxLength="8"></asp:TextBox>
+
+                                <%--ddlTipoMoldura--%>
+                                <div class="2" id="idTipoMoldura" runat="server" hidden clientidmode="Static">
+                                <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col-sm-12">
+                                                    <div class="form-group form-float">
+                                                        <asp:DropDownList runat="server" ID="ddlTipoMoldura" CssClass=" bootstrap-select form-control"></asp:DropDownList>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <%--search product button--%>
-                                            <div class="col-sm-2 right">
-                                                <asp:UpdatePanel runat="server">
-                                                    <ContentTemplate>
-                                                        <asp:LinkButton runat="server" ID="btnBuscarProducto" CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float" OnClick="btnBuscarProducto_Click">
-                                                    <i class="material-icons">person_search</i>
-                                                        </asp:LinkButton>
-                                                    </ContentTemplate>
-                                                </asp:UpdatePanel>
+                                     <div class="col-md-6">
+                                        <div class="col-sm-12">
+                                                <div class="card">
+                                                <div class="header bg-red">
+                                                    <h2>Detalle Moldura <small></small>
+                                                    </h2>
+                                                </div>
+                                                <div class="body" runat="server" id="div1">
+                                                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                                                        <ContentTemplate>
+                                                            <div class="form-group form-float">
+                                                                <asp:Label ID="Label7" runat="server" class="form-label"><b>Medida(mt)</b></asp:Label>
+                                                                <div class="form-line">
+                                                                    <asp:TextBox ID="TextBox2" class="form-control" runat="server" ></asp:TextBox>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group form-float">
+                                                                <asp:Label ID="Label8" runat="server" class="form-label"><b>Cantidad(mt)</b></asp:Label>
+                                                                <div class="form-line">
+                                                                    <asp:TextBox ID="TextBox3" class="form-control" runat="server" ></asp:TextBox>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group form-float">
+                                                                <label class="form-label">Subir Imagen</label>
+                                                                <br />
+                                                                
+                                                                <asp:Image ID="Image1" Height="250px" Width="250px" runat="server" class="rounded" />
+                                                            <input name="fileAnexo" type="file" id="FileUpload1" runat="server" accept=".png,.jpg" 
+                                                                class="btn btn-warning" style="width: 50%;" onchange="ImagePreview(this);" />
+                                                            </div>
+
+                                                            <div class="form-group form-float">
+                                                                <asp:Label ID="Label9" runat="server" class="form-label"><b>Precio Aprox S/.</b></asp:Label>
+                                                                <div class="form-line">
+                                                                    <asp:TextBox ID="txtpriceaprox" class="form-control" runat="server" ></asp:TextBox>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group form-float">
+                                                                    <asp:UpdatePanel ID="panelCalcPersonalizado" runat="server" UpdateMode="Conditional">
+                                                                        <ContentTemplate>
+                                                                            <asp:LinkButton runat="server" ID="btnCalcularPersonalizado" 
+                                                                                CssClass="btn bg-indigo waves-effect btn-circle-lg waves-effect waves-circle waves-float"
+                                                                                OnClick="btnCalcularPersonalizado_Click"> <i class="material-icons">calculated</i>
+                                                                            </asp:LinkButton>
+                                                                        </ContentTemplate>
+                                                                    </asp:UpdatePanel>
+                                                                </div>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                                </div>
                                             </div>
-                                        </div>
+                                            </div>
+                                         </div>
+
+                                    </div>
+                               </div>
+                                    
+                     
+                    <%--input codigo--%>
+                    <div class="2" id="DivCodigoSubtotal" runat="server" hidden clientidmode="Static">
+                                <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col-sm-12">
+                                            <asp:Label ID="txtcodproducto" runat="server" class="form-label"><b>Codigo</b></asp:Label>
+                                            <div class="form-group form-float">
+                                                <div class="col-sm-10">
+                                                    <div class="form-line">
+                                                        <asp:TextBox ID="txtcodigo" class="form-control" runat="server" type="text"
+                                                            pattern="[0-8]+" MinLength="8" MaxLength="8"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                                <%--search product button--%>
+                                                <div class="col-sm-2 right">
+                                                    <asp:UpdatePanel runat="server">
+                                                        <ContentTemplate>
+                                                            <asp:LinkButton runat="server" ID="btnBuscarProducto" CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float" OnClick="btnBuscarProducto_Click">
+                                                        <i class="material-icons">person_search</i>
+                                                            </asp:LinkButton>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                                </div>
+                                            </div>
+                                          </div>     
                                     </div>
                                     <%--input cantidad--%>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Cantidad(u)</label>
-                                        <div class="form-group form-float">
-                                            <div class="col-sm-10">
-                                                <div class="form-line">
-                                                    <asp:TextBox ID="txtcantidad" class="form-control" runat="server"></asp:TextBox>
+                                      <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="col-sm-12">
+                                                            <label class="form-label">Cantidad(u)</label>
+                                                            <div class="form-group form-float">
+                                                                
+                                                   
+                                                                <div class="col-sm-10">
+                                                                    <div class="form-line">
+                                                                        <asp:TextBox ID="txtcantidad" class="form-control" runat="server"></asp:TextBox>
+                                                                    </div>
+                                                                </div>
+                                                                <%--btn calcular--%>
+                                                                <div class="col-sm-2 right">
+                                                                    <asp:UpdatePanel runat="server">
+                                                                        <ContentTemplate>
+                                                                            <asp:LinkButton runat="server" ID="btncalcular" CssClass="btn bg-indigo waves-effect btn-circle-lg waves-effect waves-circle waves-float"
+                                                                                OnClick="btncalcular_Click"> <i class="material-icons">calculated</i>
+                                                                        </asp:LinkButton>
+                                                                        </ContentTemplate>
+                                                                    </asp:UpdatePanel>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <%--btn calcular--%>
-                                            <div class="col-sm-2 right">
-                                                <asp:UpdatePanel runat="server">
-                                                    <ContentTemplate>
-                                                        <asp:LinkButton runat="server" ID="btncalcular" CssClass="btn bg-indigo waves-effect btn-circle-lg waves-effect waves-circle waves-float"
-                                                            OnClick="btncalcular_Click"> <i class="material-icons">calculated</i>
-                                                        </asp:LinkButton>
-                                                    </ContentTemplate>
-                                                </asp:UpdatePanel>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
                                     <%--1st gridv--%>
                                     <div class="col-md-12">
                                         <div class="body table-responsive ">
@@ -248,7 +363,23 @@
                                         </div>
                                     </div>
 
+
+                                    <%--calendar--%>
+                                    <div class="col-md-12">
+                                        <div class="col-sm-12" id="IdCalendar" runat="server" hidden clientidmode="Static">
+                                <asp:Label ID="Label4" runat="server" class="form-label"><b>Fecha de entrega:</b></asp:Label>
+                                            <asp:HiddenField runat="server" ID="HiddenField3" ClientIDMode="Static" />
+                                                    <div class="body table-responsive ">
+
+                                                        <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+                                                    </div>
+                                            </div>
+                                                </div>
+
                                     <%--subtotal--%>
+                                        <div class="col-sm-12" id="divSubAddGv" runat="server" hidden clientidmode="Static">
+                                            <asp:HiddenField runat="server" ID="HiddenField2" ClientIDMode="Static" />
+
                                     <div class="col-md-6">
                                         <div class="col-sm-8">
                                             <div class="form-group form-float">
@@ -303,6 +434,7 @@
                                             </asp:UpdatePanel>
                                         </div>
                                     </div>
+                                </div>
 
                                     <%--importe total--%>
                                     <div class="col-md-6">
@@ -312,7 +444,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="col-sm-10">
                                                         <div class="form-line">
-                                                            <asp:UpdatePanel runat="server" UpdateMode="Always">
+                                                            <asp:UpdatePanel id="panelImpoTot" runat="server" UpdateMode="Always">
                                                                 <ContentTemplate>
                                                                     <asp:TextBox ID="txtimporttot" class="form-control" runat="server" type="text" Value="0"
                                                                         pattern="[0-8]+" ReadOnly>
@@ -326,7 +458,25 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <%--btn enviar only--%>
+                                        <div class="col-sm-12" id="idMostrarbtnEnviar" runat="server" hidden clientidmode="Static">
+                                                <div class="row">
+                                                    <div class="col-sm-8">
+                                                        <asp:UpdatePanel runat="server">
+                                                            <ContentTemplate>
+                                                                <div runat="server" id="Divbtn" class="col-sm-6 left">
+                                                                    <asp:LinkButton ID="btnEnviar" runat="server" CssClass="btn bg-indigo waves-effect"
+                                                                        Style="float: right" Width="100%" Text="Enviar"
+                                                                        OnClick="btnboleta_Click">  Enviar
+                                                                     </asp:LinkButton>
+                                                                </div>
+                                                            </ContentTemplate>
+                                                        </asp:UpdatePanel>
+                                                    </div>
+                                                </div>
+                                            </div>
                                 </div>
+                        </div>
                             </asp:Panel>
                         </div>
                     </div>
@@ -334,6 +484,8 @@
             </div>
 
             <%--pay card--%>
+                    <div class="card" id="CardPayment" runat="server" hidden clientidmode="Static">
+
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card ">
@@ -402,16 +554,19 @@
                     </div>
                 </div>
             </div>
-
+</div>
 
 
         </form>
     </section>
 </asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
 </asp:Content>
+
 <asp:Content ID="Content4" ContentPlaceHolderID="cph_Js" runat="Server">
     <script src="js/Aplicacion/RealizarVenta.js"></script>
+    
     <script>
         function CalcularVuelto() {
             var textboxpago = $('#txtmontopagado').val();
@@ -422,4 +577,18 @@
         }
     </script>
 </asp:Content>
+
+ <%--<script type="text/javascript">
+     function ImagePreview(input) {
+         if (input.files && input.files[0]) {
+             var reader = new FileReader();
+             reader.onload = function (e) {
+                 $('#<%=Image1.ClientID%>').prop('src', e.target.result)
+                     .width(250)
+                     .height(250);
+             };
+             reader.readAsDataURL(input.files[0]);
+         }
+     }
+    </script>--%>
 
