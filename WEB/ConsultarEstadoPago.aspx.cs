@@ -12,6 +12,7 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
 {
     DtoSolicitud objDtoSolicitud = new DtoSolicitud();
     Ctr_Solicitud objCtrSolicitud = new Ctr_Solicitud();
+    DtoMolduraxUsuario dtoMolduraxUsuario = new DtoMolduraxUsuario();
     Log _log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -23,8 +24,8 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
                 if (Session["DNIUsuario"] != null)
                 {
                     //objDtoSolicitud.PK_IS_Cod = 2;
-
-                    gvConsultar.DataSource = objCtrSolicitud.TablaConsultaEstado(objDtoSolicitud);
+                    dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                    gvConsultar.DataSource = objCtrSolicitud.TablaConsultaEstado(objDtoSolicitud, dtoMolduraxUsuario);
                     gvConsultar.DataBind();
 
                     /** if (gvConsultar.Rows.Count == 0)
@@ -47,6 +48,8 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
 
     protected void gvConsultar_RowCommand(object sender, GridViewCommandEventArgs e)
     {
+        
+
         if (e.CommandName == "Pago")
         {
             try
@@ -65,6 +68,7 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
                 _log.CustomWriteOnLog("consultar estado de pago", ex.Message + "Stac" + ex.StackTrace);
             }
         }
+        
 
     }
 
@@ -78,5 +82,15 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
     protected void gvConsultar_SelectedIndexChanged(object sender, EventArgs e)
     {
 
+    }
+
+    protected void gvConsultar_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        
+    }
+
+    protected Boolean ValidacionEstado(string estado)
+    {
+        return estado == "Pendiente de pago";
     }
 }

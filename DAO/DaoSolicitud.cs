@@ -125,7 +125,7 @@ namespace DAO
             }
             conexion.Close();
         }
-        public DataTable ConsultarEstadoPago(DtoSolicitud objcep)
+        public DataTable ConsultarEstadoPago(DtoSolicitud objcep, DtoMolduraxUsuario objmxu)
         {
             /* DataTable dtcep = null;
              conexion.Open();
@@ -141,6 +141,7 @@ namespace DAO
             DataTable dtcep = null;
             conexion.Open();
             SqlCommand command = new SqlCommand("SP_ConsultarEstadoPago", conexion);
+            command.Parameters.AddWithValue("@DNI", objmxu.FK_VU_Cod);
             SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
             command.CommandType = CommandType.StoredProcedure;
             dtcep = new DataTable();

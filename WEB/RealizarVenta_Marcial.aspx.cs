@@ -11,12 +11,15 @@ using System.Data;
 using System.Data.SqlClient;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-
+using ListItem = System.Web.UI.WebControls.ListItem;
 
 public partial class RealizarVenta_Marcial : System.Web.UI.Page
 {
-    DtoUsuario objuser = new DtoUsuario();
+
+    DtoMoldura objDtoMoldura = new DtoMoldura();
+    CtrMoldura objCtrMoldura = new CtrMoldura();
     DtoMoldura objdtomoldura = new DtoMoldura();
+    DtoUsuario objuser = new DtoUsuario();
     SqlConnection conexion = new SqlConnection(ConexionBD.CadenaConexion);
     Log _log = new Log();
     CtrMolduraxUsuario objCtrMolduraxUsuario = new CtrMolduraxUsuario();
@@ -39,6 +42,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 dt.Columns.Add("Subtotal");
                 ViewState["Records"] = dt;
             }
+            OpcionesTipoMoldura();
         }
     }
 
@@ -51,32 +55,56 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btnboleta_Click(object sender, EventArgs e)
     {
-        
-        objDtoSolicitud.DS_ImporteTotal = double.Parse(txtimporteigv.Text);
-        objCtrSolicitud.RegistrarSolicitud_LD2(objDtoSolicitud);
-        int ValorDevuelto = objDtoSolicitud.PK_IS_Cod;
-        _log.CustomWriteOnLog("Realizar venta 1", "ValorDevuelto = " + ValorDevuelto);
-
-        for (int i = 0; i < gv2.Rows.Count; i++)
+        try
         {
-            string codigoMoldura = gv2.Rows[i].Cells[1].Text;
-            string subtotalMoldura = gv2.Rows[i].Cells[4].Text;
-            string cantidadMoldura = gv2.Rows[i].Cells[2].Text;
-            _log.CustomWriteOnLog("Realizar venta 1", " txtIdentificadorUsuario.Text = " + txtIdentificadorUsuario.Text);
-            _log.CustomWriteOnLog("Realizar venta 1", "codigoMoldura = " + codigoMoldura);
-            _log.CustomWriteOnLog("Realizar venta 1", "cantidadMoldura = " + cantidadMoldura);
-            _log.CustomWriteOnLog("Realizar venta 1", "subtotalMoldura = " + subtotalMoldura);
+            objDtoSolicitud.DS_ImporteTotal = double.Parse(txtimporteigv.Text);
+            objCtrSolicitud.RegistrarSolicitud_LD2(objDtoSolicitud);
+            int ValorDevuelto = objDtoSolicitud.PK_IS_Cod;
+            _log.CustomWriteOnLog("Realizar venta 1", "ValorDevuelto = " + ValorDevuelto);
 
-            objDtoMolduraxUsuario.FK_VU_Cod = txtIdentificadorUsuario.Text;
-            objDtoMolduraxUsuario.FK_IM_Cod = int.Parse(codigoMoldura);
-            objDtoMolduraxUsuario.IMU_Cantidad = int.Parse(cantidadMoldura);
-            objDtoMolduraxUsuario.DMU_Precio = double.Parse(subtotalMoldura);
-            objDtoMolduraxUsuario.FK_IS_Cod = ValorDevuelto;
-            
-            objCtrMolduraxUsuario.registrarNuevaMoldura2(objDtoMolduraxUsuario);
-            _log.CustomWriteOnLog("Realizar venta 1", "Registro moldura : " +codigoMoldura + " para el usuario "+ txtIdentificadorUsuario.Text);
+            for (int i = 0; i < gv2.Rows.Count; i++)
+            {
+                string codigoMoldura = gv2.Rows[i].Cells[1].Text;
+                string subtotalMoldura = gv2.Rows[i].Cells[4].Text;
+                string cantidadMoldura = gv2.Rows[i].Cells[2].Text;
+                _log.CustomWriteOnLog("Realizar venta 1", " item moldura : " + i + "---------------------------------");
+                _log.CustomWriteOnLog("Realizar venta 1", " txtIdentificadorUsuario.Text = " + txtIdentificadorUsuario.Text);
+                _log.CustomWriteOnLog("Realizar venta 1", "codigoMoldura = " + codigoMoldura);
+                _log.CustomWriteOnLog("Realizar venta 1", "cantidadMoldura = " + cantidadMoldura);
+                _log.CustomWriteOnLog("Realizar venta 1", "subtotalMoldura = " + subtotalMoldura);
+                DtoMoldura obj = new DtoMoldura();
 
+                obj.PK_IM_Cod = int.Parse(codigoMoldura);
+                _log.CustomWriteOnLog("Realizar venta 1", "obj.PK_IM_Cod  = " + obj.PK_IM_Cod.ToString());
+                int valorRetornadoStoc = objCtrMoldura.StockMoldura_(obj);
+                _log.CustomWriteOnLog("Realizar venta 1", "valorRetornadoStoc = " + valorRetornadoStoc);
+                _log.CustomWriteOnLog("Realizar venta 1", "cantidadMoldura = " + cantidadMoldura);
+
+                int nuevostock = valorRetornadoStoc - int.Parse(cantidadMoldura);
+                obj.IM_Stock = nuevostock;
+                _log.CustomWriteOnLog("Realizar venta 1", "nuevostock = " + nuevostock);
+
+
+
+                objDtoMolduraxUsuario.FK_VU_Cod = txtIdentificadorUsuario.Text;
+                objDtoMolduraxUsuario.FK_IM_Cod = int.Parse(codigoMoldura);
+                objDtoMolduraxUsuario.IMU_Cantidad = int.Parse(cantidadMoldura);
+                objDtoMolduraxUsuario.DMU_Precio = double.Parse(subtotalMoldura);
+                objDtoMolduraxUsuario.FK_IS_Cod = ValorDevuelto;
+                objCtrMolduraxUsuario.registrarNuevaMoldura2(objDtoMolduraxUsuario);
+                objCtrMoldura.ActualizarStockxMoldura(obj);
+
+                _log.CustomWriteOnLog("Realizar venta 1", "Registro moldura : " + codigoMoldura + " para el usuario " + txtIdentificadorUsuario.Text);
+
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','Pago REGISTRADO!!','success');</script>");
+                Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage2()");
+            }
         }
+        catch (Exception ex)
+        {
+            _log.CustomWriteOnLog("Realizar venta 1", "btnboleta_Click error  : " + ex.Message);
+        }
+
     }
 
     protected void btnfactura_Click(object sender, EventArgs e)
@@ -181,6 +209,20 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
             updPanelGVDetalle.Update();
             gvdetalle.DataBind();
+
+            //VALIDACION DE CHECBOX _ ALVARO = EL js llena el valor del textbox oculto con ID valorObtenidoRBTN
+
+
+            if (valorObtenidoRBTN.Value == "1")
+            {
+                _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
+            }
+            else if (valorObtenidoRBTN.Value == "2")
+            {
+                _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
+            }
+
+
         }
         catch (Exception ex)
         {
@@ -211,8 +253,12 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 _log.CustomWriteOnLog("Realizar venta 1", "PRECIO APROX DE COMPRA   : " + precioAprox.ToString());
                 txtsubtotal.Text = precioAprox.ToString();
                 updPanelSubTotal.Update();
+
+                //actualiza al importe total
+                txtimporttot.Text = precioAprox.ToString();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Subtotal calculado', 'bottom', 'center', null, null);", true);
             }
+
             else
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No se tiene el stock suficiente para proceder', 'bottom', 'center', null, null);", true);
@@ -308,5 +354,35 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
     protected void gv2_SelectedIndexChanged(object sender, EventArgs e)
     {
 
+    }
+
+    public void OpcionesTipoMoldura()
+    {
+        DataSet ds = new DataSet();
+        ds = objCtrMoldura.OpcionesTipoMoldura();
+        ddlTipoMoldura.DataSource = ds;
+        ddlTipoMoldura.DataTextField = "VTM_Nombre";
+        ddlTipoMoldura.DataValueField = "PK_ITM_Tipo";
+        ddlTipoMoldura.DataBind();
+        ddlTipoMoldura.Items.Insert(0, new ListItem("Seleccione", "0"));
+
+    }
+
+    protected void btnCalcularPersonalizado_Click(object sender, EventArgs e)
+    {
+        double aprox;
+        if (ddlTipoMoldura.SelectedValue != "0")
+        {
+            objDtoMoldura.FK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
+            aprox = objCtrMoldura.Aprox(objDtoMoldura);
+            txtpriceaprox.Text = Convert.ToString(aprox);
+            if (aprox == 0)
+            {
+                txtpriceaprox.Text = "";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No hay Tipo de moldura seleccionado!', 'bottom', 'center', null, null);", true);
+                return;
+            }
+            UpdatePanel2.Update();
+        }
     }
 }
