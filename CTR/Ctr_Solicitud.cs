@@ -52,9 +52,19 @@ namespace CTR
             return objDaoSolicitud.CantidadSolicitudes();
         }
 
-        public DataTable TablaConsultaEstado(DtoSolicitud objsolicitud)
+        public DataTable TablaConsultaEstado(DtoSolicitud objsolicitud, DtoMolduraxUsuario objmxu)
         {
-            return objDaoSolicitud.ConsultarEstadoPago(objsolicitud);
+            return objDaoSolicitud.ConsultarEstadoPago(objsolicitud,objmxu);
+        }
+
+        public void RegistrarSolicitud_PxC(DtoSolicitud objsolicitud)
+        {
+            objDaoSolicitud.RegistrarSolicitud_PxC(objsolicitud);
+        }
+
+        public void RegistrarSolicitud_PxDP(DtoSolicitud objsolicitud)
+        {
+            objDaoSolicitud.RegistrarSolicitud_PxPD(objsolicitud);
         }
 
     }

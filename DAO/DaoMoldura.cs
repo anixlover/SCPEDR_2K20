@@ -226,22 +226,31 @@ namespace DAO
         }
         public int StockMoldura(DtoMoldura objMoldura)
         {
-            SqlConnection con=new SqlConnection(@"data source=ALE\SQLEXPRESS; initial catalog=BD_SCPEDR; integrated security=SSPI;");
-            int valor_retornado = 0;
-            SqlCommand cmd = new SqlCommand("SELECT IM_Stock FROM T_Moldura WHERE PK_IM_Cod="+ objMoldura.PK_IM_Cod,con);
-            
-            Console.WriteLine(cmd);
-            con.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            if (reader.Read())
+            try
             {
-                valor_retornado = int.Parse(reader[0].ToString());
+                SqlConnection con = new SqlConnection(@"data source=LAPTOP-UEI1JFVM; initial catalog=BD_SCPEDR; integrated security=SSPI;");
+                int valor_retornado = 0;
+                SqlCommand cmd = new SqlCommand("SELECT IM_Stock FROM T_Moldura WHERE PK_IM_Cod=" + objMoldura.PK_IM_Cod, con);
 
+                Console.WriteLine(cmd);
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    valor_retornado = int.Parse(reader[0].ToString());
+
+                }
+                con.Close();
+
+                return valor_retornado;
             }
-            con.Close();
+            catch (Exception)
+            {
 
-            return valor_retornado;
+                throw;
+            }
+            
         }
         public void PrecioAprox(DtoMoldura objMoldura)
         {
@@ -280,5 +289,17 @@ namespace DAO
             conexion.Close();
             return Convert.ToDouble(ultimo);**/
         }
+
+        public void ActualizarStockxMoldura(DtoMoldura objmoldura)
+        {
+            SqlCommand command = new SqlCommand("SP_Actualizar_Stock_Moldura", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@idMol", objmoldura.PK_IM_Cod);
+            command.Parameters.AddWithValue("@stock", objmoldura.IM_Stock);
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
+
     }
 }

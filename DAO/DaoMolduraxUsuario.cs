@@ -31,16 +31,19 @@ namespace DAO
         }
         public void InsertarMolduraxUsuariox2(DtoMolduraxUsuario objMolduraxUsuario)
         {
-            SqlCommand command = new SqlCommand("SP_Registrar_MXU_C_2", conexion);
+            SqlCommand command = new SqlCommand("SP_Registrar_MXU_C_3", conexion);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@idU", objMolduraxUsuario.FK_VU_Cod);
             command.Parameters.AddWithValue("@idM", objMolduraxUsuario.FK_IM_Cod);
             command.Parameters.AddWithValue("@cant", objMolduraxUsuario.IMU_Cantidad);
             command.Parameters.AddWithValue("@pre", objMolduraxUsuario.DMU_Precio);
-            command.Parameters.AddWithValue("@fkSolCod", objMolduraxUsuario.FK_IS_Cod);
-
+            command.Parameters.Add("@newId", SqlDbType.Int).Direction = ParameterDirection.Output;
             conexion.Open();
-            command.ExecuteNonQuery();
+
+            using (SqlDataReader dr = command.ExecuteReader())
+            {
+                objMolduraxUsuario.PK_IMU_Cod = Convert.ToInt32(command.Parameters["@newId"].Value);
+            }
             conexion.Close();
         }
         public DataTable ListarMXU(DtoMolduraxUsuario objmxu)
@@ -124,9 +127,12 @@ namespace DAO
             command.Parameters.AddWithValue("@idM", objMolduraxUsuario.FK_IM_Cod);
             command.Parameters.AddWithValue("@cant", objMolduraxUsuario.IMU_Cantidad);
             command.Parameters.AddWithValue("@pre", objMolduraxUsuario.DMU_Precio);
-
+            command.Parameters.Add("@NewId", SqlDbType.Int).Direction = ParameterDirection.Output;
             conexion.Open();
-            command.ExecuteNonQuery();
+            using (SqlDataReader dr = command.ExecuteReader())
+            {
+                objMolduraxUsuario.PK_IMU_Cod = Convert.ToInt32(command.Parameters["@NewId"].Value);
+            }
             conexion.Close();
         }
         

@@ -37,7 +37,6 @@ public partial class DescripcionMolduraU : System.Web.UI.Page
         catch (Exception ex)
         {
             _log.CustomWriteOnLog("DescripcionMoldura", "Error = " + ex.Message + "Stac" + ex.StackTrace);
-
             throw;
         }
     }
