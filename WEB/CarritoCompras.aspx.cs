@@ -169,7 +169,7 @@ public partial class CarritoCompras : System.Web.UI.Page
                             _log.CustomWriteOnLog("carrito de compra", "objDtoMXU.PK_IMU_Cod :" + objDtoMXU.PK_IMU_Cod.ToString());
                             _log.CustomWriteOnLog("carrito de compra", "objDtoMXU.IMU_Cantidadr :" + objDtoMXU.IMU_Cantidad.ToString());
                             _log.CustomWriteOnLog("carrito de compra", "objDtoMXU.DMU_Precio :" + objDtoMXU.DMU_Precio.ToString());
-
+                            
                             objCtrMXU.actualizarMXU(objDtoMXU);
                             _log.CustomWriteOnLog("carrito de compra", "Paso funcion :");
 
@@ -180,7 +180,7 @@ public partial class CarritoCompras : System.Web.UI.Page
                             gvCarrito.DataSource = objCtrMXU.listarMoldurasxusuario(objDtoMXU);
                             _log.CustomWriteOnLog("carrito de compra", "listarmolduraxusuario paso");
                             Utils.AddScriptClientUpdatePanel(UpdatePanel, "showSuccessMessage2()");
-
+                            
                             gvCarrito.DataBind();
 
                         }

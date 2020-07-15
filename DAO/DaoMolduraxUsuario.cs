@@ -124,9 +124,12 @@ namespace DAO
             command.Parameters.AddWithValue("@idM", objMolduraxUsuario.FK_IM_Cod);
             command.Parameters.AddWithValue("@cant", objMolduraxUsuario.IMU_Cantidad);
             command.Parameters.AddWithValue("@pre", objMolduraxUsuario.DMU_Precio);
-
+            command.Parameters.Add("@NewId", SqlDbType.Int).Direction = ParameterDirection.Output;
             conexion.Open();
-            command.ExecuteNonQuery();
+            using (SqlDataReader dr = command.ExecuteReader())
+            {
+                objMolduraxUsuario.PK_IMU_Cod = Convert.ToInt32(command.Parameters["@NewId"].Value);
+            }
             conexion.Close();
         }
         
