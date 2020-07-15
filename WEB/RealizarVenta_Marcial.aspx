@@ -58,7 +58,7 @@
                                     <div class="col-md-5">
 
                                         <div class="col-sm-12">
-                                            <asp:HiddenField runat="server" ID="valorObtenidoRBTN" ClientIDMode="Static" />
+                                           
                                             <div class="col-sm-10">
                                                 <div class="form-group form-float">
                                                     <asp:Label ID="lbldni" runat="server" class="form-label"><b>Ingrese el DNI del cliente</b></asp:Label>
@@ -182,6 +182,7 @@
                                                 </div>
                                             </div>
 
+                                             <input type="hidden" runat="server" ID="valorObtenidoRBTN" ClientIDMode="Static" />
                                             <%--ddl pedido por--%>
                                              <asp:Panel runat="server" ID="Panel3">
                                                 <div class="row">

@@ -185,6 +185,20 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
             updPanelGVDetalle.Update();
             gvdetalle.DataBind();
+
+            //VALIDACION DE CHECBOX _ ALVARO = EL js llena el valor del textbox oculto con ID valorObtenidoRBTN
+
+
+            if (valorObtenidoRBTN.Value == "1")
+            {
+                _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
+            }
+            else if(valorObtenidoRBTN.Value == "2")
+            {
+                _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
+            }
+
+
         }
         catch (Exception ex)
         {

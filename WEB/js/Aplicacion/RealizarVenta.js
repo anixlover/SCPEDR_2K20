@@ -16,6 +16,17 @@
     });
 
 
+    $('input[type=radio][name=TipoPedido]').change(function () {
+        if (this.value == '1') {
+            $("#valorObtenidoRBTN").val('1');
+        }
+        else if (this.value == '2') {
+            $("#valorObtenidoRBTN").val('2');
+        }
+        console.log($("#valorObtenidoRBTN").val());
+
+    });
+
 
     $('input[type=radio][name=identificadorUsuario]').change(function () {
         if (this.value == '1') {
