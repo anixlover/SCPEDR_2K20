@@ -313,7 +313,7 @@
                 closeOnCancel: true
             }, function (isConfirm) {
                 if (isConfirm) {
-                    window.location.href = "Paginadesolicitudes.aspx";
+                    window.location.href = "ConsultarEstadoPago.aspx";
                 } else {
                     $('#exampleModal').modal('hide');
                 }

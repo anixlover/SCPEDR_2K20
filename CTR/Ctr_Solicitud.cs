@@ -52,9 +52,9 @@ namespace CTR
             return objDaoSolicitud.CantidadSolicitudes();
         }
 
-        public DataTable TablaConsultaEstado(DtoSolicitud objsolicitud)
+        public DataTable TablaConsultaEstado(DtoSolicitud objsolicitud, DtoMolduraxUsuario objmxu)
         {
-            return objDaoSolicitud.ConsultarEstadoPago(objsolicitud);
+            return objDaoSolicitud.ConsultarEstadoPago(objsolicitud,objmxu);
         }
 
     }
