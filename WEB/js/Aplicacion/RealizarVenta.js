@@ -22,6 +22,7 @@
         }
         else if (this.value == '2') {
             $("#valorObtenidoRBTN").val('2');
+
         }
         console.log($("#valorObtenidoRBTN").val());
 

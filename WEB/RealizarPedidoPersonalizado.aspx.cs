@@ -204,7 +204,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 objCtrSolicitud.RegistrarSolcitud_PP(objDtoSolicitud);
                 int Nsolicitud = objDtoSolicitud.PK_IS_Cod;
                 Utils.AddScriptClientUpdatePanel(upBotonEnviar,"uploadFileDocumentsSolicitud(" + objDtoSolicitud.PK_IS_Cod + ");");
-                Utils.AddScriptClient("showSuccessMessage2()");
+                    Utils.AddScriptClient("showSuccessMessage2()");
                 _log.CustomWriteOnLog("pedido personalizado", "PK_IS_Cod valor retornado " + objDtoSolicitud.PK_IS_Cod);
                 _log.CustomWriteOnLog("pedido personalizado", "Agregado");
                 _log.CustomWriteOnLog("pedido personalizado", "Completado");

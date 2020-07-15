@@ -57,5 +57,15 @@ namespace CTR
             return objDaoSolicitud.ConsultarEstadoPago(objsolicitud,objmxu);
         }
 
+        public void RegistrarSolicitud_PxC(DtoSolicitud objsolicitud)
+        {
+            objDaoSolicitud.RegistrarSolicitud_PxC(objsolicitud);
+        }
+
+        public void RegistrarSolicitud_PxDP(DtoSolicitud objsolicitud)
+        {
+            objDaoSolicitud.RegistrarSolicitud_PxPD(objsolicitud);
+        }
+
     }
 }
