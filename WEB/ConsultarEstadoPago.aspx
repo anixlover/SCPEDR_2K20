@@ -23,12 +23,13 @@
             </Columns>
         </asp:GridView>--%>
                 
-                <asp:GridView ID="gvConsultar" DataKeyNames="PK_IS_Cod" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" AutoGenerateColumns="false"  OnRowCommand="gvConsultar_RowCommand" OnSelectedIndexChanged="gvConsultar_SelectedIndexChanged">
+                <asp:GridView ID="gvConsultar" DataKeyNames="PK_IS_Cod" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" AutoGenerateColumns="false"  OnRowCommand="gvConsultar_RowCommand" OnSelectedIndexChanged="gvConsultar_SelectedIndexChanged" OnRowDataBound="gvConsultar_RowDataBound">
                 <Columns>
                 <asp:BoundField DataField="PK_IS_Cod" HeaderText="Cod solicitud" />
                 <asp:BoundField DataField="DTS_FechaEmicion" HeaderText="Fecha" />
                 <asp:BoundField DataField="VS_TipoSolicitud" HeaderText="Tipo" />
                 <asp:BoundField DataField="DS_ImporteTotal" HeaderText="Importe" />
+                <asp:BoundField DataField="V_SE_Nombre" HeaderText="Estado" />
                 <asp:ButtonField ButtonType="button" HeaderText="Accion"  CommandName="Pago" Text="Pago"> 
                     <ControlStyle CssClass="btn btn-warning" />
                 </asp:ButtonField>

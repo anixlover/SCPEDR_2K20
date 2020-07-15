@@ -47,6 +47,8 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
 
     protected void gvConsultar_RowCommand(object sender, GridViewCommandEventArgs e)
     {
+        
+
         if (e.CommandName == "Pago")
         {
             try
@@ -65,6 +67,7 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
                 _log.CustomWriteOnLog("consultar estado de pago", ex.Message + "Stac" + ex.StackTrace);
             }
         }
+        
 
     }
 
@@ -78,5 +81,10 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
     protected void gvConsultar_SelectedIndexChanged(object sender, EventArgs e)
     {
 
+    }
+
+    protected void gvConsultar_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        
     }
 }
