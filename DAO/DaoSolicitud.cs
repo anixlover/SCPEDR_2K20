@@ -25,7 +25,6 @@ namespace DAO
             command.Parameters.AddWithValue("@cantidad", objsolicitud.IS_Cantidad);
             command.Parameters.AddWithValue("@impt", objsolicitud.DS_ImporteTotal);
             command.Parameters.AddWithValue("@comen", objsolicitud.VS_Comentario);
-            command.Parameters.AddWithValue("@femi", objsolicitud.DTS_FechaEmicion);
             command.Parameters.AddWithValue("@epago", objsolicitud.IS_EstadoPago);
             command.Parameters.Add("@NewId", SqlDbType.Int).Direction = ParameterDirection.Output;
             conexion.Open();
@@ -49,7 +48,6 @@ namespace DAO
             command.Parameters.AddWithValue("@cantidad", objsolicitud.IS_Cantidad);
             command.Parameters.AddWithValue("@aprox", objsolicitud.DS_PrecioAprox);
             command.Parameters.AddWithValue("@comen", objsolicitud.VS_Comentario);
-            command.Parameters.AddWithValue("@femi", objsolicitud.DTS_FechaEmicion);
             command.Parameters.AddWithValue("@epago", objsolicitud.IS_EstadoPago);
             command.Parameters.Add("@NewId", SqlDbType.Int).Direction = ParameterDirection.Output;
             conexion.Open();
