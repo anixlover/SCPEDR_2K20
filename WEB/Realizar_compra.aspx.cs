@@ -23,7 +23,7 @@ public partial class Realizar_compra : System.Web.UI.Page
     SqlConnection conexion = new SqlConnection("data source=(Local); initial catalog=BD_SCPEDR; integrated security=SSPI;");
     protected void Page_Load(object sender, EventArgs e)
     {
-        Label5.Text = "71257736";
+        
         if (!IsPostBack)
         {
             txtnewRUC.Visible = false;
@@ -31,9 +31,15 @@ public partial class Realizar_compra : System.Web.UI.Page
             checkboxRUC.Visible = false;
             lblRUC.Visible = false;
             rbBoleta.Checked = true;
-            lblfecha.Text = DateTime.Today.Date.ToString();
+            lblfecha.Text = DateTime.Today.Date.ToString();            
+        }
+
+        if (Session["DNIUsuario"] != null | Session["idSolicitudPago"]!=null)
+        {
             CargarRUCS();
         }
+        else
+            Response.Redirect("Login.aspx");
     }
 
     protected void rbBoleta_CheckedChanged(object sender, EventArgs e)
@@ -66,13 +72,14 @@ public partial class Realizar_compra : System.Web.UI.Page
     }
     public void CargarRUCS()
     {
-        string select = "select VDF_RUC from T_DatoFactura where FK_VU_Dni='" + Label5.Text + "'";
+        string select = "select VDF_RUC from T_DatoFactura where FK_VU_Dni='" + Session["DNIUsuario"].ToString() + "'";
         SqlCommand unComando = new SqlCommand(select, conexion);
         conexion.Open();
         ddlRUC.DataSource = unComando.ExecuteReader();
         ddlRUC.DataTextField = "VDF_RUC";
         ddlRUC.DataValueField = "VDF_RUC";
         ddlRUC.DataBind();
+        conexion.Close();
     }
 
     protected void btnEnviar_Click(object sender, EventArgs e)
@@ -99,7 +106,7 @@ public partial class Realizar_compra : System.Web.UI.Page
                 objfactura.PK_IDF_Cod = ultimo + 1;
                 objfactura.VDF_RazonSocial = "";
                 objfactura.IDF_RUC = txtnewRUC.Text;
-                objfactura.FK_VU_DNI = Label5.Text;
+                objfactura.FK_VU_DNI = Session["DNIUsuario"].ToString();
                 objpago.IP_TipoCertificado = 2;
                 objpago.VP_RUC = txtnewRUC.Text;
                 objfacturaneg.RegistrarDatoFactura(objfactura);
@@ -115,7 +122,7 @@ public partial class Realizar_compra : System.Web.UI.Page
                 objpago.VP_RUC = "";
                 objpago.IP_TipoCertificado = 1;
             }
-            objpago.FK_IS_Cod = 1;
+            objpago.FK_IS_Cod = Convert.ToInt32(Session["idSolicitudPago"].ToString());
             objpago.DP_ImportePagado = Convert.ToDouble(txtImporte.Text);
             double costo = objpagoneg.Costo(objpago);
 
@@ -131,7 +138,7 @@ public partial class Realizar_compra : System.Web.UI.Page
             }
             objsol = new DtoSolicitud();
             objsolneg = new Ctr_Solicitud();
-            objsol.PK_IS_Cod = 1;
+            objsol.PK_IS_Cod = Convert.ToInt32(Session["idSolicitudPago"].ToString());
 
             objvou = new DtoVoucher();
             objvouneg = new CtrVoucher();

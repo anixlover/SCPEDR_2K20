@@ -113,8 +113,8 @@ body {
 /** Globales **/
 
 .contenedor {
-  width: 95%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0 auto 0 0px;
 }
 
 @media only screen and (min-width:480px){
@@ -680,8 +680,9 @@ div.descripcion-moldura {
 /**HTML REGISTRAR CLIENTE EXTERNO**/
 
 .registrar-cliente {
-    padding: 0 35%;
+    padding: 0 27%;
     text-align: center;
+    align-items: center;
 }
 
     .registrar-cliente :indeterminate {
@@ -699,7 +700,7 @@ div.descripcion-moldura {
 .formulario {
     background: #fdfbfb;
     padding: 21px;
-    width: 364px;
+    width: 470px;
     margin-left: 0px;
 }
 
@@ -712,7 +713,7 @@ div.descripcion-moldura {
 .entrada {
     margin-bottom: 10px;
     border: 1px solid #aaa;
-    width: 334px;
+    width: 430px;
 }
 
 
