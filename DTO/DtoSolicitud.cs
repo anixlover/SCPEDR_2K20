@@ -25,5 +25,7 @@ namespace DTO
         public string FK_VU_Dni { get; set; }
         //
         public int FK_ISE_Cod { get; set; }
+
+        public int error { get; set; }
     }
 }
