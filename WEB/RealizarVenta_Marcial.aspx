@@ -26,7 +26,8 @@
                                             <div class="form-group form-float">
                                                 <asp:UpdatePanel runat="server" UpdateMode="Conditional" ID="updPanelddl" ClientIDMode="Static">
                                                     <ContentTemplate>
-                                                        <asp:DropDownList runat="server" ID="ddl_TipoComprobante" ClientIDMode="Static" CssClass=" bootstrap-select form-control" OnSelectedIndexChanged="ddl_TipoComprobante_SelectedIndexChanged">
+                                                        <asp:DropDownList runat="server" ID="ddl_TipoComprobante" ClientIDMode="Static"
+                                                            CssClass=" bootstrap-select form-control" OnSelectedIndexChanged="ddl_TipoComprobante_SelectedIndexChanged">
                                                             <asp:ListItem Text="Seleccionar" Selected="True" />
                                                             <asp:ListItem Value="1" Text="Boleta" />
                                                             <asp:ListItem Value="2" Text="Factura" />
@@ -168,33 +169,18 @@
                                                     </div>
 
                                                 </div>
+
+                                                
+
                                                 <div class="col-lg-6">
                                                     <div class="demo-checkbox">
                                                         <div class="demo-radio-button">
-                                                            <input runat="server" type="radio" id="cbx_Personalizado" name="TipoPedido" class="radio-col-red" value="2" />
+                                                            <input  type="radio" id="cbx_Personalizado" name="TipoPedido" class="radio-col-red" value="2" />
                                                             <label for="cbx_Personalizado">Personalizado</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                           <%-- <div class="col-sm-12" id="ddlPedidoMuestra" runat="server" hidden clientidmode="Static">
-                                                <asp:HiddenField runat="server" ID="HiddenField2" ClientIDMode="Static" />
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="col-sm-12">
-                                                            <div id="ddl2" class="form-group form-float">
-                                                                <asp:DropDownList runat="server" ID="ddlPedidoPor" CssClass=" bootstrap-select form-control" OnSelectedIndexChanged="ddl_TipoComprobante_SelectedIndexChanged" AutoPostBack="True">
-                                                                    <asp:ListItem Text="Seleccionar" Selected="True" />
-                                                                    <asp:ListItem Value="1" Text="Catalogo" />
-                                                                    <asp:ListItem Value="2" Text="Diseño propio" />
-                                                                </asp:DropDownList>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>--%>
 
                                             <%--ddl pedido por--%>
                                              <asp:Panel runat="server" ID="Panel3">
@@ -205,7 +191,8 @@
                                                                 <asp:UpdatePanel runat="server" UpdateMode="Conditional"  ID="ddlPedidoMuestra" ClientIDMode="Static">
                                                                     <ContentTemplate>
                                                                     <asp:Label ID="Label6" runat="server" class="form-label"><b>Por :</b></asp:Label>
-                                                                        <asp:DropDownList runat="server"  ID="ddlPedidoPor" ClientIDMode="Static" CssClass=" bootstrap-select form-control" OnSelectedIndexChanged="ddl_TipoComprobante_SelectedIndexChanged">
+                                                                        <asp:DropDownList runat="server"  ID="ddlPedidoPor" ClientIDMode="Static" 
+                                                                            CssClass=" bootstrap-select form-control" OnSelectedIndexChanged="ddl_TipoComprobante_SelectedIndexChanged">
                                                                             <asp:ListItem Text="Seleccionar" Selected="True" />
                                                                             <asp:ListItem Value="1" Text="Catalogo" />
                                                                             <asp:ListItem Value="2" Text="Diseño Propio" />
@@ -279,6 +266,19 @@
                                                                         </ContentTemplate>
                                                                     </asp:UpdatePanel>
                                                                 </div>
+
+                                                            <%--btn send personalizado--%>
+                                                            <div class="form-group form-float">
+                                                                    <asp:UpdatePanel runat="server"  UpdateMode="Conditional">
+                                                                        <ContentTemplate>
+                                                                                <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn bg-indigo waves-effect"
+                                                                                    Style="float: right" Width="100%" Text="Enviar"
+                                                                                    OnClick="btnboleta_Click">  Enviar
+                                                                                        </asp:LinkButton>
+                                                                        </ContentTemplate>
+                                                                    </asp:UpdatePanel>
+                                                            </div>
+                                                            <br />  
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>
                                                 </div>

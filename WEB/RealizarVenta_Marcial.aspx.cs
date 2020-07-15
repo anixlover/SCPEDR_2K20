@@ -215,13 +215,12 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 _log.CustomWriteOnLog("Realizar venta 1", "PRECIO APROX DE COMPRA   : " + precioAprox.ToString());
                 txtsubtotal.Text = precioAprox.ToString();
                 updPanelSubTotal.Update();
+
+                //actualiza al importe total
+                txtimporttot.Text = precioAprox.ToString(); 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Subtotal calculado', 'bottom', 'center', null, null);", true);
             }
-            else if (cbx_Personalizado.Checked == true)
-            {
-                txtimporttot.Text = precioAprox.ToString();
-                panelImpoTot.Update();
-            }
+           
             else
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'No se tiene el stock suficiente para proceder', 'bottom', 'center', null, null);", true);
@@ -334,7 +333,6 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
     protected void btnCalcularPersonalizado_Click(object sender, EventArgs e)
     {
         double aprox;
-
         if (ddlTipoMoldura.SelectedValue != "0")
         {
             objDtoMoldura.FK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
