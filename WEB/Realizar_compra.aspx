@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
      <style type="text/css">
         .salto {
-            width: 257px;
+            width: 430px;
         }
     </style>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
@@ -22,20 +22,17 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-     <section class="seccion contenedor clearfix">
+     <section class="seccion contenedor clearfix" style="align-items:center">
         <h2>Realizar Compra</h2>
          <div style="text-align: center">
              <asp:Label ID="Label3" runat="server" Text="N° de cuenta a Depositar: XXXXXXXXXX"></asp:Label>
              <br />
              <asp:Label ID="Label4" runat="server" Text="Titular de la cuenta: XXXXXXXXXX"></asp:Label>
              <br />
-             <asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>
-             <br />
          </div>         
         <div class="registrar-cliente">
-
             <div class="formulario">                    
-                    <div class="entrada" style="text-align: center; align-items:center">                        
+                    <div class="entrada" style="align-content: center">                        
                         Imagen del voucher:<br />
                         &nbsp;<asp:Image ID="Image1" runat="server" class="rounded"/>
                             <asp:FileUpload ID="FileUpload1" accept="image/*" runat="server" onchange="ImagePreview(this);" ForeColor="Black" style="color:transparent" Width="152px"/>
@@ -51,7 +48,7 @@
                     </div>
                     <div class="entrada">
                         <asp:Label ID="Label2" runat="server" Text="Importe:                                  "></asp:Label>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:TextBox ID="txtImporte" name="texto" runat="server" class="controls" type="text" step="any" BackColor="white" BorderColor="Black"></asp:TextBox>
                     </div>
                     <div class="entrada"style="text-align: center">

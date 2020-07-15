@@ -63,7 +63,7 @@
                                                 <div class="form-group form-float">
                                                     <asp:Label ID="lbldni" runat="server" class="form-label"><b>Ingrese el DNI del cliente</b></asp:Label>
                                                     <div class="form-line">
-                                                        <asp:TextBox ID="txtIdentificadorUsuario" class="form-control" runat="server" type="text" ClientIDMode="Static"></asp:TextBox>
+                                                        <asp:TextBox placeholder="Ej: 74588841"  ID="txtIdentificadorUsuario" class="form-control" runat="server" type="text" ClientIDMode="Static"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -233,13 +233,13 @@
                                                                 <div class="form-group form-float">
                                                                     <asp:Label ID="Label7" runat="server" class="form-label"><b>Medida(mt)</b></asp:Label>
                                                                     <div class="form-line">
-                                                                        <asp:TextBox ID="TextBox2" class="form-control" runat="server"></asp:TextBox>
+                                                                        <asp:TextBox ID="txtmedidaDP" PlaceHolder ="Ej: 20" class="form-control" runat="server"></asp:TextBox>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group form-float">
-                                                                    <asp:Label ID="Label8" runat="server" class="form-label"><b>Cantidad(mt)</b></asp:Label>
+                                                                    <asp:Label ID="Label8" runat="server" class="form-label"><b>Cantidad(u)</b></asp:Label>
                                                                     <div class="form-line">
-                                                                        <asp:TextBox ID="TextBox3" class="form-control" runat="server"></asp:TextBox>
+                                                                        <asp:TextBox ID="txtcantidadDP" PlaceHolder ="Ej: 5" class="form-control" runat="server"></asp:TextBox>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group form-float">
@@ -252,9 +252,9 @@
                                                                 </div>
 
                                                                 <div class="form-group form-float">
-                                                                    <asp:Label ID="Label9" runat="server" class="form-label"><b>Precio Aprox S/.</b></asp:Label>
+                                                                    <asp:Label ID="Label9" runat="server" class="form-label" ><b>Precio Aprox S/.</b></asp:Label>
                                                                     <div class="form-line">
-                                                                        <asp:TextBox ID="txtpriceaprox" class="form-control" runat="server"></asp:TextBox>
+                                                                        <asp:TextBox ID="txtpriceaprox" class="form-control" runat="server" ></asp:TextBox>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group form-float">
@@ -272,9 +272,9 @@
                                                                 <div class="form-group form-float">
                                                                     <asp:UpdatePanel runat="server" UpdateMode="Conditional">
                                                                         <ContentTemplate>
-                                                                            <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn bg-indigo waves-effect"
+                                                                            <asp:LinkButton ID="btnEnviar1" runat="server" CssClass="btn bg-indigo waves-effect"
                                                                                 Style="float: right" Width="100%" Text="Enviar"
-                                                                                OnClick="btnboleta_Click">  Enviar
+                                                                                OnClick="btnEnviar1_Click">  Enviar
                                                                             </asp:LinkButton>
                                                                         </ContentTemplate>
                                                                     </asp:UpdatePanel>
@@ -296,11 +296,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="col-sm-12">
-                                                <asp:Label ID="txtcodproducto" runat="server" class="form-label"><b>Codigo</b></asp:Label>
+                                                <asp:Label ID="txtcodproducto" runat="server" class="form-label"><b>Codigo Producto</b></asp:Label>
                                                 <div class="form-group form-float">
                                                     <div class="col-sm-10">
                                                         <div class="form-line">
-                                                            <asp:TextBox ID="txtcodigo" class="form-control" runat="server" type="text"
+                                                            <asp:TextBox ID="txtcodigo" placeholder="Ej: 950" class="form-control" runat="server" type="text"
                                                                 pattern="[0-8]+" MinLength="8" MaxLength="8"></asp:TextBox>
                                                         </div>
                                                     </div>
@@ -308,8 +308,10 @@
                                                     <div class="col-sm-2 right">
                                                         <asp:UpdatePanel runat="server">
                                                             <ContentTemplate>
-                                                                <asp:LinkButton runat="server" ID="btnBuscarProducto" CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float" OnClick="btnBuscarProducto_Click">
-                                                        <i class="material-icons">person_search</i>
+                                                                <asp:LinkButton runat="server" ID="btnBuscarProducto" 
+                                                                    CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float" 
+                                                                    OnClick="btnBuscarProducto_Click">
+                                                                <i class="material-icons">person_search</i>
                                                                 </asp:LinkButton>
                                                             </ContentTemplate>
                                                         </asp:UpdatePanel>
@@ -327,7 +329,7 @@
 
                                                         <div class="col-sm-10">
                                                             <div class="form-line">
-                                                                <asp:TextBox ID="txtcantidad" class="form-control" runat="server"></asp:TextBox>
+                                                                <asp:TextBox ID="txtcantidad" placeholder="Ej: 2" class="form-control" runat="server"></asp:TextBox>
                                                             </div>
                                                         </div>
                                                         <%--btn calcular--%>
@@ -366,16 +368,23 @@
 
 
                                         <%--calendar--%>
-                                        <div class="col-md-12">
-                                            <div class="col-sm-12" id="IdCalendar" runat="server" hidden clientidmode="Static">
-                                                <asp:Label ID="Label4" runat="server" class="form-label"><b>Fecha de entrega:</b></asp:Label>
-                                                <asp:HiddenField runat="server" ID="HiddenField3" ClientIDMode="Static" />
-                                                <div class="body table-responsive ">
+                                        <asp:UpdatePanel runat="server" UpdateMode="Conditional">
 
-                                                    <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+                                            <ContentTemplate>
+
+                                                <div class="col-md-12">
+
+                                                    <div class="col-sm-12" id="IdCalendar" runat="server" clientidmode="Static">
+                                                        <asp:Label ID="Label4" runat="server" class="form-label"><b>Fecha de entrega:</b></asp:Label>
+                                                        <asp:HiddenField runat="server" ID="HiddenField3" ClientIDMode="Static" />
+                                                        <div class="body table-responsive ">
+
+                                                            <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
 
                                         <%--subtotal--%>
                                         <div class="col-sm-12" id="divSubAddGv" runat="server" hidden clientidmode="Static">
@@ -403,9 +412,10 @@
                                                             <div class="col-sm-2 right">
                                                                 <asp:UpdatePanel runat="server">
                                                                     <ContentTemplate>
-                                                                        <asp:LinkButton runat="server" ID="btnagregar" CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float"
+                                                                        <asp:LinkButton runat="server" ID="btnagregar" 
+                                                                            CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float"
                                                                             OnClick="btnagregar_Click">
-                                                                <i class="material-icons">add</i>
+                                                                            <i class="material-icons">add</i>
                                                                         </asp:LinkButton>
                                                                     </ContentTemplate>
                                                                 </asp:UpdatePanel>
@@ -450,6 +460,8 @@
                                                                         <asp:TextBox ID="txtimporttot" class="form-control" runat="server" type="text" Value="0"
                                                                             pattern="[0-8]+" ReadOnly>
                                                                         </asp:TextBox>
+                                                                       
+
                                                                     </ContentTemplate>
                                                                 </asp:UpdatePanel>
 
@@ -468,13 +480,13 @@
                                                             <div runat="server" id="Divbtn" class="col-sm-6 left">
                                                                 <asp:LinkButton ID="btnEnviar" runat="server" CssClass="btn bg-indigo waves-effect"
                                                                     Style="float: right" Width="100%" Text="Enviar"
-                                                                    OnClick="btnboleta_Click">  Enviar
+                                                                    OnClick="btnEnviar_Click">  Enviar
                                                                 </asp:LinkButton>
                                                             </div>
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>
                                                 </div>
-                                            </div>
+                                            </div>  
                                         </div>
                                     </div>
                                 </div>
@@ -497,10 +509,10 @@
                                 <div class="row ">
                                     <div class="col-sm-8">
                                         <div class="form-group form-float">
-                                            <asp:Label ID="lblmontopagado" runat="server" class="form-label"><b>Monto pagado</b></asp:Label>
+                                            <asp:Label ID="lblmontopagado" runat="server" class="form-label"><b>Monto pagado S/.</b></asp:Label>
 
                                             <div class="form-line ">
-                                                <input type="number" id="txtmontopagado" class="form-control" runat="server" onkeyup="CalcularVuelto()" clientidmode="Static" />
+                                                <input type="number" placeholder="Ej: 100" id="txtmontopagado" class="form-control" runat="server" onkeyup="CalcularVuelto()" clientidmode="Static" />
                                             </div>
 
                                         </div>
