@@ -52,19 +52,20 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 if (Session["DNIUsuario"] != null)
                 {
                     objDtoMXU.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                    objDtoMXU.FK_IM_Cod = Convert.ToInt32(Session["idMoldura"]);
                 }
                 else
                 {
                     Response.Redirect("Login.aspx");
                 }
-                if (Session["idMoldura"] != null)
-                {
-                    objDtoMXU.FK_IM_Cod = Convert.ToInt32(Session["idMoldura"]);
-                }
-                else
-                {
-                    Response.Redirect("~/RealizarPedidoPersonalizado.aspx");
-                }
+                //if (Session["idMoldura"] != null)
+                //{
+                //    objDtoMXU.FK_IM_Cod = Convert.ToInt32(Session["idMoldura"]);
+                //}
+                //else
+                //{
+                //    Response.Redirect("~/RealizarPedidoPersonalizado.aspx");
+                //}
             }
             catch (Exception ex)
             {
@@ -255,15 +256,14 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
                 int Nsolicitud = objDtoSolicitud.PK_IS_Cod;
                 Utils.AddScriptClientUpdatePanel(upBotonEnviar, "uploadFileDocumentsSolicitud(" + objDtoSolicitud.PK_IS_Cod + ");");
-                Utils.AddScriptClient("showSuccessMessage2()");
+                //Utils.AddScriptClient("showSuccessMessage2()");
                 _log.CustomWriteOnLog("registrar pedido personalizado", "PK_IS_Cod valor retornado " + objDtoSolicitud.PK_IS_Cod);
                 _log.CustomWriteOnLog("registrar pedido personalizado", "Agregado");
                 _log.CustomWriteOnLog("registrar pedido personalizado", "Completado");
 
-                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage3()");
+                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage2()");
 
             }
-            Response.Redirect("~/ConsultarEstadoPago.aspx");
 
 
         }

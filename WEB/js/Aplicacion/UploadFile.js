@@ -41,7 +41,6 @@ function uploadFileDocuments(codigoMontura) {
 function uploadFileDocumentsSolicitud(codigoSolicitud) {
     var formData = new FormData();
     var varLstAnexo = ObtenerAnexos2();
-    //var varLstAnexo = ObtenerAnexos3();
 
     debugger;
     $.each(varLstAnexo, function (key, value) {
