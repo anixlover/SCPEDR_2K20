@@ -31,73 +31,87 @@
 
                 <%--Catalogo--%>
                 <div class="conteniendo">
-                <div class="conteniendo-separacion">
-                    <asp:Label ID="Label1" runat="server" Text="Codigo: "></asp:Label><asp:TextBox ID="txtcodigo" name="texto" runat="server" pattern="[0-9]+" TextMode="Number" Width="150px"></asp:TextBox>
-                &nbsp;
-                <asp:LinkButton runat="server" ID="btnSearch" CssClass="busqueda" OnClick="btnSearch_Click" style="width: 100px"> 
+                    <div class="conteniendo-separacion">
+                        <asp:Label ID="Label1" runat="server" Text="Codigo: "></asp:Label><asp:TextBox ID="txtcodigo" name="texto" runat="server" pattern="[0-9]+" TextMode="Number" Width="150px"></asp:TextBox>
+                        &nbsp;
+                <asp:LinkButton runat="server" ID="btnSearch" CssClass="busqueda" OnClick="btnSearch_Click" Style="width: 100px"> 
                                             <i class="fas fa-search"></i>
                 </asp:LinkButton>
-                </div>
                     </div>
+                </div>
                 <br />
-                <br />
-
-                <asp:Label ID="Label2" runat="server" Text="Medida: "></asp:Label><asp:TextBox ID="txtmedida" runat="server" Width="160px" Enabled="False"></asp:TextBox>
+                <asp:Label ID="Label2" runat="server" Text="Medida: "></asp:Label><asp:TextBox ID="txtmedida" runat="server" Width="116px" Enabled="False"></asp:TextBox>
                 &nbsp;&nbsp;&nbsp;
-                <asp:Label ID="Label3" runat="server" Text="Precio(u): "></asp:Label><asp:TextBox ID="txtprecio" runat="server" Width="160px" Enabled="False"></asp:TextBox>
+                <asp:Label ID="Label3" runat="server" Text="Precio(u): "></asp:Label><asp:TextBox ID="txtprecio" runat="server" Width="116px" Enabled="False"></asp:TextBox>
                 &nbsp;&nbsp;&nbsp;
-                <asp:Label ID="Label4" runat="server" Text="Cantidad: "></asp:Label><asp:TextBox ID="txtcantidad" runat="server" TextMode="Number" Width="160px"></asp:TextBox>
+                <asp:Label ID="Label4" runat="server" Text="Cantidad: "></asp:Label><asp:TextBox ID="txtcantidad" runat="server" TextMode="Number" Width="116px"></asp:TextBox>
+                &nbsp;&nbsp;&nbsp;
+                <asp:Label ID="Label5" runat="server" Text="Importe: "></asp:Label><asp:TextBox ID="txtimporte" runat="server" Width="116px" Enabled="False"></asp:TextBox>
                 &nbsp;&nbsp;&nbsp;
                 <asp:HiddenField runat="server" ID="txtunidadmetrica" />
+
                 <%--brn calcular--%>
-                <asp:LinkButton runat="server" ID="LinkButton1" CssClass="calcular" OnClick="btnCalcular_Click"> 
+                <%--                <asp:LinkButton runat="server" ID="LinkButton1" CssClass="calcular" OnClick="btnCalcular_Click"> 
                                             <i class="fas fa-calculator"></i> calcular
-                </asp:LinkButton>
-                <br />
-                <br />
-                <asp:Label ID="Label5" runat="server" Text="Importe: "></asp:Label><asp:TextBox ID="txtimporte" runat="server" Width="154px" Enabled="False"></asp:TextBox>
-                
-                <br />
-                <br />
-                <asp:Label ID="Label6" runat="server" Text="Comentario: "></asp:Label><asp:TextBox ID="txtarea" runat="server" Height="64px" Width="856px" TextMode="MultiLine"></asp:TextBox>
-                
-                <br />
+                </asp:LinkButton>--%>
+
+                <%--                <asp:Label ID="Label6" runat="server" Text="Comentario: "></asp:Label><asp:TextBox ID="txtarea" runat="server" Height="64px" Width="856px" TextMode="MultiLine"></asp:TextBox>--%>
+
 
                 <%--personalizado--%>
-                <div class="medio">
                 <asp:Label ID="Label7" runat="server" Text="Imagen de la moldura"></asp:Label>
 
                 <br />
 
                 <asp:Image ID="Image1" Height="250px" Width="250px" runat="server" class="rounded" />
-                    <br />  
+                <br />
                 <input name="fileAnexo" type="file" id="FileUpload1" runat="server" accept=".png,.jpg" class="btn btn-warning" style="width: 50%;" onchange="ImagePreview(this);" />
-                    <br />  
-</div>
+                <br />
                 <asp:Label ID="Label8" runat="server" Text="Tipo de moldura: "></asp:Label><asp:DropDownList ID="ddlTipoMoldura" class="form-control" runat="server" required Width="278px"></asp:DropDownList>
-
                 <br />
 
-                <asp:Label ID="Label9" runat="server" Text="Medida: "></asp:Label><asp:TextBox ID="txtmedidap" runat="server"></asp:TextBox>
-                <asp:Label ID="Label10" runat="server" Text="Cantidad: "></asp:Label><asp:TextBox ID="txtcantidadp" runat="server" TextMode="Number"></asp:TextBox>
+                <asp:Label ID="Label9" runat="server" Text="Medida: "></asp:Label><asp:TextBox ID="txtmedidap" runat="server" Width="180px"></asp:TextBox>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="Label10" runat="server" Text="Cantidad: "></asp:Label><asp:TextBox ID="txtcantidadp" runat="server" TextMode="Number" Width="180px"></asp:TextBox>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="Label11" runat="server" Text="Importe Aprox: "></asp:Label>
-                <asp:TextBox ID="txtimporteaprox" runat="server"></asp:TextBox>
-                <asp:LinkButton runat="server" ID="LinkButton2" CssClass="calcular" OnClick="btnCalcular_Click"> 
-                                            <i class="fas fa-calculator"></i> calcular
-                </asp:LinkButton>
-                <asp:Label ID="Label12" runat="server" Text="Comercio: "></asp:Label><asp:TextBox ID="txtcomentariop" runat="server"></asp:TextBox>
-                <br />
-                <br />
-                <asp:UpdatePanel ID="upBotonEnviar" runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
-                        <asp:LinkButton runat="server" ID="btnenviar" CssClass="enviar" OnClick="btnEnviar_Click"> 
-                                            <i class="far fa-envelope"></i> Enviar
-                        </asp:LinkButton>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
+                &nbsp;&nbsp;<asp:TextBox ID="txtimporteaprox" runat="server" Width="180px"></asp:TextBox>
 
-                <%--                <asp:Button ID="btnenviar" runat="server" CssClass="enviar" Text="Enviar" <i class="far fa-envelope"></i>/>--%>
+                <%--<asp:LinkButton runat="server" ID="LinkButton2" CssClass="calcular" OnClick="btnCalcular_Click"> 
+                                            <i class="fas fa-calculator"></i> calcular
+                </asp:LinkButton>--%>
+                <br />
+                <br />
+                <div class="derecha">
+                    <asp:LinkButton runat="server" ID="LinkButton1" CssClass="calcular" OnClick="btnCalcular_Click"> 
+                                            <i class="fas fa-calculator"></i> calcular
+                    </asp:LinkButton>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <br />
+                <asp:Label ID="Label6" runat="server" Text="Comentario: "></asp:Label><asp:TextBox ID="txtarea" runat="server" Height="64px" Width="884px" TextMode="MultiLine"></asp:TextBox>
+
+                <%--<asp:Label ID="Label12" runat="server" Text="Comentario: "></asp:Label><asp:TextBox ID="txtcomentariop" runat="server" Height="64px" Width="856px" TextMode="MultiLine"></asp:TextBox>--%>
+                <br />
+                <br />
+                <div class="medio">
+
+                    <asp:UpdatePanel ID="upBotonEnviar" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:LinkButton ID="btncancelar" runat="server" CssClass="cancelar" OnClick="btncancelar_Click">
+                                <i class="fas fa-arrow-left"></i> Cancelar</asp:LinkButton>
+
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:LinkButton runat="server" ID="btnenviar" CssClass="enviar" OnClick="btnEnviar_Click"> 
+                                            <i class="far fa-envelope"></i> Enviar
+                            </asp:LinkButton>
+
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
             </div>
+
+            <%--                <asp:Button ID="btnenviar" runat="server" CssClass="enviar" Text="Enviar" <i class="far fa-envelope"></i>/>--%>
         </div>
     </section>
 
@@ -115,6 +129,13 @@
             }
         }
     </script>
+    <%--    <script>
+        function cargarInformacion(PK_IS_Cod) {
+
+            location.href = `ConsultarEstadoPago.aspx?id=${PK_IS_Cod}`;
+
+        }
+</script>--%>
     <script src="js/Aplicacion/UploadFile.js"></script>
 </asp:Content>
 

@@ -157,7 +157,11 @@ namespace DAO
             SqlCommand command = new SqlCommand("SP_RegistrarSolicitud_PxDP", conexion);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@TipoSol", objsolicitud.VS_TipoSolicitud);
-            command.Parameters.AddWithValue("@img", objsolicitud.VBS_Imagen);
+            var binary1 = command.Parameters.Add("@img", SqlDbType.VarBinary, -1);
+            binary1.Value = DBNull.Value;
+            /**
+            var binary1 = command.Parameters.Add("@imagen", SqlDbType.VarBinary, -1);
+            binary1.Value = DBNull.Value;**/
 
             //var binary1 = command.Parameters.Add("@img", SqlDbType.VarBinary, -1);
             //binary1.Value = DBNull.Value;

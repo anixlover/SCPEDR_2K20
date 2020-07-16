@@ -44,6 +44,17 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
             }
             OpcionesTipoMoldura();
         }
+        try
+        {
+            if (Session["DNIUsuario"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+        }
+        catch (Exception ex)
+        {
+            _log.CustomWriteOnLog("registrar pedido personalizado", ex.Message + "Stac" + ex.StackTrace);
+        }
     }
 
     protected void ddl_TipoComprobante_SelectedIndexChanged(object sender, EventArgs e)
@@ -364,7 +375,9 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
         {
             objDtoMoldura.FK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
             aprox = objCtrMoldura.Aprox(objDtoMoldura);
-            txtpriceaprox.Text = Convert.ToString(aprox);
+            int cantp = int.Parse(txtcantidadDP.Text);
+            double a = aprox * cantp;
+            txtpriceaprox.Text = Convert.ToString(a);
             if (aprox == 0)
             {
                 txtpriceaprox.Text = "";
@@ -429,8 +442,17 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
                 objDtoSolicitud.VS_TipoSolicitud = "Personalizado por Diseño Propio";
                 objDtoSolicitud.DS_Medida = int.Parse(txtmedidaDP.Text);
+                _log.CustomWriteOnLog("Realizar venta 1", "objDtoSolicitud.DS_Medida " + objDtoSolicitud.DS_Medida);
                 objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidadDP.Text);
-                objDtoSolicitud.DS_PrecioAprox = int.Parse(txtpriceaprox.Text);
+                _log.CustomWriteOnLog("Realizar venta 1", "objDtoSolicitud.IS_Cantidad " + objDtoSolicitud.IS_Cantidad);
+                objDtoSolicitud.DS_PrecioAprox = double.Parse(txtpriceaprox.Text);
+                _log.CustomWriteOnLog("Realizar venta 1", "objDtoSolicitud.DS_PrecioAprox" + objDtoSolicitud.DS_PrecioAprox);
+
+                objCtrSolicitud.RegistrarSolicitud_PxDP(objDtoSolicitud);
+
+                //UpdatePaneCustom
+                Utils.AddScriptClientUpdatePanel(UpdatePaneCustom, "uploadFileDocumentsSolVendedor(" + objDtoSolicitud.PK_IS_Cod + ");");
+                Utils.AddScriptClient("showSuccessMessage2()");
 
                 //int tamaño = 0;
                 //tamaño = FileUpload2.PostedFile.ContentLength;
@@ -443,7 +465,6 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 //FileUpload2.PostedFile.InputStream.Read(imagen, 0, tamaño);
                 //objDtoSolicitud.VBS_Imagen = imagen;
 
-                objCtrSolicitud.RegistrarSolicitud_PxDP(objDtoSolicitud);
                 Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage3()");
 
 
@@ -453,7 +474,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            _log.CustomWriteOnLog("Realizar venta 1", "btnboleta_Click error  : " + ex.Message);
+            _log.CustomWriteOnLog("Realizar venta 1", "btnEnviar1_Click error  : " + ex.Message);
 
         }
         //pasar imagen

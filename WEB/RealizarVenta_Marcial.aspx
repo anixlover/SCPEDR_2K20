@@ -250,7 +250,15 @@
                                                                     <input name="fileAnexo" type="file" id="FileUpload2" runat="server" accept=".png,.jpg"
                                                                         class="btn btn-warning" style="width: 50%;" onchange="ImagePreview(this);" />
                                                                 </div>--%>
+                                                                
+                                                        <div class="form-group form-float">
+                                                                    <label class="form-label">Subir Imagen</label>
+                                                                    <br />
 
+                                                                    <asp:Image ID="Image1" Height="250px" Width="250px" runat="server" class="rounded" />
+                                                                    <input name="fileAnexo" type="file" id="FileUpload2" runat="server" accept=".png,.jpg"
+                                                                        class="btn btn-warning" style="width: 50%;" onchange="ImagePreview(this);" />
+                                                                </div>
                                                                 <div class="form-group form-float">
                                                                     <asp:Label ID="Label9" runat="server" class="form-label" ><b>Precio Aprox S/.</b></asp:Label>
                                                                     <div class="form-line">
@@ -283,14 +291,6 @@
                                                                 <br />
                                                             </ContentTemplate>
                                                         </asp:UpdatePanel>
-                                                        <div class="form-group form-float">
-                                                                    <label class="form-label">Subir Imagen</label>
-                                                                    <br />
-
-                                                                    <asp:Image ID="Image1" Height="250px" Width="250px" runat="server" class="rounded" />
-                                                                    <input name="fileAnexo" type="file" id="FileUpload2" runat="server" accept=".png,.jpg"
-                                                                        class="btn btn-warning" style="width: 50%;" onchange="ImagePreview(this);" />
-                                                                </div>
                                                     </div>
                                                 </div>
                                             </div>

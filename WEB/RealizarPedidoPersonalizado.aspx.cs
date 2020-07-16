@@ -46,19 +46,24 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
             txtcantidadp.Visible = false;
             Label11.Visible = false;
             txtimporteaprox.Visible = false;
-            Label12.Visible = false;
-            txtcomentariop.Visible = false;
 
             try
             {
                 if (Session["DNIUsuario"] != null)
                 {
                     objDtoMXU.FK_VU_Cod = Session["DNIUsuario"].ToString();
-
                 }
                 else
                 {
                     Response.Redirect("Login.aspx");
+                }
+                if (Session["idMoldura"] != null)
+                {
+                    objDtoMXU.FK_IM_Cod = Convert.ToInt32(Session["idMoldura"]);
+                }
+                else
+                {
+                    Response.Redirect("~/RealizarPedidoPersonalizado.aspx");
                 }
             }
             catch (Exception ex)
@@ -81,6 +86,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
         txtcantidad.Visible = true;
         Label5.Visible = true;
         txtimporte.Visible = true;
+        LinkButton1.Visible = true;
         Label6.Visible = true;
         txtarea.Visible = true;
         Label7.Visible = false;
@@ -94,8 +100,6 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
         txtcantidadp.Visible = false;
         Label11.Visible = false;
         txtimporteaprox.Visible = false;
-        Label12.Visible = false;
-        txtcomentariop.Visible = false;
     }
 
     protected void rbPropio_CheckedChanged(object sender, EventArgs e)
@@ -111,8 +115,9 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
         txtcantidad.Visible = false;
         Label5.Visible = false;
         txtimporte.Visible = false;
-        Label6.Visible = false;
-        txtarea.Visible = false;
+        LinkButton1.Visible = false;
+        Label6.Visible = true;
+        txtarea.Visible = true;
         Label7.Visible = true;
         Image1.Visible = true;
         FileUpload1.Visible = true;
@@ -125,8 +130,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
         Label11.Visible = true;
         txtimporteaprox.Visible = true;
         txtimporteaprox.Enabled = false;
-        Label12.Visible = true;
-        txtcomentariop.Visible = true;
+        LinkButton1.Visible = true;
     }
 
     public void OpcionesTipoMoldura()
@@ -235,6 +239,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 objCtrMXU.actualizarMXUSol(objDtoMXU);
                 _log.CustomWriteOnLog("registrar pedido personalizado", "se actualizado la Moldura x Usuario satisfactoriamente");
 
+                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage3()");
             }
             if (rbPropio.Checked == true)
             {
@@ -243,7 +248,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 objDtoSolicitud.DS_Medida = double.Parse(txtmedidap.Text);
                 objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidadp.Text);
                 objDtoSolicitud.DS_PrecioAprox = double.Parse(txtimporteaprox.Text);
-                objDtoSolicitud.VS_Comentario = txtcomentariop.Text;
+                objDtoSolicitud.VS_Comentario = txtarea.Text;
                 objDtoSolicitud.IS_EstadoPago = 1; //estado pendiente
                 msjeRegistrar(objDtoSolicitud);
                 objCtrSolicitud.RegistrarSolcitud_PP(objDtoSolicitud);
@@ -255,7 +260,10 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 _log.CustomWriteOnLog("registrar pedido personalizado", "Agregado");
                 _log.CustomWriteOnLog("registrar pedido personalizado", "Completado");
 
+                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage3()");
+
             }
+            Response.Redirect("~/ConsultarEstadoPago.aspx");
 
 
         }
@@ -328,5 +336,16 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','sOLICITUD enviada!!','success')</script>");
                 break;
         }
+    }
+    //public void cargarInformacion(object sender, EventArgs e)
+    //{
+    //    //HtmlAnchor repLink = (HtmlAnchor)e.Item.FindControl("~/DescripcionMoldura.aspx");
+    //    //repLink.HRef = "~/DescripcionMoldura.aspx";
+    //    Response.Redirect("~/ConsultarEstadoPago.aspx");
+    //}
+
+    protected void btncancelar_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/ConsultarEstadoPago.aspx");
     }
 }

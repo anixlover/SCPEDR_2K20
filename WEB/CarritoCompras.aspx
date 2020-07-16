@@ -334,7 +334,7 @@
                 closeOnCancel: true
             }, function (isConfirm) {
                 if (isConfirm) {
-                    window.location.href = `pedidoPersonalizado.aspx?id=${id}`;
+                    window.location.href = `RealizarPedidoPersonalizado.aspx?id=${id}`;
                 } else {
                     $('#defaultmodal').modal('hide');
                 }
