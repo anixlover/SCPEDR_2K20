@@ -183,7 +183,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.VS_TipoSolicitud : " + objDtoSolicitud.VS_TipoSolicitud);
                 objDtoSolicitud.DS_ImporteTotal = double.Parse(txtimporte.Text);
                 _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.VS_TipoSolicitud : " + objDtoSolicitud.DS_ImporteTotal);
-                objDtoSolicitud.VS_Comentario = txtcomentariop.Text;
+                objDtoSolicitud.VS_Comentario = txtarea.Text;
                 _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.VS_TipoSolicitud : " + objDtoSolicitud.VS_Comentario);
                 objDtoSolicitud.IS_EstadoPago = 1; //estado pendiente
                 
