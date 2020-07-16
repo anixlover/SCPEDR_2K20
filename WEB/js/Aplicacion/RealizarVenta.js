@@ -1,12 +1,11 @@
 ﻿$(document).ready(function () {
+
     $("#ddl_TipoComprobante").change(function () {
         var ddlSelectedTipoComprobante = $('#ddl_TipoComprobante').val();
         console.log($('#ddl_TipoComprobante').val());
         if (ddlSelectedTipoComprobante == "1") {
             $("#divRUCHide").fadeOut();
             $("#iddecuento").fadeOut();
-
-
 
         } else if (ddlSelectedTipoComprobante == "2") {
 
@@ -22,7 +21,6 @@
         }
         else if (this.value == '2') {
             $("#valorObtenidoRBTN").val('2');
-
         }
         console.log($("#valorObtenidoRBTN").val());
 
@@ -114,5 +112,5 @@
 
 
 
-
+   
 });

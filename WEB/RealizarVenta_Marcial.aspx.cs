@@ -49,12 +49,22 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
     protected void ddl_TipoComprobante_SelectedIndexChanged(object sender, EventArgs e)
     {
         _log.CustomWriteOnLog("Realizar venta 1", "valorddl : " + valorObtenidoRBTN.Value);
-
-
     }
 
     protected void btnboleta_Click(object sender, EventArgs e)
     {
+        if (txtIdentificadorUsuario.Text == ""  )
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
+            return;
+        }
+        
+        if (txtcodigop.Text == "" | txtcantidad.Text == "")
+        {
+                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'error!',text: 'complete espacios en blanco!!'})</script>");
+                return;
+        }
+
         try
         {
             objDtoSolicitud.DS_ImporteTotal = double.Parse(txtimporteigv.Text);
@@ -73,16 +83,14 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 _log.CustomWriteOnLog("Realizar venta 1", "codigoMoldura = " + codigoMoldura);
                 _log.CustomWriteOnLog("Realizar venta 1", "cantidadMoldura = " + cantidadMoldura);
                 _log.CustomWriteOnLog("Realizar venta 1", "subtotalMoldura = " + subtotalMoldura);
-                DtoMoldura obj = new DtoMoldura();
 
-                obj.PK_IM_Cod = int.Parse(codigoMoldura);
-                _log.CustomWriteOnLog("Realizar venta 1", "obj.PK_IM_Cod  = " + obj.PK_IM_Cod.ToString());
-                int valorRetornadoStoc = objCtrMoldura.StockMoldura_(obj);
+                objDtoMoldura.PK_IM_Cod = int.Parse(codigoMoldura);
+                _log.CustomWriteOnLog("Realizar venta 1", "obj.PK_IM_Cod  = " + objDtoMoldura.PK_IM_Cod.ToString());
+                int valorRetornadoStoc = objCtrMoldura.StockMoldura_(objDtoMoldura);
                 _log.CustomWriteOnLog("Realizar venta 1", "valorRetornadoStoc = " + valorRetornadoStoc);
-                _log.CustomWriteOnLog("Realizar venta 1", "cantidadMoldura = " + cantidadMoldura);
-
+        
                 int nuevostock = valorRetornadoStoc - int.Parse(cantidadMoldura);
-                obj.IM_Stock = nuevostock;
+                objDtoMoldura.IM_Stock = nuevostock;
                 _log.CustomWriteOnLog("Realizar venta 1", "nuevostock = " + nuevostock);
 
                 objDtoMolduraxUsuario.FK_VU_Cod = txtIdentificadorUsuario.Text;
@@ -91,11 +99,12 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 objDtoMolduraxUsuario.DMU_Precio = double.Parse(subtotalMoldura);
                 objDtoMolduraxUsuario.FK_IS_Cod = ValorDevuelto;
                 objCtrMolduraxUsuario.registrarNuevaMoldura2(objDtoMolduraxUsuario);
-                //objCtrMoldura.ActualizarStockxMoldura(obj);
+                objCtrMoldura.ActualizarStockxMoldura(objDtoMoldura);
+                int ValorDevuelto2 = objDtoMolduraxUsuario.PK_IMU_Cod;
+                objCtrMolduraxUsuario.actualizarMXUSol(objDtoMolduraxUsuario);
 
                 _log.CustomWriteOnLog("Realizar venta 1", "Registro moldura : " + codigoMoldura + " para el usuario " + txtIdentificadorUsuario.Text);
 
-                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','Pago REGISTRADO!!','success');</script>");
                 Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage2()");
             }
         }
@@ -198,7 +207,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
             DataTable dt = null;
             conexion.Open();
             SqlCommand command = new SqlCommand("SP_Listar_Moldura_x_Codigo_2", conexion);
-            command.Parameters.AddWithValue("@codigoMol", txtcodigo.Text);
+            command.Parameters.AddWithValue("@codigoMol", txtcodigop.Text);
             SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
             command.CommandType = CommandType.StoredProcedure;
             dt = new DataTable();
@@ -208,10 +217,6 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
             updPanelGVDetalle.Update();
             gvdetalle.DataBind();
-
-            
-
-
         }
         catch (Exception ex)
         {
@@ -223,14 +228,12 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btncalcular_Click(object sender, EventArgs e)
     {
-
         try
         {
             var colsNoVisible = gvdetalle.DataKeys[0].Values;
 
             int IM_Stock = int.Parse(colsNoVisible[0].ToString());
             double DM_Precio = double.Parse(colsNoVisible[1].ToString());
-
 
             int cantidad = int.Parse(txtcantidad.Text);
             double precioAprox = 0;
@@ -279,9 +282,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
             double DM_Precio2 = double.Parse(colsNoVisible[1].ToString());
 
             dt = (DataTable)ViewState["Records"];
-            dt.Rows.Add(txtcodigo.Text, txtcantidad.Text, DM_Precio2, txtsubtotal.Text);
-
-
+            dt.Rows.Add(txtcodigop.Text, txtcantidad.Text, DM_Precio2, txtsubtotal.Text);
 
             gv2.DataSource = dt;
             gv2.DataBind();
@@ -339,7 +340,6 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
         gv2.DataBind();
     }
 
-
     protected void gv2_SelectedIndexChanged(object sender, EventArgs e)
     {
 
@@ -377,119 +377,84 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btnEnviar_Click(object sender, EventArgs e)
     {
-        //VALIDACION DE CHECBOX _ ALVARO = EL js llena el valor del textbox oculto con ID valorObtenidoRBTN
-
-
-        //if (valorObtenidoRBTN.Value == "1" )
-        //{
-        //    _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
-        //    objDtoSolicitud.VS_TipoSolicitud = "Catalogo";
-
-
-        //}
-        //else 
-        if (valorObtenidoRBTN.Value == "2" && ddlPedidoPor.SelectedValue == "1")
+        try
         {
-            _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
-            _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + ddlPedidoPor.SelectedValue);
-
-
-            //Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage2()");
-            //ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Enviado correctamente!', 'bottom', 'center', null, null);", true);
-
-            int ValorDevuelto = objDtoMolduraxUsuario.PK_IMU_Cod;
-            int ValorDevuelto2 = objDtoSolicitud.PK_IS_Cod;
-
-            _log.CustomWriteOnLog("Realizar venta 1", "ValorDevuelto = " + ValorDevuelto);
-
-            for (int i = 0; i < gvdetalle.Rows.Count; i++)
+            if (valorObtenidoRBTN.Value == "2" && ddlPedidoPor.SelectedValue == "1")
             {
-                string subtotalMoldura = gvdetalle.Rows[i].Cells[2].Text;
-                _log.CustomWriteOnLog("Realizar venta 1", "subtotalMoldura = " + subtotalMoldura);
-                objDtoMolduraxUsuario.FK_VU_Cod = txtIdentificadorUsuario.Text; //dni
-                objDtoMolduraxUsuario.FK_IM_Cod = int.Parse(txtcodigo.Text);
-                objDtoMolduraxUsuario.IMU_Cantidad = int.Parse(txtcantidad.Text);
-                objDtoMolduraxUsuario.DMU_Precio = double.Parse(subtotalMoldura);
-                objDtoMolduraxUsuario.FK_IS_Cod = ValorDevuelto;
-                objCtrMolduraxUsuario.registrarNuevaMoldura2(objDtoMolduraxUsuario);
+                _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
+                _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + ddlPedidoPor.SelectedValue);
 
-            }
-            objDtoSolicitud.VS_TipoSolicitud = "Personalizado por Catalogo";
-            objDtoSolicitud.DS_ImporteTotal = int.Parse(txtimporttot.Text);
-            objDtoSolicitud.DTS_FechaEmicion = Calendar1.SelectedDate;
-            objDtoSolicitud.DTS_FechaRegistro = DateTime.Today.Date;
-            objCtrSolicitud.RegistrarSolicitud_PxC(objDtoSolicitud);
+                objDtoSolicitud.VS_TipoSolicitud = "Personalizado por Catalogo";
+                objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidad.Text);
+                objDtoSolicitud.DS_ImporteTotal = int.Parse(txtimporttot.Text);
+                objCtrSolicitud.RegistrarSolicitud_PxC(objDtoSolicitud);
 
+                for (int i = 0; i < gvdetalle.Rows.Count; i++)
+                {
+                    string subtotalMoldura = gvdetalle.Rows[i].Cells[2].Text;
+                    _log.CustomWriteOnLog("Realizar venta 1", "subtotalMoldura = " + subtotalMoldura);
+                    objDtoMolduraxUsuario.FK_VU_Cod = txtIdentificadorUsuario.Text; //dni
+                    objDtoMolduraxUsuario.FK_IM_Cod = int.Parse(txtcodigop.Text);
+                    objDtoMolduraxUsuario.IMU_Cantidad = int.Parse(txtcantidad.Text);
+                    objDtoMolduraxUsuario.DMU_Precio = double.Parse(subtotalMoldura);
+                    objDtoMolduraxUsuario.FK_IS_Cod = 0;
+                    objCtrMolduraxUsuario.registrarNuevaMoldura2(objDtoMolduraxUsuario);
+                }
+
+                int ValorDevuelto = objDtoMolduraxUsuario.PK_IMU_Cod;
+                _log.CustomWriteOnLog("Realizar venta 1", "ValorDevuelto = " + ValorDevuelto);
+
+                int ValorDevuelto2 = objDtoSolicitud.PK_IS_Cod;
+                objDtoMolduraxUsuario.FK_IS_Cod = ValorDevuelto2;
+                objCtrMolduraxUsuario.actualizarMXUSol(objDtoMolduraxUsuario);
+                Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage3()");
+            } 
+        }
+        catch(Exception ex)
+        {
+            _log.CustomWriteOnLog("Realizar venta 1", "btnboleta_Click error  : " + ex.Message);
 
         }
-        //else if (valorObtenidoRBTN.Value == "2" && ddlPedidoPor.SelectedValue == "2")
-        //{
-        //    _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
-        //    objDtoSolicitud.VS_TipoSolicitud = "Personalizado por Diseño Propio";
-
-        //    objDtoSolicitud.DS_Medida = int.Parse(txtmedidaDP.Text);
-        //    objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidad.Text);
-        //    objDtoSolicitud.DS_PrecioAprox = int.Parse(txtpriceaprox.Text);
-        //    objDtoSolicitud.DTS_FechaRegistro = DateTime.Today.Date;
-        //    objCtrSolicitud.RegistrarSolicitud_PxDP(objDtoSolicitud);
-
-
-        //}
     }
 
     protected void btnEnviar1_Click(object sender, EventArgs e)
     {
-        //VALIDACION DE CHECBOX _ ALVARO = EL js llena el valor del textbox oculto con ID valorObtenidoRBTN
-
-
-        if (valorObtenidoRBTN.Value == "1")
+        try
         {
-            _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
-            objDtoSolicitud.VS_TipoSolicitud = "Catalogo";
+            if (valorObtenidoRBTN.Value == "2" && ddlPedidoPor.SelectedValue == "2")
+      
+            {
+                _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
+                _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + ddlPedidoPor.SelectedValue);
+
+                objDtoSolicitud.VS_TipoSolicitud = "Personalizado por Diseño Propio";
+                objDtoSolicitud.DS_Medida = int.Parse(txtmedidaDP.Text);
+                objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidadDP.Text);
+                objDtoSolicitud.DS_PrecioAprox = int.Parse(txtpriceaprox.Text);
+
+                //int tamaño = 0;
+                //tamaño = FileUpload2.PostedFile.ContentLength;
+                //if (tamaño == 0)
+                //{
+                //    ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>sweetAlert('Oops...', 'suba la IMAGEN DEL VOUCHER!', 'error');</script>");
+                //    return;
+                //}
+                //byte[] imagen = new byte[tamaño];
+                //FileUpload2.PostedFile.InputStream.Read(imagen, 0, tamaño);
+                //objDtoSolicitud.VBS_Imagen = imagen;
+
+                objCtrSolicitud.RegistrarSolicitud_PxDP(objDtoSolicitud);
+                Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage3()");
 
 
+                //int solicitud = objDtoSolicitud.PK_IS_Cod;
+                //Utils.AddScriptClientUpdatePanel(UpdatePaneCustom, "uploadFileDocumentsSolicitud(" + objDtoSolicitud.PK_IS_Cod + ");");
+            }
         }
-        //else if (valorObtenidoRBTN.Value == "2" && ddlPedidoPor.SelectedValue == "1")
-        //{
-        //    _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
-        //    _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + ddlPedidoPor.SelectedValue);
-
-        //    objDtoSolicitud.VS_TipoSolicitud = "Personalizado por Catalogo";
-        //    objDtoSolicitud.DS_ImporteTotal = int.Parse(txtimporttot.Text);
-        //    objDtoSolicitud.DTS_FechaEmicion = Calendar1.SelectedDate;
-        //    objDtoSolicitud.DTS_FechaRegistro = DateTime.Today.Date;
-        //    objCtrSolicitud.RegistrarSolicitud_PxC(objDtoSolicitud);
-
-        //    int ValorDevuelto = objDtoSolicitud.PK_IS_Cod;
-        //    _log.CustomWriteOnLog("Realizar venta 1", "ValorDevuelto = " + ValorDevuelto);
-
-        //    for (int i = 0; i < gv2.Rows.Count; i++)
-        //    {
-        //        string subtotalMoldura = gv2.Rows[i].Cells[4].Text;
-        //        _log.CustomWriteOnLog("Realizar venta 1", "subtotalMoldura = " + subtotalMoldura);
-        //        objDtoMolduraxUsuario.FK_VU_Cod = txtIdentificadorUsuario.Text; //dni
-        //        objDtoMolduraxUsuario.FK_IM_Cod = int.Parse(txtcodigo.Text);
-        //        objDtoMolduraxUsuario.IMU_Cantidad = int.Parse(txtcantidad.Text);
-        //        objDtoMolduraxUsuario.DMU_Precio = double.Parse(subtotalMoldura);
-        //        objDtoMolduraxUsuario.FK_IS_Cod = ValorDevuelto;
-        //        objCtrMolduraxUsuario.registrarNuevaMoldura2(objDtoMolduraxUsuario);
-        //    }
-        //}
-        else if (valorObtenidoRBTN.Value == "2" && ddlPedidoPor.SelectedValue == "2")
+        catch (Exception ex)
         {
-            _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
-            _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + ddlPedidoPor.SelectedValue);
+            _log.CustomWriteOnLog("Realizar venta 1", "btnboleta_Click error  : " + ex.Message);
 
-            objDtoSolicitud.VS_TipoSolicitud = "Personalizado por Diseño Propio";
-
-            objDtoSolicitud.DS_Medida = int.Parse(txtmedidaDP.Text);
-            objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidadDP.Text);
-            objDtoSolicitud.DS_PrecioAprox = int.Parse(txtpriceaprox.Text);
-            objDtoSolicitud.DTS_FechaRegistro = DateTime.Today.Date;
-            objCtrSolicitud.RegistrarSolicitud_PxDP(objDtoSolicitud);
-
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Enviado correctamente!', 'bottom', 'center', null, null);", true);
-      //borrar fecha registro
         }
         //pasar imagen
     }

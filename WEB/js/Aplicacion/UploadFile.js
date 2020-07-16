@@ -40,7 +40,9 @@ function uploadFileDocuments(codigoMontura) {
 
 function uploadFileDocumentsSolicitud(codigoSolicitud) {
     var formData = new FormData();
-    var varLstAnexo = ObtenerAnexos2();
+    //var varLstAnexo = ObtenerAnexos2();
+    var varLstAnexo = ObtenerAnexos3();
+
     debugger;
     $.each(varLstAnexo, function (key, value) {
         var file = value;
@@ -80,6 +82,17 @@ function ObtenerAnexos2() {
     var varAnexos = new Array();
 
     var $targetval = $("#ContentPlaceHolder1_FileUpload1");
+    var varDocumentoAnexo = $targetval.prop("files");
+    if (!varDocumentoAnexo == false) {
+        varAnexos.push(varDocumentoAnexo[0]);
+    }
+    return varAnexos;
+}
+
+function ObtenerAnexos3() {
+    var varAnexos = new Array();
+
+    var $targetval = $("#cph_body_FileUpload1");
     var varDocumentoAnexo = $targetval.prop("files");
     if (!varDocumentoAnexo == false) {
         varAnexos.push(varDocumentoAnexo[0]);
