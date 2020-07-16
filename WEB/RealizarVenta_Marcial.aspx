@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="RealizarVenta_Marcial.aspx.cs" Inherits="RealizarVenta_Marcial" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_header" runat="Server">
+       
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="Server">
     <section>
@@ -9,6 +10,7 @@
             <div class="block-header">
                 <h1 id="txtPagina" runat="server">Realizar Venta</h1>
             </div>
+
             <%--tipo comprobante card--%>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -43,9 +45,9 @@
                     </div>
                 </div>
             </div>
-            <%--c--%>
+
             <%--datos cliente--%>
-            <div class="row clearfix">
+            <div class="row clearfix" >
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card ">
                         <div class="header">
@@ -54,11 +56,10 @@
                         <div class="body">
                             <asp:Panel runat="server" ID="Panel1">
                                 <div class="row">
+
                                     <%--dni, ruc--%>
                                     <div class="col-md-5">
-
                                         <div class="col-sm-12">
-
                                             <div class="col-sm-10">
                                                 <div class="form-group form-float">
                                                     <asp:Label ID="lbldni" runat="server" class="form-label"><b>Ingrese el DNI del cliente</b></asp:Label>
@@ -67,8 +68,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <br />
+
                                             <%--button search use r--%>
                                             <div class="col-sm-1">
                                                 <asp:UpdatePanel runat="server" UpdateMode="Conditional">
@@ -82,6 +83,8 @@
 
                                             </div>
                                         </div>
+
+                                        <%--ruc input--%>
                                         <div class="col-sm-12" id="divRUCHide" runat="server" hidden clientidmode="Static">
                                             <asp:HiddenField runat="server" ID="HiddenField1" ClientIDMode="Static" />
                                             <div class="col-sm-12">
@@ -158,7 +161,6 @@
                                         <div class="col-sm-8">
                                             <%--radio button catalogo y personalizado--%>
                                             <asp:Label ID="Label3" runat="server" class="form-label"><b>El pedido es :</b></asp:Label>
-
                                             <div class="form-group form-float">
                                                 <div class="col-lg-6">
                                                     <div class="demo-checkbox">
@@ -169,9 +171,6 @@
                                                     </div>
 
                                                 </div>
-
-
-
                                                 <div class="col-lg-6">
                                                     <div class="demo-checkbox">
                                                         <div class="demo-radio-button">
@@ -182,8 +181,8 @@
                                                 </div>
                                             </div>
 
-                                            <input type="hidden" runat="server" id="valorObtenidoRBTN" clientidmode="Static" />
                                             <%--ddl pedido por--%>
+                                            <input type="hidden" runat="server" id="valorObtenidoRBTN" clientidmode="Static" />
                                             <asp:Panel runat="server" ID="Panel3">
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -227,6 +226,7 @@
                                                         <h2>Detalle Moldura <small></small>
                                                         </h2>
                                                     </div>
+                                                    <%--datos--%>
                                                     <div class="body" runat="server" id="div1">
                                                         <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                                                             <ContentTemplate>
@@ -242,14 +242,14 @@
                                                                         <asp:TextBox ID="txtcantidadDP" PlaceHolder ="Ej: 5" class="form-control" runat="server"></asp:TextBox>
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group form-float">
+                                                                <%--<div class="form-group form-float">
                                                                     <label class="form-label">Subir Imagen</label>
                                                                     <br />
 
                                                                     <asp:Image ID="Image1" Height="250px" Width="250px" runat="server" class="rounded" />
-                                                                    <input name="fileAnexo" type="file" id="FileUpload1" runat="server" accept=".png,.jpg"
+                                                                    <input name="fileAnexo" type="file" id="FileUpload2" runat="server" accept=".png,.jpg"
                                                                         class="btn btn-warning" style="width: 50%;" onchange="ImagePreview(this);" />
-                                                                </div>
+                                                                </div>--%>
 
                                                                 <div class="form-group form-float">
                                                                     <asp:Label ID="Label9" runat="server" class="form-label" ><b>Precio Aprox S/.</b></asp:Label>
@@ -257,6 +257,7 @@
                                                                         <asp:TextBox ID="txtpriceaprox" class="form-control" runat="server" ></asp:TextBox>
                                                                     </div>
                                                                 </div>
+                                                                <%--btn calcular--%>
                                                                 <div class="form-group form-float">
                                                                     <asp:UpdatePanel ID="panelCalcPersonalizado" runat="server" UpdateMode="Conditional">
                                                                         <ContentTemplate>
@@ -270,7 +271,7 @@
 
                                                                 <%--btn send personalizado--%>
                                                                 <div class="form-group form-float">
-                                                                    <asp:UpdatePanel runat="server" UpdateMode="Conditional">
+                                                                    <asp:UpdatePanel ID="UpdatePaneCustom" runat="server" UpdateMode="Conditional">
                                                                         <ContentTemplate>
                                                                             <asp:LinkButton ID="btnEnviar1" runat="server" CssClass="btn bg-indigo waves-effect"
                                                                                 Style="float: right" Width="100%" Text="Enviar"
@@ -282,11 +283,18 @@
                                                                 <br />
                                                             </ContentTemplate>
                                                         </asp:UpdatePanel>
+                                                        <div class="form-group form-float">
+                                                                    <label class="form-label">Subir Imagen</label>
+                                                                    <br />
+
+                                                                    <asp:Image ID="Image1" Height="250px" Width="250px" runat="server" class="rounded" />
+                                                                    <input name="fileAnexo" type="file" id="FileUpload2" runat="server" accept=".png,.jpg"
+                                                                        class="btn btn-warning" style="width: 50%;" onchange="ImagePreview(this);" />
+                                                                </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -300,8 +308,12 @@
                                                 <div class="form-group form-float">
                                                     <div class="col-sm-10">
                                                         <div class="form-line">
-                                                            <asp:TextBox ID="txtcodigo" placeholder="Ej: 950" class="form-control" runat="server" type="text"
-                                                                pattern="[0-8]+" MinLength="8" MaxLength="8"></asp:TextBox>
+                                                      <%--  <asp:TextBox placeholder="Ej: 74588841"  ID="TextBox2" class="form-control" runat="server" type="text" 
+                                                            ClientIDMode="Static"></asp:TextBox>--%>
+
+                                                            <asp:TextBox ID="txtcodigop" placeholder="Ej: 950" class="form-control" runat="server" type="text"
+                                                                pattern="[0-8]+" MinLength="8" MaxLength="8">
+                                                            </asp:TextBox>
                                                         </div>
                                                     </div>
                                                     <%--search product button--%>
@@ -319,19 +331,19 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <%--input cantidad--%>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="col-sm-12">
                                                     <label class="form-label">Cantidad(u)</label>
                                                     <div class="form-group form-float">
-
-
                                                         <div class="col-sm-10">
                                                             <div class="form-line">
                                                                 <asp:TextBox ID="txtcantidad" placeholder="Ej: 2" class="form-control" runat="server"></asp:TextBox>
                                                             </div>
                                                         </div>
+
                                                         <%--btn calcular--%>
                                                         <div class="col-sm-2 right">
                                                             <asp:UpdatePanel runat="server">
@@ -346,6 +358,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <%--1st gridv--%>
                                         <div class="col-md-12">
                                             <div class="body table-responsive ">
@@ -362,23 +375,17 @@
                                                         </asp:GridView>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
-
                                             </div>
                                         </div>
 
-
                                         <%--calendar--%>
                                         <asp:UpdatePanel runat="server" UpdateMode="Conditional">
-
                                             <ContentTemplate>
-
                                                 <div class="col-md-12">
-
                                                     <div class="col-sm-12" id="IdCalendar" runat="server" clientidmode="Static">
                                                         <asp:Label ID="Label4" runat="server" class="form-label"><b>Fecha de entrega:</b></asp:Label>
                                                         <asp:HiddenField runat="server" ID="HiddenField3" ClientIDMode="Static" />
                                                         <div class="body table-responsive ">
-
                                                             <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
                                                         </div>
                                                     </div>
@@ -432,10 +439,6 @@
                                                         <ContentTemplate>
                                                             <asp:GridView ID="gv2" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" OnSelectedIndexChanged="gv2_SelectedIndexChanged" OnRowDeleting="gv2_RowDeleting" DataKeyNames="Codigo,Cantidad,Precio,Subtotal">
                                                                 <Columns>
-
-                                                                    <%-- <asp:BoundField DataField="Cantidad" HeaderText="Cantidad (u)" />
-                                                            <asp:BoundField DataField="Precio" HeaderText="Precio (u) S/." />
-                                                                 <asp:BoundField DataField="SubTotal" HeaderText="Subtotal S/." />--%>
                                                                     <asp:ButtonField ButtonType="button" HeaderText="Accion" CommandName="delete" Text="Borrar">
                                                                         <ControlStyle CssClass="btn btn-warning" />
                                                                     </asp:ButtonField>
@@ -512,11 +515,12 @@
                                             <asp:Label ID="lblmontopagado" runat="server" class="form-label"><b>Monto pagado S/.</b></asp:Label>
 
                                             <div class="form-line ">
-                                                <input type="number" placeholder="Ej: 100" id="txtmontopagado" class="form-control" runat="server" onkeyup="CalcularVuelto()" clientidmode="Static" />
+                                                <input type="number" placeholder="Ej: 100" id="txtmontopagado" class="form-control" runat="server" 
+                                                    onkeyup="CalcularVuelto()" clientidmode="Static" />
                                             </div>
-
                                         </div>
 
+                                        <%--input descuento--%>
                                         <div id="iddecuento" runat="server" class="form-group form-float" clientidmode="Static">
                                             <asp:Label ID="lbldescuento" runat="server" class="form-label"><b>Dsct</b></asp:Label>
 
@@ -541,6 +545,7 @@
                                                 <input type="text" id="txtvuelto" class="form-control" runat="server" clientidmode="Static" readonly />
                                             </div>
                                         </div>
+
                                         <%--btn send n pay boleta--%>
                                         <asp:UpdatePanel ID="updBotonEnviar" runat="server">
                                             <ContentTemplate>
@@ -562,22 +567,20 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </form>
     </section>
+   
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
 </asp:Content>
-
 <asp:Content ID="Content4" ContentPlaceHolderID="cph_Js" runat="Server">
+    
     <script src="js/Aplicacion/RealizarVenta.js"></script>
 
     <script>
@@ -595,21 +598,28 @@
                 type: "success"
             });
         }
+        function showSuccessMessage3() {
+            swal({
+                title: "Enviado Correctamente",
+                text: "Pulsa el botón y se te redirigirá",
+                type: "success"
+            });
+        }
     </script>
-
+     <script type="text/javascript">
+         function ImagePreview(input) {
+             if (input.files && input.files[0]) {
+                 var reader = new FileReader();
+                 reader.onload = function (e) {
+                     $('#<%=Image1.ClientID%>').prop('src', e.target.result)
+                         .width(250)
+                         .height(250);
+                 };
+                 reader.readAsDataURL(input.files[0]);
+             }
+         }
+    </script>
+        
 </asp:Content>
 
-<%--<script type="text/javascript">
-     function ImagePreview(input) {
-         if (input.files && input.files[0]) {
-             var reader = new FileReader();
-             reader.onload = function (e) {
-                 $('#<%=Image1.ClientID%>').prop('src', e.target.result)
-                     .width(250)
-                     .height(250);
-             };
-             reader.readAsDataURL(input.files[0]);
-         }
-     }
-    </script>--%>
 
