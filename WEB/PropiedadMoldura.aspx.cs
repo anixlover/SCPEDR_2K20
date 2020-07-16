@@ -132,9 +132,7 @@ public partial class Prueba : System.Web.UI.Page
                 _log.CustomWriteOnLog("PropiedadMoldura", "Actualizado");
                 Utils.AddScriptClientUpdatePanel(upBotonEnviar, "uploadFileDocuments(" + Request.Params["Id"] + ");");
 
-
                 Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage2()");
-
 
             }
             else
