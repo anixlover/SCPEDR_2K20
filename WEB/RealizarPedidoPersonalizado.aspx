@@ -95,8 +95,8 @@
                 <br />
                 <br />
                 <div class="medio">
-
                     <asp:UpdatePanel ID="upBotonEnviar" runat="server" UpdateMode="Conditional">
+                        
                         <ContentTemplate>
                             <asp:LinkButton ID="btncancelar" runat="server" CssClass="cancelar" OnClick="btncancelar_Click">
                                 <i class="fas fa-arrow-left"></i> Cancelar</asp:LinkButton>
