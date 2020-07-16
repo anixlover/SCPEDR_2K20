@@ -63,7 +63,7 @@
                         <asp:TextBox runat="server" Width="150px" type="text" pattern="[0-9]+" MinLength="11" MaxLength="11" ID="txtnewRUC"></asp:TextBox>
                     </div>
                     <div class="salto" style="align-items:center">
-                        <asp:Button ID="btnCancelar" runat="server" class="btn-ghost" Text="Cancelar"></asp:Button>  
+                        <asp:Button ID="btnCancelar" runat="server" class="btn-ghost" Text="Cancelar" OnClick="btnCancelar_Click"></asp:Button>  
                         <asp:Button ID="btnEnviar" runat="server" class="btn-ghost" Text="Enviar" OnClick="btnEnviar_Click"></asp:Button>                                            
                     </div> 
                 </div>

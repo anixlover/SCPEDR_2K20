@@ -190,4 +190,9 @@ public partial class Realizar_compra : System.Web.UI.Page
                 break;
         }
     }
+
+    protected void btnCancelar_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ConsultarEstadoPago.aspx");
+    }
 }
