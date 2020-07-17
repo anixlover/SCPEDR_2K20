@@ -95,8 +95,8 @@
                 <br />
                 <br />
                 <div class="medio">
-
                     <asp:UpdatePanel ID="upBotonEnviar" runat="server" UpdateMode="Conditional">
+                        
                         <ContentTemplate>
                             <asp:LinkButton ID="btncancelar" runat="server" CssClass="cancelar" OnClick="btncancelar_Click">
                                 <i class="fas fa-arrow-left"></i> Cancelar</asp:LinkButton>
@@ -128,6 +128,17 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+        function showSuccessMessage2() {
+            setTimeout(function () {
+                swal({
+                    title: "Todo guardado",
+                    text: "Pulsa el botón y se te redirigirá",
+                    type: "success"
+                }, function () {
+                        window.location = "ConsultarEstadoPago.aspx";
+                });
+            }, 1000);
+        }
     </script>
     <%--    <script>
         function cargarInformacion(PK_IS_Cod) {
@@ -136,6 +147,7 @@
 
         }
 </script>--%>
+
     <script src="js/Aplicacion/UploadFile.js"></script>
 </asp:Content>
 

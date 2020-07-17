@@ -44,17 +44,17 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
             }
             OpcionesTipoMoldura();
         }
-        try
-        {
-            if (Session["DNIUsuario"] == null)
-            {
-                Response.Redirect("Login.aspx");
-            }
-        }
-        catch (Exception ex)
-        {
-            _log.CustomWriteOnLog("registrar pedido personalizado", ex.Message + "Stac" + ex.StackTrace);
-        }
+        //try
+        //{
+        //    if (Session["DNIUsuario"] == null)
+        //    {
+        //        Response.Redirect("Login.aspx");
+        //    }
+        //}
+        //catch (Exception ex)
+        //{
+        //    _log.CustomWriteOnLog("registrar pedido personalizado", ex.Message + "Stac" + ex.StackTrace);
+        //}
     }
 
     protected void ddl_TipoComprobante_SelectedIndexChanged(object sender, EventArgs e)

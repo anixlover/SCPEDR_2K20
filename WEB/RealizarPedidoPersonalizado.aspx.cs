@@ -163,6 +163,11 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
             _log.CustomWriteOnLog("registrar pedido personalizado", "entro a busqueda");
             objDtoMoldura.PK_IM_Cod = int.Parse(txtcodigo.Text);
             _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoMoldura.PK_IM_Cod : " + objDtoMoldura.PK_IM_Cod);
+            if (!objCtrMoldura.MolduraExiste(objDtoMoldura)) 
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'La moldura "+objDtoMoldura.PK_IM_Cod+" NO EXISTE!!'})</script>");
+                return;
+            }
             objCtrMoldura.ObtenerMoldura(objDtoMoldura, objDtoTipoMoldura);
             txtmedida.Text = objDtoMoldura.DM_Medida.ToString() + objDtoTipoMoldura.VTM_UnidadMetrica.ToString();
             txtunidadmetrica.Value = objDtoTipoMoldura.VTM_UnidadMetrica.ToString();
@@ -184,13 +189,13 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
         try
         {
-            if (rbCatalogo.Checked == true)
+            if (txtcodigo.Text == "" | txtcantidad.Text == "" | txtarea.Text == "" | txtimporte.Text == "" | txtmedida.Text == "" | txtprecio.Text == "")
             {
-                if (txtcodigo.Text == "" | txtcantidad.Text == "" | txtarea.Text == "" | txtimporte.Text == "" | txtmedida.Text == "" | txtprecio.Text == "")
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','Solicitud ENVIADA!!','success')</script>");
-                    return;
-                }
+                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','Solicitud ENVIADA!!','success')</script>");
+                return;
+            }
+            if (rbCatalogo.Checked == true)
+            {               
 
                 //REGISTRAR SOLICTUD 
                 _log.CustomWriteOnLog("registrar pedido personalizado", "entro a pedido personalizado por catalogo");
@@ -255,23 +260,20 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
                 int Nsolicitud = objDtoSolicitud.PK_IS_Cod;
                 Utils.AddScriptClientUpdatePanel(upBotonEnviar, "uploadFileDocumentsSolicitud(" + objDtoSolicitud.PK_IS_Cod + ");");
-                Utils.AddScriptClient("showSuccessMessage2()");
+                //Utils.AddScriptClient("showSuccessMessage2()");
                 _log.CustomWriteOnLog("registrar pedido personalizado", "PK_IS_Cod valor retornado " + objDtoSolicitud.PK_IS_Cod);
                 _log.CustomWriteOnLog("registrar pedido personalizado", "Agregado");
                 _log.CustomWriteOnLog("registrar pedido personalizado", "Completado");
 
-                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage3()");
+                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage2()");
 
             }
-            Response.Redirect("~/ConsultarEstadoPago.aspx");
 
 
         }
         catch (Exception ex)
         {
             _log.CustomWriteOnLog("registrar pedido personalizado", "Error  = " + ex.Message + "posicion" + ex.StackTrace);
-            ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Llene todos los campos!!'})</script>");
-            return;
         }
 
     }
