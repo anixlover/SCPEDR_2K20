@@ -104,7 +104,7 @@ public partial class Login : System.Web.UI.Page
                 else
                 {
                     string script = @"<script type='text/javascript'>
-                                      location.href='../GestionCatalogo.aspx';
+                                      location.href='../RealizarVenta_Marcial.aspx';
                                   </script>";
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "alert", script, false);
                 }

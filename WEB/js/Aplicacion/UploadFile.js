@@ -68,6 +68,7 @@ function uploadFileDocumentsSolicitud(codigoSolicitud) {
     }
 }
 
+
 function uploadFileDocumentsSolVendedor(codigoSolVen) {
     var formData = new FormData();
     var varLstAnexo = ObtenerAnexos3();
