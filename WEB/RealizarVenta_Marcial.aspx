@@ -605,7 +605,16 @@
                 type: "success"
             });
         }
+        function showSuccessMessage4() {
+            swal({
+                title: "ERROR!",
+                text: "Complete espacios en BLANCO!!",
+                type: "error"
+            });
+        }
+
     </script>
+    <script src="js/Aplicacion/UploadFile.js"></script>
      <script type="text/javascript">
          function ImagePreview(input) {
              if (input.files && input.files[0]) {
@@ -618,8 +627,18 @@
                  reader.readAsDataURL(input.files[0]);
              }
          }
+
+         function getQueryStringParameter(paramToRetrieve) {
+             var params = document.URL.split("?");
+             var strParams = "";
+             for (var i = 0; i < params.length; i = i + 1) {
+                 var singleParam = params[i].split("=");
+                 if (singleParam[0] == paramToRetrieve)
+                     return singleParam[1].replace("#", "");
+             }
+         }
+
     </script>
-        
 </asp:Content>
 
 

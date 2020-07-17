@@ -64,18 +64,11 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btnboleta_Click(object sender, EventArgs e)
     {
-        if (txtIdentificadorUsuario.Text == ""  )
+        if (txtIdentificadorUsuario.Text == "" | txtcodigop.Text == "" | txtcantidad.Text == "")
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
-            return;
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage4()");
         }
         
-        if (txtcodigop.Text == "" | txtcantidad.Text == "")
-        {
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'error!',text: 'complete espacios en blanco!!'})</script>");
-                return;
-        }
-
         try
         {
             objDtoSolicitud.DS_ImporteTotal = double.Parse(txtimporteigv.Text);
@@ -172,6 +165,11 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btnbuscar_Click(object sender, EventArgs e)
     {
+        if (txtIdentificadorUsuario.Text == "")
+        {
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage4()");
+        }
+
         try
         {
             string Select = "SELECT * from T_Usuario where PK_VU_Dni = @Dni";
@@ -213,6 +211,11 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btnBuscarProducto_Click(object sender, EventArgs e)
     {
+        if (txtcodigop.Text == "")
+        {
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage4()");
+        }
+
         try
         {
             DataTable dt = null;
@@ -239,7 +242,13 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btncalcular_Click(object sender, EventArgs e)
     {
+        if (txtcantidad.Text=="")
+        {
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage4()");
+        }
+
         try
+
         {
             var colsNoVisible = gvdetalle.DataKeys[0].Values;
 
@@ -286,6 +295,10 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btnagregar_Click(object sender, EventArgs e)
     {
+        if (txtsubtotal.Text == "")
+        {
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage4()");
+        }
         try
         {
             double sum = 0;
@@ -370,6 +383,15 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btnCalcularPersonalizado_Click(object sender, EventArgs e)
     {
+        if (txtmedidaDP.Text == "")
+        {
+            Utils.AddScriptClientUpdatePanel(panelCalcPersonalizado, "showSuccessMessage4()");
+        }
+        if (txtcantidadDP.Text == "")
+        {
+            Utils.AddScriptClientUpdatePanel(panelCalcPersonalizado, "showSuccessMessage4()");
+
+        }
         double aprox;
         if (ddlTipoMoldura.SelectedValue != "0")
         {
@@ -451,6 +473,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 objCtrSolicitud.RegistrarSolicitud_PxDP(objDtoSolicitud);
 
                 //UpdatePaneCustom
+                _log.CustomWriteOnLog("Realizar venta 1", "objDtoSolicitud.PK_IS_Cod " + objDtoSolicitud.PK_IS_Cod);
                 Utils.AddScriptClientUpdatePanel(UpdatePaneCustom, "uploadFileDocumentsSolVendedor(" + objDtoSolicitud.PK_IS_Cod + ");");
                 Utils.AddScriptClient("showSuccessMessage2()");
 
@@ -466,8 +489,6 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 //objDtoSolicitud.VBS_Imagen = imagen;
 
                 Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage3()");
-
-
                 //int solicitud = objDtoSolicitud.PK_IS_Cod;
                 //Utils.AddScriptClientUpdatePanel(UpdatePaneCustom, "uploadFileDocumentsSolicitud(" + objDtoSolicitud.PK_IS_Cod + ");");
             }

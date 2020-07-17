@@ -159,9 +159,6 @@ namespace DAO
             command.Parameters.AddWithValue("@TipoSol", objsolicitud.VS_TipoSolicitud);
             var binary1 = command.Parameters.Add("@img", SqlDbType.VarBinary, -1);
             binary1.Value = DBNull.Value;
-            /**
-            var binary1 = command.Parameters.Add("@imagen", SqlDbType.VarBinary, -1);
-            binary1.Value = DBNull.Value;**/
 
             //var binary1 = command.Parameters.Add("@img", SqlDbType.VarBinary, -1);
             //binary1.Value = DBNull.Value;
