@@ -60,10 +60,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 if (Session["idMoldura"] != null)
                 {
                     objDtoMXU.FK_IM_Cod = Convert.ToInt32(Session["idMoldura"]);
-                }
-                else
-                {
-                    Response.Redirect("~/RealizarPedidoPersonalizado.aspx");
+                    txtcodigo.Text = objDtoMXU.FK_IM_Cod.ToString();
                 }
             }
             catch (Exception ex)
@@ -209,7 +206,6 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.VS_TipoSolicitud : " + objDtoSolicitud.VS_Comentario);
                 objDtoSolicitud.IS_EstadoPago = 1; //estado pendiente
 
-
                 objCtrSolicitud.RegistrarSolcitud_PC(objDtoSolicitud);
                 _log.CustomWriteOnLog("registrar pedido personalizado", "se registro la solicitud");
 
@@ -231,7 +227,6 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 //ACTUALIZAR MOLDURA X USUARIO
                 _log.CustomWriteOnLog("registrar pedido personalizado", "Entra a actualizacion de la Moldura x Usuario");
 
-
                 int idMXU = objDtoMXU.PK_IMU_Cod;
                 _log.CustomWriteOnLog("registrar pedido personalizado", "El idMXU es: " + idMXU);
 
@@ -243,8 +238,9 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
                 objCtrMXU.actualizarMXUSol(objDtoMXU);
                 _log.CustomWriteOnLog("registrar pedido personalizado", "se actualizado la Moldura x Usuario satisfactoriamente");
-
-                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage3()");
+                //Utils.AddScriptClient("showSuccessMessage2()");
+                //Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage2()");
+                Response.Redirect("~/ConsultarEstadoPago.aspx");
             }
             if (rbPropio.Checked == true)
             {

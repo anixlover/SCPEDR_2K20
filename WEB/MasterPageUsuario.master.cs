@@ -63,7 +63,7 @@ public partial class MasterPageUsuario : System.Web.UI.MasterPage
                                             <span class='caret'></span>
                         </button>
                         <ul class='dropdown-menu bcColor'>
-                            <li><a href='javascript:void(0);' class=' waves-effect waves-block'>Favoritos</a></li>
+                            <li><a href='RealizarPedidoPersonalizado.aspx' class=' waves-effect waves-block'>Pedidos Personalizados</a></li>
                             <li><a href='ConsultarEstadoPago.aspx' class=' waves-effect waves-block'>Mis pedidos</a></li>
                             <li><a id='btnCarrito' runat='server' onClick='cargarId(" + dni +@")' class=' waves-effect waves-block'>Carrito Compras</a></li>
                             <li><a id='btnCerrarSesion' runat='server' onserverclick='btnCerrarSesion_ServerClick' class=' waves-effect waves-block'>Cerrar sesión</a></li>
