@@ -9,6 +9,8 @@ using CTR;
 
 public partial class RegistrarClienteUE_1 : System.Web.UI.Page
 {
+    DtoUsuario objuser = new DtoUsuario();
+    CtrUsuario objuserneg = new CtrUsuario();
     Log _log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -42,7 +44,6 @@ public partial class RegistrarClienteUE_1 : System.Web.UI.Page
             ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Seleccione documento de identidad!!'})</script>");
             return;
         }
-        DtoUsuario objuser = new DtoUsuario();
         if (RadioButton1.Checked == true)
         {
             objuser.PK_VU_Dni = txtDNI.Text;
@@ -58,7 +59,6 @@ public partial class RegistrarClienteUE_1 : System.Web.UI.Page
         objuser.VU_Correo = txtCorreo.Text;
         objuser.VU_Contraseña = txtContraseña.Text;
 
-        CtrUsuario objuserneg = new CtrUsuario();
         objuserneg.RegistrarUsuario(objuser);
         msjeRegistrar(objuser);
         if (objuser.error == 77)
@@ -105,6 +105,7 @@ public partial class RegistrarClienteUE_1 : System.Web.UI.Page
                 break;
             case 77:
                 ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','Datos ENVIADOS!','success')</script>");
+                objuserneg.EnviarCorreoVendedor(objuser);
                 break;
         }
     }

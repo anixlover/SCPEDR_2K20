@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using DTO;
 using System.Data;
 using System.Data.SqlClient;
-
+using System.Net.Mail;
+using System.Net;
 
 namespace DAO
 {
@@ -143,6 +144,55 @@ namespace DAO
             conexion.Close();
 
             return (usuarioDto);
+        }
+
+        public void EnviarCorreoaVendedor(DtoUsuario objuser)
+        {
+            string Select = "SELECT VU_Correo, VU_Contrasenia from T_Usuario where PK_VU_Dni ='"
+                + objuser.PK_VU_Dni + "'";
+
+            SqlCommand unComando = new SqlCommand(Select, conexion);
+            conexion.Open();
+            SqlDataReader reader = unComando.ExecuteReader();
+
+            if (reader.Read())
+            {
+                string senderr = "decormoldurassac@gmail.com";
+                string senderrPass = "decormolduras";
+                string displayName = "DECORMOLDURAS & ROSETONES SAC";
+
+                var recipient = reader["VU_Correo"].ToString();
+                var pass = reader["VU_Contrasenia"].ToString();
+
+                string body =
+                    "<body>" +
+                        "<h1>DECORMOLDURAS & ROSETONES SAC</h1>" +
+                        "<h4>Bienvenid@</h4>" +
+                        "<span>No comparta esto con nadie." +
+                        "<br></br><span>Su contraseña es: " + pass + "</span>" +
+                        "<br></br><span> Saludos cordiales.<span>" +
+                    "</body>";
+
+                MailMessage mail = new MailMessage();
+                mail.Subject = "Bienvenido";
+                mail.From = new MailAddress(senderr.Trim(), displayName);
+                mail.Body = body;
+                mail.To.Add(recipient.Trim());
+                mail.IsBodyHtml = true;
+                //mail.Priority = MailPriority.Normal;
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = false;
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //smtp.Credentials = new System.Net.NetworkCredential(senderr.Trim(), senderrPass.Trim());
+                NetworkCredential nc = new NetworkCredential(senderr, senderrPass);
+                smtp.Credentials = nc;
+
+                smtp.Send(mail);
+            }
         }
     }
 }

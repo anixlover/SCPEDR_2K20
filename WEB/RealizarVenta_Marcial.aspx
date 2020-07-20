@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="RealizarVenta_Marcial.aspx.cs" Inherits="RealizarVenta_Marcial" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cph_header" runat="Server">
-       
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_body" runat="Server">
     <section>
@@ -47,7 +46,7 @@
             </div>
 
             <%--datos cliente--%>
-            <div class="row clearfix" >
+            <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card ">
                         <div class="header">
@@ -64,7 +63,7 @@
                                                 <div class="form-group form-float">
                                                     <asp:Label ID="lbldni" runat="server" class="form-label"><b>Ingrese el DNI del cliente</b></asp:Label>
                                                     <div class="form-line">
-                                                        <asp:TextBox placeholder="Ej: 74588841"  ID="txtIdentificadorUsuario" class="form-control" runat="server" type="text" ClientIDMode="Static"></asp:TextBox>
+                                                        <asp:TextBox placeholder="Ej: 74588841" ID="txtIdentificadorUsuario" class="form-control" runat="server" type="text" ClientIDMode="Static"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -75,7 +74,8 @@
                                                 <asp:UpdatePanel runat="server" UpdateMode="Conditional">
                                                     <ContentTemplate>
                                                         <asp:LinkButton runat="server" ID="btnbuscar"
-                                                            CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float m-l-15" OnClick="btnbuscar_Click">
+                                                            CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float m-l-15"
+                                                            OnClick="btnbuscar_Click">
                                                     <i class="material-icons">person_search</i>
                                                         </asp:LinkButton>
                                                     </ContentTemplate>
@@ -233,13 +233,13 @@
                                                                 <div class="form-group form-float">
                                                                     <asp:Label ID="Label7" runat="server" class="form-label"><b>Medida(mt)</b></asp:Label>
                                                                     <div class="form-line">
-                                                                        <asp:TextBox ID="txtmedidaDP" PlaceHolder ="Ej: 20" class="form-control" runat="server"></asp:TextBox>
+                                                                        <asp:TextBox ID="txtmedidaDP" PlaceHolder="Ej: 20" class="form-control" runat="server"></asp:TextBox>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group form-float">
                                                                     <asp:Label ID="Label8" runat="server" class="form-label"><b>Cantidad(u)</b></asp:Label>
                                                                     <div class="form-line">
-                                                                        <asp:TextBox ID="txtcantidadDP" PlaceHolder ="Ej: 5" class="form-control" runat="server"></asp:TextBox>
+                                                                        <asp:TextBox ID="txtcantidadDP" PlaceHolder="Ej: 5" class="form-control" runat="server"></asp:TextBox>
                                                                     </div>
                                                                 </div>
                                                                 <%--<div class="form-group form-float">
@@ -250,8 +250,8 @@
                                                                     <input name="fileAnexo" type="file" id="FileUpload2" runat="server" accept=".png,.jpg"
                                                                         class="btn btn-warning" style="width: 50%;" onchange="ImagePreview(this);" />
                                                                 </div>--%>
-                                                                
-                                                        <div class="form-group form-float">
+
+                                                                <div class="form-group form-float">
                                                                     <label class="form-label">Subir Imagen</label>
                                                                     <br />
 
@@ -260,9 +260,9 @@
                                                                         class="btn btn-warning" style="width: 50%;" onchange="ImagePreview(this);" />
                                                                 </div>
                                                                 <div class="form-group form-float">
-                                                                    <asp:Label ID="Label9" runat="server" class="form-label" ><b>Precio Aprox S/.</b></asp:Label>
+                                                                    <asp:Label ID="Label9" runat="server" class="form-label"><b>Precio Aprox S/.</b></asp:Label>
                                                                     <div class="form-line">
-                                                                        <asp:TextBox ID="txtpriceaprox" class="form-control" runat="server" ></asp:TextBox>
+                                                                        <asp:TextBox ID="txtpriceaprox" class="form-control" runat="server"></asp:TextBox>
                                                                     </div>
                                                                 </div>
                                                                 <%--btn calcular--%>
@@ -308,7 +308,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="col-sm-10">
                                                         <div class="form-line">
-                                                      <%--  <asp:TextBox placeholder="Ej: 74588841"  ID="TextBox2" class="form-control" runat="server" type="text" 
+                                                            <%--  <asp:TextBox placeholder="Ej: 74588841"  ID="TextBox2" class="form-control" runat="server" type="text" 
                                                             ClientIDMode="Static"></asp:TextBox>--%>
 
                                                             <asp:TextBox ID="txtcodigop" placeholder="Ej: 950" class="form-control" runat="server" type="text"
@@ -320,8 +320,8 @@
                                                     <div class="col-sm-2 right">
                                                         <asp:UpdatePanel runat="server">
                                                             <ContentTemplate>
-                                                                <asp:LinkButton runat="server" ID="btnBuscarProducto" 
-                                                                    CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float" 
+                                                                <asp:LinkButton runat="server" ID="btnBuscarProducto"
+                                                                    CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float"
                                                                     OnClick="btnBuscarProducto_Click">
                                                                 <i class="material-icons">person_search</i>
                                                                 </asp:LinkButton>
@@ -419,7 +419,7 @@
                                                             <div class="col-sm-2 right">
                                                                 <asp:UpdatePanel runat="server">
                                                                     <ContentTemplate>
-                                                                        <asp:LinkButton runat="server" ID="btnagregar" 
+                                                                        <asp:LinkButton runat="server" ID="btnagregar"
                                                                             CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float"
                                                                             OnClick="btnagregar_Click">
                                                                             <i class="material-icons">add</i>
@@ -463,7 +463,7 @@
                                                                         <asp:TextBox ID="txtimporttot" class="form-control" runat="server" type="text" Value="0"
                                                                             pattern="[0-8]+" ReadOnly>
                                                                         </asp:TextBox>
-                                                                       
+
 
                                                                     </ContentTemplate>
                                                                 </asp:UpdatePanel>
@@ -489,7 +489,7 @@
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>
                                                 </div>
-                                            </div>  
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -515,7 +515,7 @@
                                             <asp:Label ID="lblmontopagado" runat="server" class="form-label"><b>Monto pagado S/.</b></asp:Label>
 
                                             <div class="form-line ">
-                                                <input type="number" placeholder="Ej: 100" id="txtmontopagado" class="form-control" runat="server" 
+                                                <input type="number" placeholder="Ej: 100" id="txtmontopagado" class="form-control" runat="server"
                                                     onkeyup="CalcularVuelto()" clientidmode="Static" />
                                             </div>
                                         </div>
@@ -574,13 +574,13 @@
             </div>
         </form>
     </section>
-   
+
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="cph_footer" runat="Server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="cph_Js" runat="Server">
-    
+
     <script src="js/Aplicacion/RealizarVenta.js"></script>
 
     <script>
@@ -608,36 +608,97 @@
         function showSuccessMessage4() {
             swal({
                 title: "ERROR!",
-                text: "Complete espacios en BLANCO!!",
+                text: "Ingresar DNI del cliente!!",
                 type: "error"
             });
         }
-
+        function showSuccessMessage5() {
+            swal({
+                title: "ERROR!",
+                text: "Ingresar codigo del producto!!",
+                type: "error"
+            });
+        }
+        function showSuccessMessage6() {
+            swal({
+                title: "ERROR!",
+                text: "Ingresar cantidad del producto!!",
+                type: "error"
+            });
+        }
+        function showSuccessMessage7() {
+            swal({
+                title: "ERROR!",
+                text: "Complete espacios en blanco!!",
+                type: "error"
+            });
+        }
+        function showSuccessMessage8() {
+            swal({
+                title: "ERROR!",
+                text: "Ingresar medida!!",
+                type: "error"
+            });
+        }
+        function showSuccessMessage9() {
+            swal({
+                title: "ERROR!",
+                text: "Ingresar cantidad!!",
+                type: "error"
+            });
+        }
+        function showSuccessMessage10() {
+            swal({
+                title: "ERROR!",
+                text: "Ingresar imagen!!",
+                type: "error"
+            });
+        }
+        function showSuccessMessage11() {
+            swal({
+                title: "ERROR!",
+                text: "Seleccionar una moldura!!",
+                type: "error"
+            });
+        }
+        function showSuccessMessage12() {
+            swal({
+                title: "ERROR!",
+                text: "Seleccionar tipo de comprobante!!",
+                type: "error"
+            });
+        }
+        function showSuccessMessage13() {
+            swal({
+                title: "ERROR!",
+                text: "Monto insuficiente!!",
+                type: "error"
+            });
+        }
     </script>
     <script src="js/Aplicacion/UploadFile.js"></script>
-     <script type="text/javascript">
-         function ImagePreview(input) {
-             if (input.files && input.files[0]) {
-                 var reader = new FileReader();
-                 reader.onload = function (e) {
-                     $('#<%=Image1.ClientID%>').prop('src', e.target.result)
-                         .width(250)
-                         .height(250);
-                 };
-                 reader.readAsDataURL(input.files[0]);
-             }
-         }
+    <script type="text/javascript">
+        function ImagePreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#<%=Image1.ClientID%>').prop('src', e.target.result)
+                        .width(250)
+                        .height(250);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
-         function getQueryStringParameter(paramToRetrieve) {
-             var params = document.URL.split("?");
-             var strParams = "";
-             for (var i = 0; i < params.length; i = i + 1) {
-                 var singleParam = params[i].split("=");
-                 if (singleParam[0] == paramToRetrieve)
-                     return singleParam[1].replace("#", "");
-             }
-         }
-
+        function getQueryStringParameter(paramToRetrieve) {
+            var params = document.URL.split("?");
+            var strParams = "";
+            for (var i = 0; i < params.length; i = i + 1) {
+                var singleParam = params[i].split("=");
+                if (singleParam[0] == paramToRetrieve)
+                    return singleParam[1].replace("#", "");
+            }
+        }
     </script>
 </asp:Content>
 

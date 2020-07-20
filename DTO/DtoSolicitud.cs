@@ -18,6 +18,7 @@ namespace DTO
         public string VS_Comentario { get; set; }
         public DateTime DTS_FechaEmicion { get; set; }
         public DateTime DTS_FechaRegistro { get; set; }
+        public DateTime DTS_FechaRecojo { get; set; }
 
         public int IS_EstadoPago { get; set; }
 

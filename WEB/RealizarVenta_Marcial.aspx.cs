@@ -64,11 +64,15 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btnboleta_Click(object sender, EventArgs e)
     {
+        if (ddl_TipoComprobante.SelectedValue=="0")
+        {
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage12()");
+        }
         if (txtIdentificadorUsuario.Text == "" | txtcodigop.Text == "" | txtcantidad.Text == "")
         {
-            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage4()");
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage7()");
         }
-        
+       
         try
         {
             objDtoSolicitud.DS_ImporteTotal = double.Parse(txtimporteigv.Text);
@@ -213,7 +217,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
     {
         if (txtcodigop.Text == "")
         {
-            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage4()");
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage5()");
         }
 
         try
@@ -244,7 +248,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
     {
         if (txtcantidad.Text=="")
         {
-            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage4()");
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage6()");
         }
 
         try
@@ -297,7 +301,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
     {
         if (txtsubtotal.Text == "")
         {
-            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage4()");
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage7()");
         }
         try
         {
@@ -385,12 +389,15 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
     {
         if (txtmedidaDP.Text == "")
         {
-            Utils.AddScriptClientUpdatePanel(panelCalcPersonalizado, "showSuccessMessage4()");
+            Utils.AddScriptClientUpdatePanel(panelCalcPersonalizado, "showSuccessMessage8()");
         }
         if (txtcantidadDP.Text == "")
         {
-            Utils.AddScriptClientUpdatePanel(panelCalcPersonalizado, "showSuccessMessage4()");
-
+            Utils.AddScriptClientUpdatePanel(panelCalcPersonalizado, "showSuccessMessage9()");
+        }
+        if (ddlTipoMoldura.SelectedValue=="0")
+        {
+            Utils.AddScriptClientUpdatePanel(panelCalcPersonalizado, "showSuccessMessage11()");
         }
         double aprox;
         if (ddlTipoMoldura.SelectedValue != "0")
@@ -412,6 +419,10 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btnEnviar_Click(object sender, EventArgs e)
     {
+        if (txtIdentificadorUsuario.Text == "" | txtcodigop.Text == "" | txtcantidad.Text == "")
+        {
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage7()");
+        }
         try
         {
             if (valorObtenidoRBTN.Value == "2" && ddlPedidoPor.SelectedValue == "1")
@@ -422,12 +433,14 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 objDtoSolicitud.VS_TipoSolicitud = "Personalizado por Catalogo";
                 objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidad.Text);
                 objDtoSolicitud.DS_ImporteTotal = int.Parse(txtimporttot.Text);
+                objDtoSolicitud.DTS_FechaRecojo = Calendar1.SelectedDate;
                 objCtrSolicitud.RegistrarSolicitud_PxC(objDtoSolicitud);
 
                 for (int i = 0; i < gvdetalle.Rows.Count; i++)
                 {
                     string subtotalMoldura = gvdetalle.Rows[i].Cells[2].Text;
                     _log.CustomWriteOnLog("Realizar venta 1", "subtotalMoldura = " + subtotalMoldura);
+
                     objDtoMolduraxUsuario.FK_VU_Cod = txtIdentificadorUsuario.Text; //dni
                     objDtoMolduraxUsuario.FK_IM_Cod = int.Parse(txtcodigop.Text);
                     objDtoMolduraxUsuario.IMU_Cantidad = int.Parse(txtcantidad.Text);
@@ -454,6 +467,14 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btnEnviar1_Click(object sender, EventArgs e)
     {
+        if (txtIdentificadorUsuario.Text == "" | txtmedidaDP.Text == "" | txtcantidadDP.Text == "")
+        {
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage7()");
+        }
+        if (FileUpload2.Value =="")
+        {
+            Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage10()");
+        }
         try
         {
             if (valorObtenidoRBTN.Value == "2" && ddlPedidoPor.SelectedValue == "2")
@@ -498,6 +519,5 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
             _log.CustomWriteOnLog("Realizar venta 1", "btnEnviar1_Click error  : " + ex.Message);
 
         }
-        //pasar imagen
     }
 }

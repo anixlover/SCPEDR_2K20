@@ -144,6 +144,7 @@ namespace DAO
             command.Parameters.AddWithValue("@TipoSol", objsolicitud.VS_TipoSolicitud);
             command.Parameters.AddWithValue("@cant", objsolicitud.IS_Cantidad);
             command.Parameters.AddWithValue("@impt", objsolicitud.DS_ImporteTotal);
+            command.Parameters.AddWithValue("@fechareco", objsolicitud.DTS_FechaRecojo);
             command.Parameters.Add("@newID", SqlDbType.Int).Direction = ParameterDirection.Output;
             conexion.Open();
             using (SqlDataReader dr = command.ExecuteReader())

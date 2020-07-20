@@ -96,6 +96,7 @@ namespace CTR
                 Objusuario.error = 7;
                 return;
             }
+
             objDaoUsuario.InsertarCliente(Objusuario);
             Objusuario.error = 77;
         }
@@ -114,9 +115,11 @@ namespace CTR
             {
                 return objDaoUsuario.datosUsuario(dtoUsuario.PK_VU_Dni);
             }
+        }
 
-
-
+        public void EnviarCorreoVendedor(DtoUsuario dtoUsuario)
+        {
+            objDaoUsuario.EnviarCorreoaVendedor(dtoUsuario);
         }
     }
 }

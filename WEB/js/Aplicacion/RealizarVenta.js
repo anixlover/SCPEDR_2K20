@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
 
     $("#ddl_TipoComprobante").change(function () {
         var ddlSelectedTipoComprobante = $('#ddl_TipoComprobante').val();
@@ -105,12 +106,6 @@
             $("#IdCalendar").fadeOut();
             $("#idMostrarbtnEnviar").fadeOut();
             $("#DivCodigoSubtotal").fadeOut();
-
-
         }
     });
-
-
-
-   
 });
