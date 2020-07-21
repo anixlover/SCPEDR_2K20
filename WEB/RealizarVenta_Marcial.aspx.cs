@@ -44,6 +44,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
             }
             OpcionesTipoMoldura();
         }
+        
         //try
         //{
         //    if (Session["DNIUsuario"] == null)
@@ -76,6 +77,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
         try
         {
             objDtoSolicitud.DS_ImporteTotal = double.Parse(txtimporteigv.Text);
+
             objCtrSolicitud.RegistrarSolicitud_LD2(objDtoSolicitud);
 
             int ValorDevuelto = objDtoSolicitud.PK_IS_Cod;
