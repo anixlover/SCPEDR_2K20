@@ -29,15 +29,28 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
         }
     }
     protected void btnRegistrar_Click(object sender, EventArgs e)
-    {
+    {        
         try
         {
-            if (txtDNI.Text == "" | txtNombres.Text == "" | txtApellidos.Text == "" | txtCelular.Text == "" | txtCorreo.Text == "" | txtContrasenia.Text == "" | txtFechaNacimiento.Text == "")
+            if (txtNombres.Text == "" | txtApellidos.Text == "" | txtCelular.Text == "" | txtCorreo.Text == "" | txtFechaNacimiento.Text == "")
             {
                 //lblMsje.Text = "COMPLETE EL FORMULARIO!!";
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensajes","<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
                 return;
             }
-
+            if (txtDNI.Text == "" && RadioButton1.Checked == true)
+            {
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
+                return;
+            }
+            if (txtExtranjero.Text == "" && RadioButton2.Checked == true)
+            {
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
+                return;
+            }
             //DtoUsuario objuser = new DtoUsuario(txtDNI.Text, txtNombres.Text, txtApellidos.Text, Convert.ToInt32(txtCelular.Text), Convert.ToDateTime(txtFechNac.Text), txtCorreo.Text, txtContraseña.Text, 1);
             _log.CustomWriteOnLog("Registro de usuario", "_______________________________________________________________________________ENTRO A FUNCION REGISTRAR_____________________________________________________________________");
 
@@ -48,15 +61,17 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
             _log.CustomWriteOnLog("Registro de usuario", "txtCelular = " + txtCelular.Text);
             _log.CustomWriteOnLog("Registro de usuario", "txtFechaNacimiento = " + txtFechaNacimiento.Text);
             _log.CustomWriteOnLog("Registro de usuario", "txtCorreo = " + txtCorreo.Text);
-            _log.CustomWriteOnLog("Registro de usuario", "txtContrasenia = " + txtContrasenia.Text);
+            //_log.CustomWriteOnLog("Registro de usuario", "txtContrasenia = " + txtContrasenia.Text);
 
             if (RadioButton1.Checked == true)
             {
                 objuser.PK_VU_Dni = txtDNI.Text;
+                objuser.VU_Contraseña ="01"+ txtDNI.Text + DateTime.Today.Day.ToString();
             }
             if (RadioButton2.Checked == true)
             {
                 objuser.PK_VU_Dni = txtExtranjero.Text;
+                objuser.VU_Contraseña ="01"+txtExtranjero.Text+DateTime.Today.Day.ToString();
             }
 
             objuser.VU_Nombre = txtNombres.Text;
@@ -68,8 +83,7 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
 
 
             objuser.DTU_FechaNac = Convert.ToDateTime(b.ToString("yyyy-MM-dd hh:mm:ss"));
-            objuser.VU_Correo = txtCorreo.Text;
-            objuser.VU_Contraseña = txtContrasenia.Text;
+            objuser.VU_Correo = txtCorreo.Text;            
 
             objuserneg.RegistrarUsuario(objuser);
             //objuser.PK_VU_Dni =  txtDNI.Text;
@@ -85,7 +99,8 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
                 txtApellidos.Text = "";
                 txtCelular.Text = "";
                 txtCorreo.Text = "";
-                txtContrasenia.Text = "";
+                //txtContrasenia.Text = "";        
+                objuserneg.EnviarCorreoVendedor(objuser);
             }
         }
         catch (Exception ex)
@@ -131,13 +146,12 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
                 break;
             case 7:
                 //lblMsje.Text = "Correo [" + u.VU_Correo + "] ya está registrado";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Correo ya registrado, 'bottom', 'center', null, null);", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Correo ya registrado', 'bottom', 'center', null, null);", true);
                 _log.CustomWriteOnLog("Registro de usuario", "Correo ya registrado");
                 break;
             case 77:
                 //lblMsje.Text = "REGISTRO EXITOSO!!";
-                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage2()");
-                objuserneg.EnviarCorreoVendedor(objuser);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Registro EXITOSO!!!', 'bottom', 'center', null, null);", true);
                 _log.CustomWriteOnLog("Registro de usuario", "Registro ");
                 break;
         }

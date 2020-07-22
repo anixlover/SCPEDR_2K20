@@ -34,12 +34,12 @@ public partial class Realizar_compra : System.Web.UI.Page
             lblfecha.Text = DateTime.Today.Date.ToString();            
         }
 
-        if (Session["DNIUsuario"] != null | Session["idSolicitudPago"]!=null)
+        if (Session["DNIUsuario"] != null & Session["idSolicitudPago"] != null)
         {
             CargarRUCS();
         }
         else
-            Response.Redirect("Login.aspx");
+        { Response.Redirect("Login.aspx"); }
     }
 
     protected void rbBoleta_CheckedChanged(object sender, EventArgs e)
@@ -162,6 +162,7 @@ public partial class Realizar_compra : System.Web.UI.Page
             {
                 objvouneg.RegistrarVoucher(objvou);
                 objsolneg.ActualizarEstado(objsol);
+                Response.Redirect("ConsultarEstadoPago.aspx");
             }   
         
             CargarRUCS();
