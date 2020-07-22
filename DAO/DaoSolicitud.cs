@@ -174,6 +174,29 @@ namespace DAO
             }
             conexion.Close();
         }
-        
+
+        public DataSet desplegableSolicitudEstado()
+        {
+            SqlDataAdapter solest = new SqlDataAdapter("SP_Desplegable_Solicitud_Estado", conexion);
+            solest.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataSet DS = new DataSet();
+            solest.Fill(DS);
+            return DS;
+        }
+
+        public DataTable ListarSolicitudxEstado(DtoSolicitudEstado objtipo)
+        {
+            DataTable dtsolicitudes = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_Listar_Moldura_by_TipoMoldura", conexion);
+            command.Parameters.AddWithValue("@idSolEst", objtipo.PK_ISE_Cod);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtsolicitudes = new DataTable();
+            daAdaptador.Fill(dtsolicitudes);
+            conexion.Close();
+            return dtsolicitudes;
+        }
+
     }
 }

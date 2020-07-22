@@ -113,7 +113,7 @@
                                                 <label class="form-label">Stock :</label>
                                                 <div class="form-line focused">
                                                     <div class="form-line">
-                                                        <asp:TextBox ID="txtStockModal" class="form-control" runat="server" ReadOnly></asp:TextBox>
+                                                        <asp:TextBox ID="txtStockModal" class="form-control" runat="server" ReadOnly="false"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -125,7 +125,7 @@
                                                 <label class="form-label">Descripción :</label>
                                                 <div class="form-line focused">
                                                     <div class="form-line">
-                                                        <asp:TextBox ID="txtDescripcionModal" class="form-control" runat="server" ReadOnly></asp:TextBox>
+                                                        <asp:TextBox ID="txtDescripcionModal" class="form-control" runat="server" ReadOnly="false"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>

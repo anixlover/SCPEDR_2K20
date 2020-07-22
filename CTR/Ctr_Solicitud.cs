@@ -52,9 +52,9 @@ namespace CTR
             return objDaoSolicitud.CantidadSolicitudes();
         }
 
-        public DataTable TablaConsultaEstado(DtoSolicitud objsolicitud, DtoMolduraxUsuario objmxu)
+        public DataTable TablaConsultaEstado(DtoSolicitud objsolicitud, DtoMolduraxUsuario objmxu/*,DtoSolicitudEstado solest*/)
         {
-            return objDaoSolicitud.ConsultarEstadoPago(objsolicitud,objmxu);
+            return objDaoSolicitud.ConsultarEstadoPago(objsolicitud,objmxu/*,solest*/);
         }
 
         public void RegistrarSolicitud_PxC(DtoSolicitud objsolicitud)
@@ -65,6 +65,11 @@ namespace CTR
         public void RegistrarSolicitud_PxDP(DtoSolicitud objsolicitud)
         {
             objDaoSolicitud.RegistrarSolicitud_PxPD(objsolicitud);
+        }
+
+        public DataSet OpcionesSolicitudEstado()
+        {
+            return objDaoSolicitud.desplegableSolicitudEstado();
         }
 
     }
