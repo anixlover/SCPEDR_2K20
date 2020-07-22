@@ -108,4 +108,37 @@ $(document).ready(function () {
             $("#DivCodigoSubtotal").fadeOut();
         }
     });
+
+    $('input[type=radio][name=TipoC]').change(function () {
+        if (this.value == '1') {
+            $("#valorObtenidoRBTN1").val('1');
+        }
+        else if (this.value == '2') {
+            $("#valorObtenidoRBTN1").val('2');
+        }
+        console.log($("#valorObtenidoRBTN1").val());
+    });
+
+
+    $("#RDB_DNI").change(function () {
+        var rdb1 = $('#RDB_DNI').val();
+        console.log($('#RDB_DNI').val());
+        if (rdb1 == "1") {
+            $("#lbldni").fadeIn();
+
+            $("#lblcde").fadeOut();            
+        }
+    });
+    $("#RDB_CEXTRANJERIA").change(function () {
+        var rdb = $('#RDB_CEXTRANJERIA').val();
+        console.log($('#RDB_CEXTRANJERIA').val());
+        if (rdb == "2") {
+            $("#lblcde").fadeIn();
+
+            $("#lbldni").fadeOut();
+        }
+    });
+
+
+
 });
