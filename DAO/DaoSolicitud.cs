@@ -114,6 +114,7 @@ namespace DAO
         {
             SqlCommand command = new SqlCommand("SP_RegistrarSolicitud_C_2", conexion);
             command.CommandType = CommandType.StoredProcedure;
+    
             command.Parameters.AddWithValue("@impt", objsolicitud.DS_ImporteTotal);
             command.Parameters.Add("@NewId", SqlDbType.Int).Direction = ParameterDirection.Output;
             conexion.Open();

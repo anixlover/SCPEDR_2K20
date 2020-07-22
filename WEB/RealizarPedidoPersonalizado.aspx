@@ -95,6 +95,7 @@
                 <br />
                 <br />
                 <div class="medio">
+                    
                     <asp:UpdatePanel ID="upBotonEnviar" runat="server" UpdateMode="Conditional">
                         
                         <ContentTemplate>
@@ -103,6 +104,20 @@
 
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:LinkButton runat="server" ID="btnenviar" CssClass="enviar" OnClick="btnEnviar_Click"> 
+                                            <i class="far fa-envelope"></i> Enviar
+                            </asp:LinkButton>
+
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                        
+                        <ContentTemplate>
+                            <asp:LinkButton ID="btncancelar2" runat="server" CssClass="cancelar">
+                                <i class="fas fa-arrow-left"></i> Cancelar</asp:LinkButton>
+
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:LinkButton runat="server" ID="btnenviar2" CssClass="enviar" OnClick="btnenviar2_Click" > 
                                             <i class="far fa-envelope"></i> Enviar
                             </asp:LinkButton>
 
@@ -131,13 +146,46 @@
         function showSuccessMessage2() {
             setTimeout(function () {
                 swal({
-                    title: "Todo guardado",
+                    title: "Enviado correctamente",
                     text: "Pulsa el botón y se te redirigirá",
                     type: "success"
                 }, function () {
                         window.location = "ConsultarEstadoPago.aspx";
                 });
             }, 1000);
+        }
+        function showSuccessMessage3() {
+            setTimeout(function () {
+                swal({
+                    title: "Todo guardado",
+                    text: "Pulsa el botón 'ok' y se te redirigirá a la lista de pedidos",
+                    type: "success"
+                }, function () {
+                    window.location = "ConsultarEstadoPago.aspx";
+                });
+            }, 1000);
+        }
+        function showSuccessMessage4() {
+            swal({
+                title: "ERROR!",
+                text: "Ingresar cantidad del producto!!",
+                type: "error"
+            });
+        }
+        function showSuccessMessage5() {
+            swal({
+                title: "ERROR!",
+                text: "Ingresar codigo del producto!!",
+                type: "error"
+            });
+        }
+
+        function showSuccessMessage6() {
+            swal({
+                title: "ERROR!",
+                text: "Complete todos los campos!!",
+                type: "error"
+            });
         }
     </script>
     <%--    <script>

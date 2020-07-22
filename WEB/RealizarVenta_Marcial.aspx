@@ -52,16 +52,57 @@
                         <div class="header">
                             <h2>Datos cliente</h2>
                         </div>
+                        <%--rdb dni, carnet extranjeria--%>
                         <div class="body">
+
+                            <asp:Label ID="Label10" runat="server" class="form-label"><b>Tipo de documento :</b></asp:Label>
+                            <input type="hidden" runat="server" id="valorObtenidoRBTN1" clientidmode="Static" />
                             <asp:Panel runat="server" ID="Panel1">
                                 <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col-sm-8">
+                                                <div class="form-group form-float">
+                                                    <div class="col-lg-6">
+                                                        <div class="demo-checkbox">
+                                                            <div class="demo-radio-button">
+                                                                <input type="radio" id="RDB_DNI" name="TipoC" class="radio-col-red" value="1" />
+                                                                <label for="RDB_DNI">Dni</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="demo-checkbox">
+                                                            <div class="demo-radio-button">
+                                                                <input type="radio" id="RDB_CEXTRANJERIA" name="TipoC" class="radio-col-red" value="2" />
+                                                                <label for="RDB_CEXTRANJERIA">Carnet de Extrajeria</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                     <%--dni, ruc--%>
                                     <div class="col-md-5">
                                         <div class="col-sm-12">
                                             <div class="col-sm-10">
                                                 <div class="form-group form-float">
-                                                    <asp:Label ID="lbldni" runat="server" class="form-label"><b>Ingrese el DNI del cliente</b></asp:Label>
+
+                                                    <div class="col-12" id="lbldni" runat="server" hidden clientidmode="Static">
+                                                    <asp:HiddenField runat="server" ID="HiddenField5" ClientIDMode="Static" />
+    
+                                                        <asp:Label ID="lbldniu" runat="server" class="form-label"><b>Ingrese el DNI del cliente</b></asp:Label>
+                                                    </div>
+
+                                                    <div class="col-12" id="lblcde" runat="server" hidden clientidmode="Static">
+                                                    <asp:HiddenField runat="server" ID="HiddenField4" ClientIDMode="Static" />
+
+                                                        <asp:Label ID="lblcdex" runat="server" class="form-label"><b>Ingrese el Carnet de Extranjeria</b></asp:Label>
+                                                    </div>
+
                                                     <div class="form-line">
                                                         <asp:TextBox placeholder="Ej: 74588841" ID="txtIdentificadorUsuario" class="form-control" runat="server" type="text" ClientIDMode="Static"></asp:TextBox>
                                                     </div>
@@ -70,7 +111,7 @@
                                             <br />
 
                                             <%--button search use r--%>
-                                            <div class="col-sm-1">
+                                            <div class="col-sm-2 right">
                                                 <asp:UpdatePanel runat="server" UpdateMode="Conditional">
                                                     <ContentTemplate>
                                                         <asp:LinkButton runat="server" ID="btnbuscar"
@@ -304,12 +345,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="col-sm-12">
-                                                <asp:Label ID="txtcodproducto" runat="server" class="form-label"><b>Codigo Producto</b></asp:Label>
                                                 <div class="form-group form-float">
                                                     <div class="col-sm-10">
+                                                        <asp:Label ID="txtcodproducto" runat="server" class="form-label"><b>Codigo Producto</b></asp:Label>
                                                         <div class="form-line">
-                                                            <%--  <asp:TextBox placeholder="Ej: 74588841"  ID="TextBox2" class="form-control" runat="server" type="text" 
-                                                            ClientIDMode="Static"></asp:TextBox>--%>
+                                                      
 
                                                             <asp:TextBox ID="txtcodigop" placeholder="Ej: 950" class="form-control" runat="server" type="text"
                                                                 pattern="[0-8]+" MinLength="8" MaxLength="8">
@@ -336,9 +376,9 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="col-sm-12">
-                                                    <label class="form-label">Cantidad(u)</label>
                                                     <div class="form-group form-float">
                                                         <div class="col-sm-10">
+                                                    <label class="form-label">Cantidad(u)</label>
                                                             <div class="form-line">
                                                                 <asp:TextBox ID="txtcantidad" placeholder="Ej: 2" class="form-control" runat="server"></asp:TextBox>
                                                             </div>
@@ -400,9 +440,9 @@
                                             <div class="col-md-6">
                                                 <div class="col-sm-8">
                                                     <div class="form-group form-float">
-                                                        <asp:Label ID="Label2" runat="server" class="form-label"><b>Subtotal S/</b></asp:Label>
                                                         <div class="form-group form-float">
                                                             <div class="col-sm-10">
+                                                                <asp:Label ID="Label2" runat="server" class="form-label"><b>Subtotal S/</b></asp:Label>
                                                                 <div class="form-line">
                                                                     <asp:UpdatePanel runat="server" ID="updPanelSubTotal" UpdateMode="Conditional">
                                                                         <ContentTemplate>
@@ -454,9 +494,9 @@
                                         <div class="col-md-6">
                                             <div class="col-sm-8">
                                                 <div class="form-group form-float">
-                                                    <asp:Label ID="Label1" runat="server" class="form-label"><b>Importe total S/</b></asp:Label>
                                                     <div class="form-group form-float">
                                                         <div class="col-sm-10">
+                                                    <asp:Label ID="Label1" runat="server" class="form-label"><b>Importe total S/</b></asp:Label>
                                                             <div class="form-line">
                                                                 <asp:UpdatePanel ID="panelImpoTot" runat="server" UpdateMode="Always">
                                                                     <ContentTemplate>
@@ -675,6 +715,7 @@
                 type: "error"
             });
         }
+        
     </script>
     <script src="js/Aplicacion/UploadFile.js"></script>
     <script type="text/javascript">
