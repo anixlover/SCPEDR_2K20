@@ -96,9 +96,8 @@ namespace CTR
                 Objusuario.error = 7;
                 return;
             }
-
-            objDaoUsuario.InsertarCliente(Objusuario);
             Objusuario.error = 77;
+            objDaoUsuario.InsertarCliente(Objusuario);            
         }
 
 

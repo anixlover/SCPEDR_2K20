@@ -23,7 +23,7 @@ namespace DAO
                 //return @"data source=DESKTOP-4LVLNRM; initial catalog=BD_SCPEDR; integrated security=SSPI;";
                 //Conexion Alvaro
                 //return "data source=DESKTOP-IAELG6V\\SQLEXPRESS; initial catalog=BD_SCPEDR; integrated security=SSPI;";
-                //return "data source=(Local); initial catalog=BD_SCPEDR; integrated security=SSPI;";
+                return "data source=(Local); initial catalog=BD_SCPEDR; integrated security=SSPI;";
             }
         }
     }

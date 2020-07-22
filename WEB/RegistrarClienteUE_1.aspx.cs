@@ -25,23 +25,27 @@ public partial class RegistrarClienteUE_1 : System.Web.UI.Page
     {
         if (txtNombres.Text == "" | txtApellidos.Text == "" | txtCelular.Text == "" | txtCorreo.Text == "" | txtContraseña.Text == "" | txtFechNac.Text == "")
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
+            //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
             return;
         }
         if (txtDNI.Text == "" && RadioButton1.Checked == true) 
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
+            //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
             return;
         }
         if (txtExtranjero.Text == "" && RadioButton2.Checked == true)
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
+            //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
             return;
         }
         //DtoUsuario objuser = new DtoUsuario(txtDNI.Text, txtNombres.Text, txtApellidos.Text, Convert.ToInt32(txtCelular.Text), Convert.ToDateTime(txtFechNac.Text), txtCorreo.Text, txtContraseña.Text, 1);
         if (RadioButton1.Checked == false & RadioButton2.Checked == false)
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Seleccione documento de identidad!!'})</script>");
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: Seleccione documento de identidad!!'});", true);
+            //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Seleccione documento de identidad!!'})</script>");
             return;
         }
         if (RadioButton1.Checked == true)
@@ -83,29 +87,36 @@ public partial class RegistrarClienteUE_1 : System.Web.UI.Page
         switch (u.error)
         {
             case 1:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Nombre INVALIDO!!'})</script>");
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Nombre INVALIDO!!'});", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Nombre INVALIDO!!'})</script>");
                 break;
             case 2:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Apellido INVALIDO!!!'})</script>");
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Apellido INVALIDO!!'});", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Apellido INVALIDO!!!'})</script>");
                 break;
             case 3:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Correo INVALIDO!!'})</script>");
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Correo INVALIDO!!'});", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Correo INVALIDO!!'})</script>");
                 break;
             case 4:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Contraseña muy CORTA!!'})</script>");
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Contraseña muy CORTA!!'});", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Contraseña muy CORTA!!'})</script>");
                 break;
             case 5:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'DNI " + u.PK_VU_Dni + " ya registrado'})</script>");
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'DNI " + u.PK_VU_Dni + " ya registrado'});", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'DNI " + u.PK_VU_Dni + " ya registrado'})</script>");
                 break;
             case 6:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Celular " + u.IU_Celular + " ya registrado'})</script>"); ;
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Celular " + u.IU_Celular + " ya registrado'});", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Celular " + u.IU_Celular + " ya registrado'})</script>"); ;
                 break;
             case 7:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Correo " + u.VU_Correo + " ya registrado'})</script>");
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Correo " + u.VU_Correo + " ya registrado'});", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Correo " + u.VU_Correo + " ya registrado'})</script>");
                 break;
             case 77:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','Datos ENVIADOS!','success')</script>");
-                objuserneg.EnviarCorreoVendedor(objuser);
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "setTimeout(function () { swal('Se ha registrado CORRECTAMENTE!','Datos ENVIADOS!','success');},1000);", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','Datos ENVIADOS!','success')</script>");
                 break;
         }
     }
@@ -121,4 +132,5 @@ public partial class RegistrarClienteUE_1 : System.Web.UI.Page
         txtExtranjero.Visible = true;
         txtDNI.Visible = false;
     }
+
 }
