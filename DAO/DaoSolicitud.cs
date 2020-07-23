@@ -189,7 +189,7 @@ namespace DAO
         {
             DataTable dtsolicitudes = null;
             conexion.Open();
-            SqlCommand command = new SqlCommand("SP_Listar_Solicitud_x_Estado", conexion);
+            SqlCommand command = new SqlCommand("SP_Listar_Solicitud_x_Estado2", conexion);
             command.Parameters.AddWithValue("@DNI", objmxu.FK_VU_Cod);
             command.Parameters.AddWithValue("@idSolEst", objSE.PK_ISE_Cod);
             SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
