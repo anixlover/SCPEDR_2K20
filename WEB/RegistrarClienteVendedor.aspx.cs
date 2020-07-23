@@ -79,7 +79,7 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
             objuser.IU_Celular = Convert.ToInt32(txtCelular.Text);
             DateTime a = new DateTime();
             a = Convert.ToDateTime(txtFechaNacimiento.Text);
-            DateTime b = new DateTime(2019, a.Month, a.Day);
+            DateTime b = new DateTime(a.Year, a.Month, a.Day);
 
 
             objuser.DTU_FechaNac = Convert.ToDateTime(b.ToString("yyyy-MM-dd hh:mm:ss"));
@@ -149,6 +149,10 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-red', 'Correo ya registrado', 'bottom', 'center', null, null);", true);
                 _log.CustomWriteOnLog("Registro de usuario", "Correo ya registrado");
                 break;
+            case 8:
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'No se admite MENORES!!!'});", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Correo " + u.VU_Correo + " ya registrado'})</script>");
+                break;
             case 77:
                 //lblMsje.Text = "REGISTRO EXITOSO!!";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "showNotification", "showNotification('bg-green', 'Registro EXITOSO!!!', 'bottom', 'center', null, null);", true);
@@ -173,5 +177,4 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
         txtExtranjero.Visible = true;
         txtDNI.Visible = false;
     }
-    //fasdj
 }

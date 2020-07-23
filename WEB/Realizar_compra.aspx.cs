@@ -26,11 +26,6 @@ public partial class Realizar_compra : System.Web.UI.Page
         
         if (!IsPostBack)
         {
-            txtnewRUC.Visible = false;
-            ddlRUC.Visible = false;
-            checkboxRUC.Visible = false;
-            lblRUC.Visible = false;
-            rbBoleta.Checked = true;     
         }
 
         if (Session["DNIUsuario"] != null & Session["idSolicitudPago"] != null)
@@ -41,34 +36,34 @@ public partial class Realizar_compra : System.Web.UI.Page
         { Response.Redirect("Login.aspx"); }
     }
 
-    protected void rbBoleta_CheckedChanged(object sender, EventArgs e)
-    {
-        checkboxRUC.Visible = false;
-        ddlRUC.Visible = false;
-        lblRUC.Visible = false;
-        txtnewRUC.Visible = false;
-    }
+    //protected void rbBoleta_CheckedChanged(object sender, EventArgs e)
+    //{
+    //    checkboxRUC.Visible = false;
+    //    ddlRUC.Visible = false;
+    //    lblRUC.Visible = false;
+    //    txtnewRUC.Visible = false;
+    //}
 
-    protected void checkboxRUC_CheckedChanged(object sender, EventArgs e)
-    {
-        if (checkboxRUC.Checked == false)
-        {
-            ddlRUC.Visible = true;
-            txtnewRUC.Visible = false;
-        }
-        if (checkboxRUC.Checked == true)
-        {
-            ddlRUC.Visible = false;
-            txtnewRUC.Visible = true;
-        }
-    }
+    //protected void checkboxRUC_CheckedChanged(object sender, EventArgs e)
+    //{
+    //    if (checkboxRUC.Checked == false)
+    //    {
+    //        ddlRUC.Visible = true;
+    //        txtnewRUC.Visible = false;
+    //    }
+    //    if (checkboxRUC.Checked == true)
+    //    {
+    //        ddlRUC.Visible = false;
+    //        txtnewRUC.Visible = true;
+    //    }
+    //}
 
-    protected void rbFactura_CheckedChanged(object sender, EventArgs e)
-    {
-        checkboxRUC.Visible = true;
-        ddlRUC.Visible = true;
-        lblRUC.Visible = true;
-    }
+    //protected void rbFactura_CheckedChanged(object sender, EventArgs e)
+    //{
+    //    checkboxRUC.Visible = true;
+    //    ddlRUC.Visible = true;
+    //    lblRUC.Visible = true;
+    //}
     public void CargarRUCS()
     {
         string select = "select VDF_RUC from T_DatoFactura where FK_VU_Dni='" + Session["DNIUsuario"].ToString() + "'";
@@ -84,44 +79,49 @@ public partial class Realizar_compra : System.Web.UI.Page
     protected void btnEnviar_Click(object sender, EventArgs e)
     {
 
-            if (txtImporte.Text == "" | txtNumOp.Text == "")
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
-                return;
-            }
-            if (txtnewRUC.Text == "" && rbFactura.Checked == true && checkboxRUC.Checked == true)
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
-                return;
-            }
-            objpago = new DtoPago();
+        if (txtImporte.Text == "" | txtNumOp.Text == "")
+        {
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
+            return;
+        }
+        if (txtnewRUC.Text == "" && valorCheck.Value=="3" && valorObtenidoRBTN.Value=="2")
+        {
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
+            return;
+        }
+        if (ddlRUC.Text == "" && valorObtenidoRBTN.Value == "2")
+        {
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
+            return;
+        }
+        objpago = new DtoPago();
             objpagoneg = new CtrPago();
-            
-            if (rbFactura.Checked == true && checkboxRUC.Checked == true)
-            {
-                objfacturaneg = new CtrDatoFactura();
-                objfactura = new DtoDatoFactura();
-                int ultimo = objfacturaneg.ultimo();
-                objfactura.PK_IDF_Cod = ultimo + 1;
-                objfactura.VDF_RazonSocial = "";
-                objfactura.IDF_RUC = txtnewRUC.Text;
-                objfactura.FK_VU_DNI = Session["DNIUsuario"].ToString();
-                objpago.IP_TipoCertificado = 2;
-                objpago.VP_RUC = txtnewRUC.Text;
-                objfacturaneg.RegistrarDatoFactura(objfactura);
-                mostrarmsjFACTURA(objfactura);
-            }
-            if (rbFactura.Checked == true && checkboxRUC.Checked == false)
-            {
-                objpago.VP_RUC = ddlRUC.Text;
-                objpago.IP_TipoCertificado = 2;
-            }
-            if (rbBoleta.Checked == true)
-            {
-                objpago.VP_RUC = "";
-                objpago.IP_TipoCertificado = 1;
-            }
-            objpago.FK_IS_Cod = Convert.ToInt32(Session["idSolicitudPago"].ToString());
+
+        if (valorObtenidoRBTN.Value == "2" && valorCheck.Value == "3")
+        {
+            objfacturaneg = new CtrDatoFactura();
+            objfactura = new DtoDatoFactura();
+            int ultimo = objfacturaneg.ultimo();
+            objfactura.PK_IDF_Cod = ultimo + 1;
+            objfactura.VDF_RazonSocial = "";
+            objfactura.IDF_RUC = txtnewRUC.Text;
+            objfactura.FK_VU_DNI = Session["DNIUsuario"].ToString();
+            objpago.IP_TipoCertificado = 2;
+            objpago.VP_RUC = txtnewRUC.Text;
+            objfacturaneg.RegistrarDatoFactura(objfactura);
+            mostrarmsjFACTURA(objfactura);
+        }
+        if (valorObtenidoRBTN.Value == "2" && valorCheck.Value !="3")
+        {
+            objpago.VP_RUC = ddlRUC.Text;
+            objpago.IP_TipoCertificado = 2;
+        }
+        if (valorObtenidoRBTN.Value == "1")
+        {
+            objpago.VP_RUC = "";
+            objpago.IP_TipoCertificado = 1;
+        }
+        objpago.FK_IS_Cod = Convert.ToInt32(Session["idSolicitudPago"].ToString());
             objpago.DP_ImportePagado = Convert.ToDouble(txtImporte.Text);
             double costo = objpagoneg.Costo(objpago);
 
@@ -177,7 +177,7 @@ public partial class Realizar_compra : System.Web.UI.Page
                 ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Importe INVALIDO!!'})</script>");
                 break;
             case 77:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','Pago REGISTRADO!!','success')</script>");
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({title:'Pago registrado CORRECTAMENTE!',text:'Datos ENVIADOS!',icon:'success'}, function(){window.location.href='ConsultarEstadoPago.aspx'});", true);
                 break;
         }
     }

@@ -18,8 +18,8 @@
                              <div class="col-lg-6">
                                  <div class="demo-checkbox">
                                      <div class="demo-radio-button">
-                                         <input type="radio" id="rbdni" name="documento" class="radio-col-red" value="1" />
-                                         <label for="cbx_Catalogo">DNI</label>
+                                         <input type="radio" id="rbdni" name="documento" class="radio-col-red" value="1"/>
+                                         <label for="rbdni">DNI</label>
                                      </div>
                                  </div>
                              </div>
@@ -27,7 +27,7 @@
                                  <div class="demo-checkbox">
                                      <div class="demo-radio-button">
                                          <input type="radio" id="rbcarnet" name="documento" class="radio-col-red" value="2" />
-                                         <label for="cbx_Personalizado">Carnet de Extranjeria</label>
+                                         <label for="rbcarnet">Carnet de Extranjeria</label>
                                      </div>
                                  </div>
                              </div>
