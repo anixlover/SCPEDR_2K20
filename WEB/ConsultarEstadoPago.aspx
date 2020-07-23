@@ -1,13 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUsuario.master" AutoEventWireup="true" CodeFile="ConsultarEstadoPago.aspx.cs" Inherits="ConsultarEstadoPago" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <div>
         <div class="body table-responsive">
             <div class="block-header">
-                <h1>Consulta de Estado de Pago</h1>
+                <h1>Consulta estado de solicitud</h1>
             </div>
 
             <%-- <asp:GridView ID="gvConsultar" CssClass="table table-bordered table-hover js-basic-example dataTable" DataKeyNames="PK_IS_Cod" runat="server" OnRowDataBound="gvConsultar_RowDataBound" AutoGenerateColumns="False" EmptyDataText="No existen registros" ShowHeaderWhenEmpty="True" OnRowCommand="gvConsultar_RowCommand" OnSelectedIndexChanged="gvConsultar_SelectedIndexChanged">
@@ -51,6 +52,9 @@
                             <asp:Button runat="server" Text="Pago"
                                 Visible='<%# ValidacionEstado(Eval("V_SE_Nombre").ToString()) %>'
                                 CommandName="Pago" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning" />
+                            <asp:Button runat="server" Text="Detalles"
+                                Visible='<%# ValidacionEstado2(Eval("V_SE_Nombre").ToString()) %>'
+                                CommandName="Detalles" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
