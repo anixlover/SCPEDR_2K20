@@ -24,8 +24,19 @@
         </asp:GridView>--%>
 
 
+            <div class="row">
+                    <div class="col-sm-4">
+                         <asp:DropDownList runat="server" ID="ddl_SolicitudEstado" OnSelectedIndexChanged="ddl_SolicitudEstado_SelectedIndexChanged" CssClass=" bootstrap-select form-control"></asp:DropDownList>
+                    </div>
+                     <div class="col-sm-2">
+                                        <asp:LinkButton runat="server" ID="btnSearch" CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float" OnClick="btnSearch_Click">
+                                            <i class="material-icons">search</i>
+                                        </asp:LinkButton>
+                    </div>
+            </div>
+            <br />
 
-            <asp:GridView ID="gvConsultar" DataKeyNames="PK_IS_Cod" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" AutoGenerateColumns="false" OnRowCommand="gvConsultar_RowCommand" OnSelectedIndexChanged="gvConsultar_SelectedIndexChanged" OnRowDataBound="gvConsultar_RowDataBound">
+            <asp:GridView ID="gvConsultar" DataKeyNames="PK_IS_Cod,V_SE_Nombre" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" AutoGenerateColumns="false" OnRowCommand="gvConsultar_RowCommand" OnSelectedIndexChanged="gvConsultar_SelectedIndexChanged" OnRowDataBound="gvConsultar_RowDataBound">
                 <Columns>
                     <asp:BoundField DataField="PK_IS_Cod" HeaderText="Cod solicitud" />
                     <asp:BoundField DataField="DTS_FechaEmicion" HeaderText="Fecha" />

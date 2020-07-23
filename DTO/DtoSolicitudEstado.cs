@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    class DtoSolicitudEstado
+    public class DtoSolicitudEstado
     {
         public int PK_ISE_Cod { get; set; }
 
