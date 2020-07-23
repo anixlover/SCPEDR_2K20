@@ -122,7 +122,7 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
                 objDtoSolicitudEstado.PK_ISE_Cod = int.Parse(ddl_SolicitudEstado.SelectedValue);
                 _log.CustomWriteOnLog("GestionarCatalogo", "objDtoTipoMoldura.PK_ITM_Tipo : " + objDtoSolicitudEstado.PK_ISE_Cod);
                 //UpdatePanel.Update();
-                gvConsultar.DataSource = objCtrSolicitud.ListarMoldurasByTipoMoldura(objDtoSolicitudEstado);
+                //gvConsultar.DataSource = objCtrSolicitud.ListarMoldurasByTipoMoldura(objDtoSolicitudEstado);
                 gvConsultar.DataBind();
                 _log.CustomWriteOnLog("GestionarCatalogo", "Paso");
             }
