@@ -73,13 +73,6 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
 
     }
 
-    //public void cargarConsultarEstadoPago(object sender, EventArgs e)
-    //{
-    //    //HtmlAnchor repLink = (HtmlAnchor)e.Item.FindControl("~/DescripcionMoldura.aspx");
-    //    //repLink.HRef = "~/DescripcionMoldura.aspx";
-    //    Response.Redirect("~/Realizar_Compra.aspx");
-    //}
-
     public void OpcionesSolicitudEstado()
     {
         DataSet ds = new DataSet();
@@ -104,6 +97,12 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
     protected Boolean ValidacionEstado(string estado)
     {
         return estado == "Pendiente de pago";
+        
+    }
+    protected Boolean ValidacionEstado2(string estado)
+    {
+        return estado == "En revision de pago";
+
     }
 
     protected void ddl_SolicitudEstado_SelectedIndexChanged(object sender, EventArgs e)
@@ -118,24 +117,23 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
         {
             if (ddl_SolicitudEstado.SelectedValue != "0")
             {
-                _log.CustomWriteOnLog("GestionarCatalogo", "Entro a busqueda");
-                objDtoSolicitudEstado.PK_ISE_Cod = int.Parse(ddl_SolicitudEstado.SelectedValue);
-                _log.CustomWriteOnLog("GestionarCatalogo", "objDtoTipoMoldura.PK_ITM_Tipo : " + objDtoSolicitudEstado.PK_ISE_Cod);
+                _log.CustomWriteOnLog("ConsultarEstadoPago", "Entro a busqueda");
+                
+                _log.CustomWriteOnLog("ConsultarEstadoPago", "objDtoTipoMoldura.PK_ITM_Tipo : " + objDtoSolicitudEstado.PK_ISE_Cod);
                 //UpdatePanel.Update();
-                gvConsultar.DataSource = objCtrSolicitud.ListarMoldurasByTipoMoldura(objDtoSolicitudEstado);
+                gvConsultar.CssClass = "table table-bordered table-hover js-basic-example dataTable";
+                dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                objDtoSolicitudEstado.PK_ISE_Cod = int.Parse(ddl_SolicitudEstado.SelectedValue);
+                gvConsultar.DataSource = objCtrSolicitud.ListarSolicitudxEstado(objDtoSolicitud, dtoMolduraxUsuario, objDtoSolicitudEstado);
                 gvConsultar.DataBind();
                 _log.CustomWriteOnLog("GestionarCatalogo", "Paso");
-            }
-
-            else if (ddl_SolicitudEstado.SelectedValue == "0")
-            {
-
             }
 
             else
             {
                 //UpdatePanel.Update();
                 gvConsultar.CssClass = "table table-bordered table-hover js-basic-example dataTable";
+                dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
                 gvConsultar.DataSource = objCtrSolicitud.TablaConsultaEstado(objDtoSolicitud, dtoMolduraxUsuario);
                 gvConsultar.DataBind();
             }

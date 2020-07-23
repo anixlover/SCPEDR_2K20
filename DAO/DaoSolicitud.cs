@@ -184,13 +184,14 @@ namespace DAO
             solest.Fill(DS);
             return DS;
         }
-
-        public DataTable ListarSolicitudxEstado(DtoSolicitudEstado objtipo)
+        //este es
+        public DataTable ListarSolicitudxEstado(DtoSolicitud objSol, DtoMolduraxUsuario objmxu, DtoSolicitudEstado objSE)
         {
             DataTable dtsolicitudes = null;
             conexion.Open();
-            SqlCommand command = new SqlCommand("SP_Listar_Moldura_by_TipoMoldura", conexion);
-            command.Parameters.AddWithValue("@idSolEst", objtipo.PK_ISE_Cod);
+            SqlCommand command = new SqlCommand("SP_Listar_Solicitud_x_Estado", conexion);
+            command.Parameters.AddWithValue("@DNI", objmxu.FK_VU_Cod);
+            command.Parameters.AddWithValue("@idSolEst", objSE.PK_ISE_Cod);
             SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
             command.CommandType = CommandType.StoredProcedure;
             dtsolicitudes = new DataTable();
