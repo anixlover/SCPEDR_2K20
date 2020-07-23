@@ -16,9 +16,9 @@ public partial class RegistrarClienteUE_1 : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
-            RadioButton1.Checked = true;
-            txtExtranjero.Visible = false;
-        }
+            //RadioButton1.Checked = true;
+            //txtExtranjero.Visible = false;     
+        }        
     }
 
     protected void btnRegistrar_Click(object sender, EventArgs e)
@@ -29,30 +29,30 @@ public partial class RegistrarClienteUE_1 : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
             return;
         }
-        if (txtDNI.Text == "" && RadioButton1.Checked == true) 
+        if (txtDNI.Text == "" && valorObtenidoRBTN.Value=="1")
         {
             ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
             //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
             return;
         }
-        if (txtExtranjero.Text == "" && RadioButton2.Checked == true)
+        if (txtExtranjero.Text == "" && valorObtenidoRBTN.Value == "2")
         {
             ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
             //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'})</script>");
             return;
         }
         //DtoUsuario objuser = new DtoUsuario(txtDNI.Text, txtNombres.Text, txtApellidos.Text, Convert.ToInt32(txtCelular.Text), Convert.ToDateTime(txtFechNac.Text), txtCorreo.Text, txtContraseña.Text, 1);
-        if (RadioButton1.Checked == false & RadioButton2.Checked == false)
+        if (valorObtenidoRBTN.Value != "1" & valorObtenidoRBTN.Value != "2")
         {
-            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: Seleccione documento de identidad!!'});", true);
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'seleccione un DOCUMENTO DE IDENTIDAD!!'});", true);
             //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Seleccione documento de identidad!!'})</script>");
             return;
         }
-        if (RadioButton1.Checked == true)
+        if (valorObtenidoRBTN.Value == "1")
         {
             objuser.PK_VU_Dni = txtDNI.Text;
         }
-        if (RadioButton2.Checked == true)
+        if (valorObtenidoRBTN.Value == "2")
         {
             objuser.PK_VU_Dni = txtExtranjero.Text;
         }
@@ -61,21 +61,14 @@ public partial class RegistrarClienteUE_1 : System.Web.UI.Page
         objuser.IU_Celular = Convert.ToInt32(txtCelular.Text);
         objuser.DTU_FechaNac = Convert.ToDateTime(txtFechNac.Text);
         objuser.VU_Correo = txtCorreo.Text;
+        if (txtContraseña.Text != txtcontra2.Text)
+        {
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Confirme su CONTRASEÑA!!'});", true);
+        }
         objuser.VU_Contraseña = txtContraseña.Text;
 
         objuserneg.RegistrarUsuario(objuser);
         msjeRegistrar(objuser);
-        if (objuser.error == 77)
-        {
-            txtFechNac.Text = "00/00/00 00:00:00";
-            txtExtranjero.Text = "";
-            txtDNI.Text = "";
-            txtNombres.Text = "";
-            txtApellidos.Text = "";
-            txtCelular.Text = "";
-            txtCorreo.Text = "";
-            txtContraseña.Text = "";
-        }
     }
 
     protected void btnCancelar_Click(object sender, EventArgs e)
@@ -114,23 +107,14 @@ public partial class RegistrarClienteUE_1 : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Correo " + u.VU_Correo + " ya registrado'});", true);
                 //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Correo " + u.VU_Correo + " ya registrado'})</script>");
                 break;
+            case 8:
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'No se admite MENORES!!!'});", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Correo " + u.VU_Correo + " ya registrado'})</script>");
+                break;
             case 77:
-                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "setTimeout(function () { swal('Se ha registrado CORRECTAMENTE!','Datos ENVIADOS!','success');},1000);", true);
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({title:'Se ha registrado CORRECTAMENTE!',text:'Datos ENVIADOS!',icon:'success'}, function(){window.location.href='Login.aspx'});", true);
                 //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','Datos ENVIADOS!','success')</script>");
                 break;
         }
     }
-
-    protected void RadioButton1_CheckedChanged(object sender, EventArgs e)
-    {
-        txtDNI.Visible = true;
-        txtExtranjero.Visible = false;
-    }
-
-    protected void RadioButton2_CheckedChanged(object sender, EventArgs e)
-    {
-        txtExtranjero.Visible = true;
-        txtDNI.Visible = false;
-    }
-
 }

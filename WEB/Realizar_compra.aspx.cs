@@ -30,8 +30,7 @@ public partial class Realizar_compra : System.Web.UI.Page
             ddlRUC.Visible = false;
             checkboxRUC.Visible = false;
             lblRUC.Visible = false;
-            rbBoleta.Checked = true;
-            lblfecha.Text = DateTime.Today.Date.ToString();            
+            rbBoleta.Checked = true;     
         }
 
         if (Session["DNIUsuario"] != null & Session["idSolicitudPago"] != null)
