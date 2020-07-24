@@ -28,12 +28,12 @@ $("#rbFactura").change(function () {
 
 $('#checkRUC').click(function () {
     if ($('#checkRUC').is(':checked')) {
-        $('#newRUC').fadeIn('slow');
-        $('#ddlRUCs').fadeOut('slow');
+        $('#newRUC').fadeIn();
+        $('#ddlRUCs').fadeOut();
         $("#valorCheck").val('3');
         console.log($("#valorCheck").val());
     } else {
-        $('#newRUC').fadeOut('slow');
-        $('#ddlRUCs').fadeIn('slow');
+        $('#newRUC').fadeOut();
+        $('#ddlRUCs').fadeIn();
     }
 });

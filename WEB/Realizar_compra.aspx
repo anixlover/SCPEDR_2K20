@@ -16,6 +16,7 @@
                         .width(200)
                         .height(200);
                 };
+                $('#hftxtimg').val("Lleno");
                 reader.readAsDataURL(input.files[0]);
             }
         }
@@ -35,38 +36,38 @@
         <input type="hidden" runat="server" id="valorCheck" clientidmode="Static" />
         <div class="registrar-cliente">
             <div class="custom-file">
-                Imagen del voucher:<br />
-                &nbsp;<asp:Image ID="Image1" runat="server" class="rounded" />
-                <asp:FileUpload ID="FileUpload1" accept="image/*" runat="server" onchange="ImagePreview(this);" ForeColor="Black" Style="color: transparent" Width="425px" />
-            </div>
-            <div class="form-group form-float">
-                <div class="col-lg-6">
-                    <div class="demo-checkbox">
-                        <div class="demo-radio-button">
-                            <input type="radio" id="rbBoleta" name="pago" value="1" />
-                            <label for="rbBoleta">Boleta</label>
+                    Imagen del voucher:<br />
+                    &nbsp;<asp:Image ID="Image1" runat="server" class="rounded" />
+                    <input type="file" id ="FileUpload1" accept="image/*" runat="server" onchange="ImagePreview(this);" ForeColor="Black" Style="color: transparent" Width="425px" />
+                </div>
+            <asp:Panel ID="Panel1" runat="server">                
+                <div class="form-group form-float">
+                    <div class="col-lg-6">
+                        <div class="demo-checkbox">
+                            <div class="demo-radio-button">
+                                <input type="radio" id="rbBoleta" name="pago" value="1" />
+                                <label for="rbBoleta">Boleta</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="demo-checkbox">
+                            <div class="demo-radio-button">
+                                <input type="radio" id="rbFactura" name="pago" value="2" />
+                                <label for="rbFactura">Factura</label>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="demo-checkbox">
-                        <div class="demo-radio-button">
-                            <input type="radio" id="rbFactura" name="pago" value="2" />
-                            <label for="rbFactura">Factura</label>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <asp:Label ID="Label1" runat="server" Text="N°de operación"></asp:Label>
+                    <asp:TextBox ID="txtNumOp" name="texto" runat="server" class="form-control" type="text" BackColor="white" BorderColor="Black" Width="100%"></asp:TextBox>
                 </div>
-            </div>
-            <div class="form-group">
-                <asp:Label ID="Label1" runat="server" Text="N°de operación"></asp:Label>
-                <asp:TextBox ID="txtNumOp" name="texto" runat="server" class="form-control" type="text" BackColor="white" BorderColor="Black" Width="100%"></asp:TextBox>
-            </div>
-            <div class="from-group">
-                <asp:Label ID="Label2" runat="server" Text="Importe:                                  "></asp:Label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="from-group">
+                    <asp:Label ID="Label2" runat="server" Text="Importe:"></asp:Label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:TextBox ID="txtImporte" name="texto" runat="server" class="form-control" type="text" step="any" BackColor="white" BorderColor="Black" Width="100%"></asp:TextBox>
-            </div>
-            <asp:Panel ID="Panel1" runat="server">
+                </div>
                 <div class="form-group">
                     <div class="col-12" id="RUC" runat="server" hidden clientidmode="Static">
                         <input type="checkbox" id="checkRUC" name="checkRUC" value="3" />
@@ -81,16 +82,19 @@
                     </div>
                 </div>
             </asp:Panel>
-            <div class="form-group">
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <div>
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
                         <asp:Button ID="btnCancelar" runat="server" class="btn btn-danger btn-lg" Text="Cancelar" OnClick="btnCancelar_Click"></asp:Button>
                         <asp:Button ID="btnEnviar" runat="server" class="btn btn-success btn-lg" Text="Enviar" OnClick="btnEnviar_Click"></asp:Button>
+                        <input type="hidden" runat="server" id="hftxtimg" clientidmode="Static" value="vacio"/>
+                        <asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
         </div>
     </section>
+    <script src="js/Aplicacion/UploadFile.js"></script>
     <script src="js/Aplicacion/RealizarCompra.js"></script>
 </asp:Content>
 

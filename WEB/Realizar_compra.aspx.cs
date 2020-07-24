@@ -8,6 +8,7 @@ using DTO;
 using CTR;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 
 public partial class Realizar_compra : System.Web.UI.Page
 {
@@ -35,35 +36,6 @@ public partial class Realizar_compra : System.Web.UI.Page
         else
         { Response.Redirect("Login.aspx"); }
     }
-
-    //protected void rbBoleta_CheckedChanged(object sender, EventArgs e)
-    //{
-    //    checkboxRUC.Visible = false;
-    //    ddlRUC.Visible = false;
-    //    lblRUC.Visible = false;
-    //    txtnewRUC.Visible = false;
-    //}
-
-    //protected void checkboxRUC_CheckedChanged(object sender, EventArgs e)
-    //{
-    //    if (checkboxRUC.Checked == false)
-    //    {
-    //        ddlRUC.Visible = true;
-    //        txtnewRUC.Visible = false;
-    //    }
-    //    if (checkboxRUC.Checked == true)
-    //    {
-    //        ddlRUC.Visible = false;
-    //        txtnewRUC.Visible = true;
-    //    }
-    //}
-
-    //protected void rbFactura_CheckedChanged(object sender, EventArgs e)
-    //{
-    //    checkboxRUC.Visible = true;
-    //    ddlRUC.Visible = true;
-    //    lblRUC.Visible = true;
-    //}
     public void CargarRUCS()
     {
         string select = "select VDF_RUC from T_DatoFactura where FK_VU_Dni='" + Session["DNIUsuario"].ToString() + "'";
@@ -78,50 +50,58 @@ public partial class Realizar_compra : System.Web.UI.Page
 
     protected void btnEnviar_Click(object sender, EventArgs e)
     {
-
-        if (txtImporte.Text == "" | txtNumOp.Text == "")
+        Log _Log = new Log();
+        try
         {
-            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
-            return;
-        }
-        if (txtnewRUC.Text == "" && valorCheck.Value=="3" && valorObtenidoRBTN.Value=="2")
-        {
-            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
-            return;
-        }
-        if (ddlRUC.Text == "" && valorObtenidoRBTN.Value == "2")
-        {
-            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
-            return;
-        }
-        objpago = new DtoPago();
+            if (valorObtenidoRBTN.Value != "1" && valorObtenidoRBTN.Value != "2")
+            {
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Seleccione BOLETA o FACTURA!!'});", true);
+                return;
+            }
+            if (txtImporte.Text == "" | txtNumOp.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
+                return;
+            }
+            if (txtnewRUC.Text == "" && valorCheck.Value == "3" && valorObtenidoRBTN.Value == "2")
+            {
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
+                return;
+            }
+            if (ddlRUC.Text == "" && valorObtenidoRBTN.Value == "2" && valorCheck.Value != "3")
+            {
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Complete espacios en BLANCO!!'});", true);
+                return;
+            }
+            
+            objpago = new DtoPago();
             objpagoneg = new CtrPago();
 
-        if (valorObtenidoRBTN.Value == "2" && valorCheck.Value == "3")
-        {
-            objfacturaneg = new CtrDatoFactura();
-            objfactura = new DtoDatoFactura();
-            int ultimo = objfacturaneg.ultimo();
-            objfactura.PK_IDF_Cod = ultimo + 1;
-            objfactura.VDF_RazonSocial = "";
-            objfactura.IDF_RUC = txtnewRUC.Text;
-            objfactura.FK_VU_DNI = Session["DNIUsuario"].ToString();
-            objpago.IP_TipoCertificado = 2;
-            objpago.VP_RUC = txtnewRUC.Text;
-            objfacturaneg.RegistrarDatoFactura(objfactura);
-            mostrarmsjFACTURA(objfactura);
-        }
-        if (valorObtenidoRBTN.Value == "2" && valorCheck.Value !="3")
-        {
-            objpago.VP_RUC = ddlRUC.Text;
-            objpago.IP_TipoCertificado = 2;
-        }
-        if (valorObtenidoRBTN.Value == "1")
-        {
-            objpago.VP_RUC = "";
-            objpago.IP_TipoCertificado = 1;
-        }
-        objpago.FK_IS_Cod = Convert.ToInt32(Session["idSolicitudPago"].ToString());
+            if (valorObtenidoRBTN.Value == "2" && valorCheck.Value == "3")
+            {
+                objfacturaneg = new CtrDatoFactura();
+                objfactura = new DtoDatoFactura();
+                int ultimo = objfacturaneg.ultimo();
+                objfactura.PK_IDF_Cod = ultimo + 1;
+                objfactura.VDF_RazonSocial = "";
+                objfactura.IDF_RUC = txtnewRUC.Text;
+                objfactura.FK_VU_DNI = Session["DNIUsuario"].ToString();
+                objpago.IP_TipoCertificado = 2;
+                objpago.VP_RUC = txtnewRUC.Text;
+                objfacturaneg.RegistrarDatoFactura(objfactura);
+                mostrarmsjFACTURA(objfactura);
+            }
+            if (valorObtenidoRBTN.Value == "2" && valorCheck.Value != "3")
+            {
+                objpago.VP_RUC = ddlRUC.Text;
+                objpago.IP_TipoCertificado = 2;
+            }
+            if (valorObtenidoRBTN.Value == "1")
+            {
+                objpago.VP_RUC = "";
+                objpago.IP_TipoCertificado = 1;
+            }
+            objpago.FK_IS_Cod = Convert.ToInt32(Session["idSolicitudPago"].ToString());
             objpago.DP_ImportePagado = Convert.ToDouble(txtImporte.Text);
             double costo = objpagoneg.Costo(objpago);
 
@@ -141,40 +121,49 @@ public partial class Realizar_compra : System.Web.UI.Page
 
             objvou = new DtoVoucher();
             objvouneg = new CtrVoucher();
-            int tamaño = FileUpload1.PostedFile.ContentLength;
-            if (tamaño == 0)
+
+            objvou.PK_VV_NumVoucher = txtNumOp.Text;
+            //objvou.VBV_Foto = imagen;
+            objvou.DV_ImporteDepositado = Convert.ToDouble(txtImporte.Text);
+            objvou.VV_Comentario = "";
+            //Utils.AddScriptClientUpdatePanel(UpdatePanel1, " ValidacionImagenVoucher();");
+            if (hftxtimg.Value == "vacio")
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>sweetAlert('Oops...', 'suba la IMAGEN DEL VOUCHER!', 'error');</script>");
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'suba la IMAGEN!!'});", true);
                 return;
             }
-            byte[] imagen = new byte[tamaño];
-            FileUpload1.PostedFile.InputStream.Read(imagen, 0, tamaño);
-            objvou.PK_VV_NumVoucher = txtNumOp.Text;
-            objvou.VBV_Foto = imagen;
-            objvou.DV_ImporteDepositado = Convert.ToDouble(txtImporte.Text);
-            objvou.VV_Comentario = "";                   
-
+            else
+            {
+                _Log.CustomWriteOnLog("ImagenGuardada", "EL CAMPO ESTA LLENO");
+            }
             objpagoneg.RegistrarPago(objpago);
             mostrarmsjPAGO(objpago);
-            
+
             if (objpago.error == 77)
             {
+                _Log.CustomWriteOnLog("RealizarCompra.cs", "1");
                 objvouneg.RegistrarVoucher(objvou);
+                _Log.CustomWriteOnLog("RealizarCompra.cs", "2");
+                Utils.AddScriptClientUpdatePanel(UpdatePanel1, "uploadFileImagenVoucher('" + objvou.PK_VV_NumVoucher + "');");
+                _Log.CustomWriteOnLog("RealizarCompra.cs", "3");
                 objsolneg.ActualizarEstado(objsol);
-                Response.Redirect("ConsultarEstadoPago.aspx");
-            }   
-        
-            CargarRUCS();
+            }
+        }
+        catch (Exception ex)
+        {
+            _Log.CustomWriteOnLog("RealizarCompra.cs", "error   "+ex.Message);
+
+        }
     }
     public void mostrarmsjPAGO(DtoPago p) 
     {
         switch (p.error)
         {
             case 3:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Importe INSUFICIENTE!!'})</script>");
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Importe INSUFICIENTE!!!'});", true);
                 break;
             case 4:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Importe INVALIDO!!'})</script>");
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Importe INVALIDO!!!'});", true);
                 break;
             case 77:
                 ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({title:'Pago registrado CORRECTAMENTE!',text:'Datos ENVIADOS!',icon:'success'}, function(){window.location.href='ConsultarEstadoPago.aspx'});", true);
@@ -186,7 +175,7 @@ public partial class Realizar_compra : System.Web.UI.Page
         switch (d.error)
         {
             case 2:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'RUC DUPLICADA para este usuario!! pero...'})</script>");
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'RUC DUPLICADA!!!'});", true);
                 break;
         }
     }
