@@ -57,6 +57,10 @@ namespace CTR
             return objDaoSolicitud.ConsultarEstadoPago(objsolicitud,objmxu);
         }
 
+        public DataTable ListarSolicitudxEstado(DtoSolicitud objSolicitud, DtoMolduraxUsuario objmxu, DtoSolicitudEstado objSolicitudEstado)
+        {
+            return objDaoSolicitud.ListarSolicitudxEstado(objSolicitud, objmxu, objSolicitudEstado);
+        }
         public void RegistrarSolicitud_PxC(DtoSolicitud objsolicitud)
         {
             objDaoSolicitud.RegistrarSolicitud_PxC(objsolicitud);
@@ -67,7 +71,10 @@ namespace CTR
             objDaoSolicitud.RegistrarSolicitud_PxPD(objsolicitud);
         }
 
-
+        public DataSet OpcionesSolicitudEstado()
+        {
+            return objDaoSolicitud.desplegableSolicitudEstado();
+        }
 
     }
 }

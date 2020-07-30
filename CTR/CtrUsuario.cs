@@ -96,9 +96,18 @@ namespace CTR
                 Objusuario.error = 7;
                 return;
             }
-
-            objDaoUsuario.InsertarCliente(Objusuario);
+            DtoUsuario objuser5 = new DtoUsuario();
+            objuser5.DTU_FechaNac = Objusuario.DTU_FechaNac;
+            DateTime nac = objuser5.DTU_FechaNac;
+            DateTime hoy = DateTime.Today.Date;
+            correcto = objuser5.IU_Celular>0;
+            if (nac.AddYears(18)>hoy)
+            {
+                Objusuario.error = 8;
+                return;
+            }
             Objusuario.error = 77;
+            objDaoUsuario.InsertarCliente(Objusuario);            
         }
 
 

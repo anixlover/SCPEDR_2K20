@@ -1618,6 +1618,8 @@ pre code {
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
+    top: 0px;
+    left: 0px;
 }
 .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
   float: left;
@@ -2550,8 +2552,6 @@ output {
 }
 .form-control {
   display: block;
-  width: 100%;
-  height: 34px;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
@@ -2565,6 +2565,7 @@ output {
   -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
           transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    text-align: left;
 }
 .form-control:focus {
   border-color: #66afe9;

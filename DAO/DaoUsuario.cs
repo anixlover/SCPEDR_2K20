@@ -148,7 +148,7 @@ namespace DAO
 
         public void EnviarCorreoaVendedor(DtoUsuario objuser)
         {
-            string Select = "SELECT VU_Correo, VU_Contrasenia from T_Usuario where PK_VU_Dni ='"
+            string Select = "SELECT VU_Correo, VU_Contrasenia, VU_Nombre from T_Usuario where PK_VU_Dni ='"
                 + objuser.PK_VU_Dni + "'";
 
             SqlCommand unComando = new SqlCommand(Select, conexion);
@@ -163,11 +163,12 @@ namespace DAO
 
                 var recipient = reader["VU_Correo"].ToString();
                 var pass = reader["VU_Contrasenia"].ToString();
+                var nombre = reader["VU_Nombre"].ToString();
 
                 string body =
                     "<body>" +
                         "<h1>DECORMOLDURAS & ROSETONES SAC</h1>" +
-                        "<h4>Bienvenid@</h4>" +
+                        "<h4>Bienvenid@ "+ nombre + "</h4>"+
                         "<span>No comparta esto con nadie." +
                         "<br></br><span>Su contraseña es: " + pass + "</span>" +
                         "<br></br><span> Saludos cordiales.<span>" +

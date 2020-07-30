@@ -138,6 +138,7 @@ body {
 
 .seccion {
   padding: 30px 0;
+    height: 655px;
 }
 
 .seccion p {
@@ -729,6 +730,8 @@ div.descripcion-moldura {
     min-width: 50px;
     text-align: center;
     color: #999;
+    height: 16px;
+    width: 222px;
 }
 
 .btn-ghost {

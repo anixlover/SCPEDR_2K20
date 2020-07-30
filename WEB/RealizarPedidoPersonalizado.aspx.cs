@@ -46,6 +46,8 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
             txtcantidadp.Visible = false;
             Label11.Visible = false;
             txtimporteaprox.Visible = false;
+            upBotonEnviar.Visible = false;
+            UpdatePanel1.Visible = true;
 
             try
             {
@@ -57,9 +59,9 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 {
                     Response.Redirect("Login.aspx");
                 }
-                if (Session["idMoldura"] != null)
+                if (Request.Params["idMoldura"] != null)
                 {
-                    objDtoMXU.FK_IM_Cod = Convert.ToInt32(Session["idMoldura"]);
+                    objDtoMXU.FK_IM_Cod = Convert.ToInt32(Request.Params["idMoldura"]);
                     txtcodigo.Text = objDtoMXU.FK_IM_Cod.ToString();
                 }
             }
@@ -97,6 +99,8 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
         txtcantidadp.Visible = false;
         Label11.Visible = false;
         txtimporteaprox.Visible = false;
+        upBotonEnviar.Visible = false;
+        UpdatePanel1.Visible = true;
     }
 
     protected void rbPropio_CheckedChanged(object sender, EventArgs e)
@@ -128,6 +132,8 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
         txtimporteaprox.Visible = true;
         txtimporteaprox.Enabled = false;
         LinkButton1.Visible = true;
+        upBotonEnviar.Visible = true;
+        UpdatePanel1.Visible = false;
     }
 
     public void OpcionesTipoMoldura()
@@ -192,8 +198,138 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','Solicitud ENVIADA!!','success')</script>");
                 return;
             }
+            
+            if (rbPropio.Checked == true)
+            {
+                _log.CustomWriteOnLog("registrar pedido personalizado", "La función es de creación");
+                objDtoSolicitud.VS_TipoSolicitud = "Personalizado por diseño propio";
+                objDtoSolicitud.DS_Medida = double.Parse(txtmedidap.Text);
+                objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidadp.Text);
+                objDtoSolicitud.DS_PrecioAprox = double.Parse(txtimporteaprox.Text);
+                objDtoSolicitud.VS_Comentario = txtarea.Text;
+                objDtoSolicitud.IS_EstadoPago = 1; //estado pendiente
+                msjeRegistrar(objDtoSolicitud);
+                objCtrSolicitud.RegistrarSolcitud_PP(objDtoSolicitud);
+
+                int Nsolicitud = objDtoSolicitud.PK_IS_Cod;
+                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "uploadFileDocumentsSolicitud(" + objDtoSolicitud.PK_IS_Cod + ");");
+                //Utils.AddScriptClient("showSuccessMessage2()");
+                _log.CustomWriteOnLog("registrar pedido personalizado", "PK_IS_Cod valor retornado " + objDtoSolicitud.PK_IS_Cod);
+                _log.CustomWriteOnLog("registrar pedido personalizado", "Agregado");
+                _log.CustomWriteOnLog("registrar pedido personalizado", "Completado");
+
+                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage2()");
+
+            }
+
+
+        }
+        catch (Exception ex)
+        {
+            _log.CustomWriteOnLog("registrar pedido personalizado", "Error  = " + ex.Message + "posicion" + ex.StackTrace);
+        }
+
+    }
+
+
+    protected void btnCalcular_Click(object sender, EventArgs e)
+    {
+        
+        try
+        {
+            double aprox;
+            _log.CustomWriteOnLog("registrar pedido personalizado", "valor del txtunidadmetrica" + txtunidadmetrica.Value);
             if (rbCatalogo.Checked == true)
-            {               
+            {
+                if (txtcantidad.Text == "")
+                {
+                    Utils.AddScriptClientUpdatePanel(UpdatePanel1, "showSuccessMessage4()");
+                }
+                if (txtcodigo.Text == "")
+                {
+                    Utils.AddScriptClientUpdatePanel(UpdatePanel1, "showSuccessMessage5()");
+                }
+                int x = int.Parse(txtcantidad.Text);
+                double y = double.Parse(txtprecio.Text);
+                double z = x * y;
+                int cant = int.Parse(txtcantidad.Text);
+                if (txtunidadmetrica.Value == "Mt" && cant > 150 || txtunidadmetrica.Value == "Cm" && cant > 30 || txtunidadmetrica.Value == "M2" && cant > 40)
+                {
+
+                    double descuento = z - ((z * 5) / 100);
+
+                    txtimporte.Text = Convert.ToString(descuento);
+                }
+                else
+                {
+                    txtimporte.Text = Convert.ToString(z);
+                }
+            }
+            if (rbPropio.Checked == true)
+            {
+
+                if (ddlTipoMoldura.SelectedValue != "0")
+                {
+                    //objDtoTipoMoldura.PK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
+                    objDtoMoldura.FK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
+                    aprox = objCtrMoldura.Aprox(objDtoMoldura);
+                    //txtimporteaprox.Text = Convert.ToString(objCtrMoldura.PrecioAprox(objDtoMoldura));
+                    //double precio;
+                    //txtimporteaprox.Text = Convert.ToString(aprox);
+
+                    int cantp = int.Parse(txtcantidadp.Text);
+                    double a = aprox * cantp;
+                    txtimporteaprox.Text = Convert.ToString(a);
+
+
+                    if (aprox == 0)
+                    {
+                        txtimporteaprox.Text = "";
+                        ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'No hay tipo de moldura seleccionado!!'})</script>");
+                        return;
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _log.CustomWriteOnLog("registrar pedido personalizado", "Error  = " + ex.Message + "posicion" + ex.StackTrace);
+        }
+        
+
+    }
+    private void msjeRegistrar(DtoSolicitud objDtoMoldura)
+    {
+        switch (objDtoMoldura.error)
+        {
+
+            case 77:
+                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','sOLICITUD enviada!!','success')</script>");
+                break;
+        }
+    }
+    //public void cargarInformacion(object sender, EventArgs e)
+    //{
+    //    //HtmlAnchor repLink = (HtmlAnchor)e.Item.FindControl("~/DescripcionMoldura.aspx");
+    //    //repLink.HRef = "~/DescripcionMoldura.aspx";
+    //    Response.Redirect("~/ConsultarEstadoPago.aspx");
+    //}
+
+    protected void btncancelar_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/ConsultarEstadoPago.aspx");
+    }
+
+    protected void btnenviar2_Click(object sender, EventArgs e)
+    {
+        if (txtcodigo.Text == "" | txtcantidad.Text == "")
+        {
+            Utils.AddScriptClientUpdatePanel(UpdatePanel1, "showSuccessMessage6()");
+        }
+        try
+        {
+            if (rbCatalogo.Checked == true)
+            {
 
                 //REGISTRAR SOLICTUD 
                 _log.CustomWriteOnLog("registrar pedido personalizado", "entro a pedido personalizado por catalogo");
@@ -238,113 +374,17 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 _log.CustomWriteOnLog("registrar pedido personalizado", "El Pk de la solcitud se almacena ahora en objDtoMXU.FK_IS_Cod y es: " + objDtoMXU.FK_IS_Cod);
 
                 objCtrMXU.actualizarMXUSol(objDtoMXU);
+                Utils.AddScriptClientUpdatePanel(UpdatePanel1, "showSuccessMessage3()");
                 _log.CustomWriteOnLog("registrar pedido personalizado", "se actualizado la Moldura x Usuario satisfactoriamente");
                 //Utils.AddScriptClient("showSuccessMessage2()");
                 //Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage2()");
-                Response.Redirect("~/ConsultarEstadoPago.aspx");
+
+                
             }
-            if (rbPropio.Checked == true)
-            {
-                _log.CustomWriteOnLog("registrar pedido personalizado", "La función es de creación");
-                objDtoSolicitud.VS_TipoSolicitud = "Personalizado por diseño propio";
-                objDtoSolicitud.DS_Medida = double.Parse(txtmedidap.Text);
-                objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidadp.Text);
-                objDtoSolicitud.DS_PrecioAprox = double.Parse(txtimporteaprox.Text);
-                objDtoSolicitud.VS_Comentario = txtarea.Text;
-                objDtoSolicitud.IS_EstadoPago = 1; //estado pendiente
-                msjeRegistrar(objDtoSolicitud);
-                objCtrSolicitud.RegistrarSolcitud_PP(objDtoSolicitud);
-
-                int Nsolicitud = objDtoSolicitud.PK_IS_Cod;
-                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "uploadFileDocumentsSolicitud(" + objDtoSolicitud.PK_IS_Cod + ");");
-                //Utils.AddScriptClient("showSuccessMessage2()");
-                _log.CustomWriteOnLog("registrar pedido personalizado", "PK_IS_Cod valor retornado " + objDtoSolicitud.PK_IS_Cod);
-                _log.CustomWriteOnLog("registrar pedido personalizado", "Agregado");
-                _log.CustomWriteOnLog("registrar pedido personalizado", "Completado");
-
-                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage2()");
-
-            }
-
-
         }
         catch (Exception ex)
         {
             _log.CustomWriteOnLog("registrar pedido personalizado", "Error  = " + ex.Message + "posicion" + ex.StackTrace);
         }
-
-    }
-
-
-    protected void btnCalcular_Click(object sender, EventArgs e)
-    {
-
-        double aprox;
-        _log.CustomWriteOnLog("registrar pedido personalizado", "valor del txtunidadmetrica" + txtunidadmetrica.Value);
-        if (rbCatalogo.Checked == true)
-        {
-            int x = int.Parse(txtcantidad.Text);
-            double y = double.Parse(txtprecio.Text);
-            double z = x * y;
-            int cant = int.Parse(txtcantidad.Text);
-            if (txtunidadmetrica.Value == "Mt" && cant > 150 || txtunidadmetrica.Value == "Cm" && cant > 30 || txtunidadmetrica.Value == "M2" && cant > 40)
-            {
-
-                double descuento = z - ((z * 5) / 100);
-
-                txtimporte.Text = Convert.ToString(descuento);
-            }
-            else
-            {
-                txtimporte.Text = Convert.ToString(z);
-            }
-        }
-        if (rbPropio.Checked == true)
-        {
-
-            if (ddlTipoMoldura.SelectedValue != "0")
-            {
-                //objDtoTipoMoldura.PK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
-                objDtoMoldura.FK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
-                aprox = objCtrMoldura.Aprox(objDtoMoldura);
-                //txtimporteaprox.Text = Convert.ToString(objCtrMoldura.PrecioAprox(objDtoMoldura));
-                //double precio;
-                //txtimporteaprox.Text = Convert.ToString(aprox);
-
-                int cantp = int.Parse(txtcantidadp.Text);
-                double a = aprox * cantp;
-                txtimporteaprox.Text = Convert.ToString(a);
-
-
-                if (aprox == 0)
-                {
-                    txtimporteaprox.Text = "";
-                    ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'No hay tipo de moldura seleccionado!!'})</script>");
-                    return;
-                }
-            }
-        }
-
-    }
-    private void msjeRegistrar(DtoSolicitud objDtoMoldura)
-    {
-        switch (objDtoMoldura.error)
-        {
-
-            case 77:
-                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','sOLICITUD enviada!!','success')</script>");
-                break;
-        }
-    }
-    //public void cargarInformacion(object sender, EventArgs e)
-    //{
-    //    //HtmlAnchor repLink = (HtmlAnchor)e.Item.FindControl("~/DescripcionMoldura.aspx");
-    //    //repLink.HRef = "~/DescripcionMoldura.aspx";
-    //    Response.Redirect("~/ConsultarEstadoPago.aspx");
-    //}
-
-    protected void btncancelar_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/ConsultarEstadoPago.aspx");
     }
 }

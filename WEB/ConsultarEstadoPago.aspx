@@ -1,13 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUsuario.master" AutoEventWireup="true" CodeFile="ConsultarEstadoPago.aspx.cs" Inherits="ConsultarEstadoPago" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <div>
         <div class="body table-responsive">
             <div class="block-header">
-                <h1>Consulta de Estado de Pago</h1>
+                <h1>Consulta estado de solicitud</h1>
             </div>
 
             <%-- <asp:GridView ID="gvConsultar" CssClass="table table-bordered table-hover js-basic-example dataTable" DataKeyNames="PK_IS_Cod" runat="server" OnRowDataBound="gvConsultar_RowDataBound" AutoGenerateColumns="False" EmptyDataText="No existen registros" ShowHeaderWhenEmpty="True" OnRowCommand="gvConsultar_RowCommand" OnSelectedIndexChanged="gvConsultar_SelectedIndexChanged">
@@ -24,8 +25,19 @@
         </asp:GridView>--%>
 
 
+            <div class="row">
+                    <div class="col-sm-4">
+                         <asp:DropDownList runat="server" ID="ddl_SolicitudEstado" OnSelectedIndexChanged="ddl_SolicitudEstado_SelectedIndexChanged" CssClass=" bootstrap-select form-control"></asp:DropDownList>
+                    </div>
+                     <div class="col-sm-2">
+                                        <asp:LinkButton runat="server" ID="btnSearch" CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float" OnClick="btnSearch_Click">
+                                            <i class="material-icons">search</i>
+                                        </asp:LinkButton>
+                    </div>
+            </div>
+            <br />
 
-            <asp:GridView ID="gvConsultar" DataKeyNames="PK_IS_Cod" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" AutoGenerateColumns="false" OnRowCommand="gvConsultar_RowCommand" OnSelectedIndexChanged="gvConsultar_SelectedIndexChanged" OnRowDataBound="gvConsultar_RowDataBound">
+            <asp:GridView ID="gvConsultar" DataKeyNames="PK_IS_Cod,V_SE_Nombre" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" AutoGenerateColumns="false" OnRowCommand="gvConsultar_RowCommand" OnSelectedIndexChanged="gvConsultar_SelectedIndexChanged" OnRowDataBound="gvConsultar_RowDataBound">
                 <Columns>
                     <asp:BoundField DataField="PK_IS_Cod" HeaderText="Cod solicitud" />
                     <asp:BoundField DataField="DTS_FechaEmicion" HeaderText="Fecha" />
@@ -40,6 +52,9 @@
                             <asp:Button runat="server" Text="Pago"
                                 Visible='<%# ValidacionEstado(Eval("V_SE_Nombre").ToString()) %>'
                                 CommandName="Pago" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning" />
+                            <asp:Button runat="server" Text="Detalles"
+                                Visible='<%# ValidacionEstado2(Eval("V_SE_Nombre").ToString()) %>'
+                                CommandName="Detalles" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
