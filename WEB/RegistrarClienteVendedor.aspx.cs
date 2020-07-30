@@ -32,11 +32,11 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
     {
         try
         {
-            if (txtDNI.Text == "" | txtNombres.Text == "" | txtApellidos.Text == "" | txtCelular.Text == "" | txtCorreo.Text == "" | txtContrasenia.Text == "" | txtFechaNacimiento.Text == "")
-            {
-                //lblMsje.Text = "COMPLETE EL FORMULARIO!!";
-                return;
-            }
+            //if (txtDNI.Text == "" | txtNombres.Text == "" | txtApellidos.Text == "" | txtCelular.Text == "" | txtCorreo.Text == "" | txtContrasenia.Text == "" | txtFechaNacimiento.Text == "")
+            //{
+            //    //lblMsje.Text = "COMPLETE EL FORMULARIO!!";
+            //    return;
+            //}
 
             //DtoUsuario objuser = new DtoUsuario(txtDNI.Text, txtNombres.Text, txtApellidos.Text, Convert.ToInt32(txtCelular.Text), Convert.ToDateTime(txtFechNac.Text), txtCorreo.Text, txtContraseña.Text, 1);
             _log.CustomWriteOnLog("Registro de usuario", "_______________________________________________________________________________ENTRO A FUNCION REGISTRAR_____________________________________________________________________");
@@ -91,7 +91,7 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
         catch (Exception ex)
         {
             _log.CustomWriteOnLog("Registro de usuario", "Error  = " + ex.Message);
-            throw;
+                throw;
         }
     }
 
@@ -159,5 +159,4 @@ public partial class RegistrarClienteVendedor : System.Web.UI.Page
         txtExtranjero.Visible = true;
         txtDNI.Visible = false;
     }
-    //fasdj
 }

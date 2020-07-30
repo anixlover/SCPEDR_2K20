@@ -37,11 +37,6 @@ namespace CTR
         {
             objDaoMoldura.ObtenerMoldura(objmoldura, objtipo);
         }
-        public DataTable ObtenerMoldura2(DtoMoldura objmoldura, DtoTipoMoldura objtipo)
-        {
-            return objDaoMoldura.ObtenerMoldura2(objmoldura, objtipo);
-        }
-
         public void ActualizarRegistroMoldura(DtoMoldura objmoldura)
         {
             objDaoMoldura.ActualizarMoldura(objmoldura);

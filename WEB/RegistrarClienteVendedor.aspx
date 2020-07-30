@@ -233,7 +233,7 @@
                     text: "Pulsa el botón y se te redirigirá",
                     type: "success"
                 }, function () {
-                    window.location = "MasterPage.aspx";
+                    window.location = "RealizarVenta_Marcial.aspx";
                 });
             }, 1000);
         }

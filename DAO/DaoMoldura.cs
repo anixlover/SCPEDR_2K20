@@ -143,9 +143,37 @@ namespace DAO
                 objmoldura.DM_Precio = Convert.ToDouble(reader[8].ToString());
                 objmoldura.VBM_Imagen = Encoding.ASCII.GetBytes(reader[9].ToString());
             }
+
             conexion.Close();
             conexion.Dispose();
         }
+
+        public DataTable ObtenerMoldura2(DtoMoldura objmoldura, DtoTipoMoldura objtipo)
+        {
+            DataTable dt = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_Obtener_Moldura", conexion);
+            command.Parameters.AddWithValue("@codMol", objmoldura.PK_IM_Cod);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dt = new DataTable();
+            daAdaptador.Fill(dt);
+
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                objmoldura.PK_IM_Cod = int.Parse(reader["PK_IM_Cod"].ToString());
+                objmoldura.VBM_Imagen = Encoding.ASCII.GetBytes(reader["VBM_Imagen"].ToString());
+                objtipo.VTM_Nombre = reader["VTM_Nombre"].ToString();
+                objmoldura.DM_Medida = Convert.ToDouble(reader["DM_Medida"].ToString());
+                objtipo.VTM_UnidadMetrica = (reader["DM_Medida"].ToString() + reader["VTM_UnidadMetrica"].ToString());
+                objmoldura.IM_Stock = int.Parse(reader["IM_Stock"].ToString());
+                objmoldura.DM_Precio = Convert.ToDouble(reader["DM_Precio"].ToString());
+            }
+            conexion.Close();
+            return dt;
+        }
+      
         public bool SelectMolduraID(DtoMoldura objmoldura)
         {
             string Select = "SELECT * from T_Moldura where PK_IM_Cod =" + objmoldura.PK_IM_Cod;

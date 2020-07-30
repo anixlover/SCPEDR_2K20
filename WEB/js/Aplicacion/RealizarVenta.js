@@ -1,5 +1,4 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     $("#ddl_TipoComprobante").change(function () {
         var ddlSelectedTipoComprobante = $('#ddl_TipoComprobante').val();
@@ -58,13 +57,10 @@ $(document).ready(function () {
             $("#CardPayment").fadeIn();
             $("#DivCodigoSubtotal").fadeIn();
 
-
             $("#ddlPedidoMuestra").fadeOut();
             $("#IdCalendar").fadeOut();
             $("#idMostrarbtnEnviar").fadeOut();
             $("#idTipoMoldura").fadeOut();
-
-
         }
     });
 
@@ -75,11 +71,8 @@ $(document).ready(function () {
             $("#ddlPedidoMuestra").fadeIn();
             $("#divSubAddGv").fadeIn();
 
-
-
             $("#CardTipoComprobante").fadeOut();
             $("#CardPayment").fadeOut();
-
         }
     });
 
@@ -142,3 +135,4 @@ $(document).ready(function () {
 
 
 });
+

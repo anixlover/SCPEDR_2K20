@@ -67,5 +67,7 @@ namespace CTR
             objDaoSolicitud.RegistrarSolicitud_PxPD(objsolicitud);
         }
 
+
+
     }
 }
