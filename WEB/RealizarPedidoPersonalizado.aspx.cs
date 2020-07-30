@@ -172,6 +172,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
                 ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'La moldura " + objDtoMoldura.PK_IM_Cod + " NO EXISTE!!'})</script>");
                 return;
             }
+            //Obtener moldura y unidad metrica
             objCtrMoldura.ObtenerMoldura(objDtoMoldura, objDtoTipoMoldura);
             txtmedida.Text = objDtoMoldura.DM_Medida.ToString() + objDtoTipoMoldura.VTM_UnidadMetrica.ToString();
             txtunidadmetrica.Value = objDtoTipoMoldura.VTM_UnidadMetrica.ToString();

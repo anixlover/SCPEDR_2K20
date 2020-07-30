@@ -686,6 +686,14 @@ div.descripcion-moldura {
     align-items: center;
 }
 
+
+.cambiar-pw {
+    padding: 0 27%;
+    text-align: center;
+    align-items: center;
+}
+
+
     .registrar-cliente :indeterminate {
         text-align: left;
     }

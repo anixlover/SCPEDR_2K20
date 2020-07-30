@@ -20,5 +20,9 @@ namespace CTR
         {
             objvoucherdao.InsertarVoucher(voucher);
         }
+        public void RegistrarImagenVoucher(byte[] arreglo, string ID)
+        {
+            objvoucherdao.InsertarImagenVoucher(arreglo,ID);
+        }
     }
 }

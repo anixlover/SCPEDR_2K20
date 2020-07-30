@@ -40,7 +40,7 @@
         function cargarInformacion(PK_IM_Cod) {
 
             location.href = `DescripcionMolduraU.aspx?id=${PK_IM_Cod}`;
-
+  
         }
 </script>
     <script>

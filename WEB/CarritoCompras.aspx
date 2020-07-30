@@ -4,7 +4,6 @@
     <%--<script src="../../plugins/jquery/jquery.min.js"></script>--%>
     <%--<script src="../../plugins/jquery-datatable/jquery.dataTables.js"></script>--%>
     <script src="../../plugins/momentjs/moment.js"></script>
-
     <link href="../../plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
     <%--<link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />--%>
 </asp:Content>
