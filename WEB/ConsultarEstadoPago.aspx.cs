@@ -85,10 +85,16 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#defaultmodal1').modal('show');</script>", false);
                     break;
 
-
-
-
-
+                case "Ver incidencias":
+                    dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                    int index3 = Convert.ToInt32(e.CommandArgument);
+                    var columna3 = gvConsultar.DataKeys[index3].Values;
+                    int id3 = Convert.ToInt32(columna3[0].ToString());
+                    dtoMolduraxUsuario.FK_IS_Cod = id3;
+                    gvListaxMolduraxIncidencia.DataSource = objCtrMolduraxUsuario.listarMolduraxusuarioxincidente(dtoMolduraxUsuario);
+                    gvListaxMolduraxIncidencia.DataBind();
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#defaultmodal2').modal('show');</script>", false);
+                    break;
             }
         }
         catch (Exception ex)

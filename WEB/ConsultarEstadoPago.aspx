@@ -44,7 +44,6 @@
                      <asp:GridView ID="gvConsultar" DataKeyNames="PK_IS_Cod,V_SE_Nombre" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" AutoGenerateColumns="false" OnRowCommand="gvConsultar_RowCommand" OnSelectedIndexChanged="gvConsultar_SelectedIndexChanged" OnRowDataBound="gvConsultar_RowDataBound">
                 <Columns>
                     <asp:BoundField DataField="PK_IS_Cod" ItemStyle-HorizontalAlign="Center" HeaderText="Codigo de solicitud" />
-                    <asp:BoundField DataField="PK_IS_Cod" ItemStyle-HorizontalAlign="Center" HeaderText="Codigo de solicitud" />
                     <asp:BoundField DataField="DTS_FechaEmicion" ItemStyle-HorizontalAlign="Center" HeaderText="Fecha" />
                     <asp:BoundField DataField="VS_TipoSolicitud" ItemStyle-HorizontalAlign="Center" HeaderText="Tipo" />
                     <asp:BoundField DataField="DS_ImporteTotal" ItemStyle-HorizontalAlign="Center" HeaderText="Importe" />
@@ -66,9 +65,9 @@
                             <asp:Button runat="server" Text="Ver proceso" ItemStyle-HorizontalAlign="Center"
                                 Visible='<%# ValidacionEstado4(Eval("V_SE_Nombre").ToString()) %>'
                                 CommandName="Ver proceso" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning" />
-                            <asp:Button runat="server" Text="Ver detalles" ItemStyle-HorizontalAlign="Center"
+                            <asp:Button runat="server" Text="Ver incidencias" ItemStyle-HorizontalAlign="Center"
                                 Visible='<%# ValidacionEstado5(Eval("V_SE_Nombre").ToString()) %>'
-                                CommandName="Ver detalles" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning" />
+                                CommandName="Ver incidencias" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -84,7 +83,7 @@
                             <ContentTemplate>
 
                                 <div class="modal-header navbar">
-                                    <h4 class="modal-title" id="tituloModal1" runat="server">Ver retraso de su pedido</h4>
+                                    <h4 class="modal-title" id="tituloModal1" runat="server">Ver proceso de su pedido</h4>
                                 </div>
 
                                 <div class="modal-body">
@@ -99,12 +98,38 @@
                                 </div>
 
                                 <div class="modal-footer btn-group-sm">
-                                    <%--<asp:UpdatePanel ID="UpdatePanelA" runat="server" UpdateMode="Conditional">
-                                <ContentTemplate>
-                                    <asp:Button ID="btnActualizar" runat="server" Text="Actualizar" CssClass="btn btn-success btn-group-sm" OnClick="btnActualizar_Click" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Cerrar</button>--%>
+                                   
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="defaultmodal2" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <asp:UpdatePanel runat="server" ID="UpdatePanel1" UpdateMode="Always">
+                            <ContentTemplate>
+
+                                <div class="modal-header navbar">
+                                    <h4 class="modal-title" id="H1" runat="server">Ver retraso de su pedido</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    <asp:GridView ID="gvListaxMolduraxIncidencia" DataKeyNames="VTM_Nombre,IMU_Cantidad,DMU_Precio,VMXUE_Nombre,VMXU_Incidente" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" AutoGenerateColumns="false">
+                                        <Columns>
+                                            <asp:BoundField DataField="VTM_Nombre" ItemStyle-HorizontalAlign="Center" HeaderText="Nombre" />
+                                            <asp:BoundField DataField="IMU_Cantidad" ItemStyle-HorizontalAlign="Center" HeaderText="Cantidad " />
+                                            <asp:BoundField DataField="DMU_Precio" ItemStyle-HorizontalAlign="Center" HeaderText="Precio" />
+                                            <asp:BoundField DataField="VMXUE_Nombre" ItemStyle-HorizontalAlign="Center" HeaderText="Estado" />
+                                            <asp:BoundField DataField="VMXU_Incidente" ItemStyle-HorizontalAlign="Center" HeaderText="Incidente" />
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+
+                                <div class="modal-footer btn-group-sm">
+                                   
                                 </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
