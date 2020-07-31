@@ -17,6 +17,7 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
     Ctr_Solicitud objCtrSolicitud = new Ctr_Solicitud();
     DtoMolduraxUsuario dtoMolduraxUsuario = new DtoMolduraxUsuario();
     DtoSolicitudEstado objDtoSolicitudEstado = new DtoSolicitudEstado();
+    CtrMolduraxUsuario objCtrMolduraxUsuario = new CtrMolduraxUsuario();
     Log _log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -49,28 +50,109 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
 
     protected void gvConsultar_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        
-
-        if (e.CommandName == "Pago")
+        try
         {
-            try
+            switch (e.CommandName)
             {
-                int index = Convert.ToInt32(e.CommandArgument);
-                var columna = gvConsultar.DataKeys[index].Values;
-                int id = Convert.ToInt32(columna[0].ToString());
-                _log.CustomWriteOnLog("consultar estado de pago", "id  " + id);
-                Session["idSolicitudPago"] = id;
-                Response.Redirect("Realizar_compra.aspx");
 
-            }
+                case "Pago":
 
-            catch (Exception ex)
-            {
-                _log.CustomWriteOnLog("consultar estado de pago", ex.Message + "Stac" + ex.StackTrace);
+                    int index = Convert.ToInt32(e.CommandArgument);
+                    var columna = gvConsultar.DataKeys[index].Values;
+                    int id = Convert.ToInt32(columna[0].ToString());
+                    _log.CustomWriteOnLog("consultar estado de pago", "id  " + id);
+                    Session["idSolicitudPago"] = id;
+                    Response.Redirect("Realizar_compra.aspx");
+                    break;
+
+                case "Ver proceso": _log.CustomWriteOnLog("consultar estado pago", "paso");
+                    //int index2 = Convert.ToInt32(e.CommandArgument);
+                    //var columna2 = gvConsultar.DataKeys[index2].Values;
+                    //int id2 = Convert.ToInt32(columna2[0].ToString());
+                    //dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                    //dtoMolduraxUsuario.FK_IS_Cod = id2;
+                    //gvListaxMoldura.DataSource= objCtrMolduraxUsuario.listarMolduraxSxU(dtoMolduraxUsuario);
+                    //gvListaxMoldura.DataBind();
+                    //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('defaultmodal1').modal('show');</script>", false);
+                    //break;
+                    dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                    int index2 = Convert.ToInt32(e.CommandArgument);
+                    var columna2 = gvConsultar.DataKeys[index2].Values;
+                    int id2 = Convert.ToInt32(columna2[0].ToString());
+                    dtoMolduraxUsuario.FK_IS_Cod = id2;
+                    gvListaxMoldura.DataSource = objCtrMolduraxUsuario.listarMolduraxSxU(dtoMolduraxUsuario);
+                    gvListaxMoldura.DataBind();
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#defaultmodal1').modal('show');</script>", false);
+                    break;
+
+
+
+
+
             }
         }
-        
+        catch (Exception ex)
+        {
 
+            _log.CustomWriteOnLog("consultar estado de pago", "error = " + ex.Message);
+        }
+
+        //switch (e.CommandName){
+
+        //    case "Pago":
+
+        //        int index = Convert.ToInt32(e.CommandArgument);
+        //        var columna = gvConsultar.DataKeys[index].Values;
+        //        int id = Convert.ToInt32(columna[0].ToString());
+        //        _log.CustomWriteOnLog("consultar estado de pago", "id  " + id);
+        //        Session["idSolicitudPago"] = id;
+        //        Response.Redirect("Realizar_compra.aspx");
+        //        break;
+
+        //    case "Ver detalles":
+        //        //int index2 = Convert.ToInt32(e.CommandArgument);
+        //        //var columna2 = gvConsultar.DataKeys[index2].Values;
+        //        //int id2 = Convert.ToInt32(columna2[0].ToString());
+        //        //dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
+        //        //dtoMolduraxUsuario.FK_IS_Cod = id2;
+        //        //gvListaxMoldura.DataSource= objCtrMolduraxUsuario.listarMolduraxSxU(dtoMolduraxUsuario);
+        //        //gvListaxMoldura.DataBind();
+        //        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('defaultmodal1').modal('show');</script>", false);
+        //        //break;
+        //        dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
+        //        int index2 = Convert.ToInt32(e.CommandArgument);
+        //        var columna2 = gvConsultar.DataKeys[index2].Values;
+        //        int id2 = Convert.ToInt32(columna2[0].ToString());
+        //        dtoMolduraxUsuario.FK_IS_Cod = id2;
+        //        gvListaxMoldura.DataSource = objCtrMolduraxUsuario.listarMolduraxSxU(dtoMolduraxUsuario);
+        //        gvListaxMoldura.DataBind();
+        //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('defaultmodal1').modal('show');</script>", false);
+        //        break;
+
+
+
+
+
+        //}
+
+        //if (e.CommandName == "Pago")
+        //{
+        //    try
+        //    {
+        //        int index = Convert.ToInt32(e.CommandArgument);
+        //        var columna = gvConsultar.DataKeys[index].Values;
+        //        int id = Convert.ToInt32(columna[0].ToString());
+        //        _log.CustomWriteOnLog("consultar estado de pago", "id  " + id);
+        //        Session["idSolicitudPago"] = id;
+        //        Response.Redirect("Realizar_compra.aspx");
+
+        //    }
+
+        //    catch (Exception ex)
+        //    {
+        //        _log.CustomWriteOnLog("consultar estado de pago", ex.Message + "Stac" + ex.StackTrace);
+        //    }
+        //}
     }
 
     public void OpcionesSolicitudEstado()
@@ -97,13 +179,26 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
     protected Boolean ValidacionEstado(string estado)
     {
         return estado == "Pendiente de pago";
-        
     }
     protected Boolean ValidacionEstado2(string estado)
     {
-        return estado == "En revision de pago";
-
+        return estado == "Observada";
     }
+    protected Boolean ValidacionEstado3(string estado)
+    {
+        return estado == "Aprobada";
+    }
+    protected Boolean ValidacionEstado4(string estado)
+    {
+        return estado == "En proceso";
+    }
+    protected Boolean ValidacionEstado5(string estado)
+    {
+        return estado == "Con retraso";
+    }
+    
+
+
 
     protected void ddl_SolicitudEstado_SelectedIndexChanged(object sender, EventArgs e)
     {

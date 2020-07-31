@@ -50,6 +50,11 @@ namespace CTR
         {
             objDaoSXM.registrarMXU(objDtoMolduraxUsuario); 
         }
+
+        public DataTable listarMolduraxSxU(DtoMolduraxUsuario objDtoMolduraxUsuario)
+        {
+            return objDaoSXM.listarMolduraxSxU(objDtoMolduraxUsuario);
+        }
         
     }
 }

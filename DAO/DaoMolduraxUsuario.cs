@@ -135,6 +135,21 @@ namespace DAO
             }
             conexion.Close();
         }
+
+        public DataTable listarMolduraxSxU(DtoMolduraxUsuario dtoMolduraxUsuario)
+        {
+            DataTable dtList = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_listarmolduraxusuarioGV", conexion);
+            command.Parameters.AddWithValue("@dni", dtoMolduraxUsuario.FK_VU_Cod);
+            command.Parameters.AddWithValue("@idsol", dtoMolduraxUsuario.FK_IS_Cod);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtList = new DataTable();
+            daAdaptador.Fill(dtList);
+            conexion.Close();
+            return dtList;
+        }
         
 
     }
