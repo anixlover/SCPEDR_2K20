@@ -32,8 +32,10 @@ $('#checkRUC').click(function () {
         $('#ddlRUCs').fadeOut();
         $("#valorCheck").val('3');
         console.log($("#valorCheck").val());
-    } else {
+    } else {       
         $('#newRUC').fadeOut();
         $('#ddlRUCs').fadeIn();
+        $("#valorCheck").val('4');
+        console.log($("#valorCheck").val());
     }
 });

@@ -56,6 +56,7 @@ public partial class MasterPageUsuario : System.Web.UI.MasterPage
     {
         string nombreusuario = Session["NombreUsuario"].ToString();
         string dni = Session["DNIUsuario"].ToString();
+
         string html = string.Format(@"
                          <div class='btn-group' role='group'>
                         <button type='button' class='btn btnCustomMaster waves-effect dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
@@ -65,7 +66,8 @@ public partial class MasterPageUsuario : System.Web.UI.MasterPage
                         <ul class='dropdown-menu bcColor'>
                             <li><a href='RealizarPedidoPersonalizado.aspx' class=' waves-effect waves-block'>Pedidos Personalizados</a></li>
                             <li><a href='ConsultarEstadoPago.aspx' class=' waves-effect waves-block'>Mis pedidos</a></li>
-                            <li><a id='btnCarrito' runat='server' onClick='cargarId(" + dni +@")' class=' waves-effect waves-block'>Carrito Compras</a></li>
+                            <li><a id='btnCarrito' runat='server' onClick='cargarId(" + dni + @")' class=' waves-effect waves-block'>Carrito Compras</a></li>
+                            <li><a href='CambiarContraseña.aspx' id='btnCambiarContra' runat='server' onClick='cargarId(" + dni + @")' class=' waves-effect waves-block'>Cambiar contrase&ntilde;a </a></li
                             <li><a id='btnCerrarSesion' runat='server' onserverclick='btnCerrarSesion_ServerClick' class=' waves-effect waves-block'>Cerrar sesión</a></li>
                         </ul>
                     </div>

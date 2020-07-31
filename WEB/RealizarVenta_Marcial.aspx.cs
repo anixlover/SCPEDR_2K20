@@ -12,24 +12,27 @@ using System.Data.SqlClient;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using ListItem = System.Web.UI.WebControls.ListItem;
+using System.Text;
 
 public partial class RealizarVenta_Marcial : System.Web.UI.Page
 {
 
-    DtoMoldura objDtoMoldura = new DtoMoldura();
+    Ctr_Solicitud objCtrSolicitud = new Ctr_Solicitud();
+    CtrMolduraxUsuario objCtrMolduraxUsuario = new CtrMolduraxUsuario();
     CtrMoldura objCtrMoldura = new CtrMoldura();
-    DtoMoldura objdtomoldura = new DtoMoldura();
-    DtoUsuario objuser = new DtoUsuario();
+    CtrUsuario objctrusr = new CtrUsuario();
     SqlConnection conexion = new SqlConnection(ConexionBD.CadenaConexion);
     Log _log = new Log();
-    CtrMolduraxUsuario objCtrMolduraxUsuario = new CtrMolduraxUsuario();
     DataTable dt = new DataTable();
 
     List<DtoMolduraAgregada> lstDtoMolduraAgregada = new List<DtoMolduraAgregada>();
+    DtoMoldura objdtomoldura = new DtoMoldura();
+    DtoTipoMoldura dtoTipoMoldura = new DtoTipoMoldura();
     DtoMolduraAgregada objDtoMolduraAgregada = new DtoMolduraAgregada();
     DtoMolduraxUsuario objDtoMolduraxUsuario = new DtoMolduraxUsuario();
     DtoSolicitud objDtoSolicitud = new DtoSolicitud();
-    Ctr_Solicitud objCtrSolicitud = new Ctr_Solicitud();
+    DtoMoldura objDtoMoldura = new DtoMoldura();
+    DtoUsuario objuser = new DtoUsuario();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -43,8 +46,9 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 ViewState["Records"] = dt;
             }
             OpcionesTipoMoldura();
+
         }
-        
+
         //try
         //{
         //    if (Session["DNIUsuario"] == null)
@@ -65,15 +69,17 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btnboleta_Click(object sender, EventArgs e)
     {
-        if (ddl_TipoComprobante.SelectedValue=="0")
+        if (ddl_TipoComprobante.SelectedValue == "0")
         {
             Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage12()");
+            return;
         }
         if (txtIdentificadorUsuario.Text == "" | txtcodigop.Text == "" | txtcantidad.Text == "")
         {
             Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage7()");
+            return;
         }
-       
+
         try
         {
             objDtoSolicitud.DS_ImporteTotal = double.Parse(txtimporteigv.Text);
@@ -98,7 +104,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 _log.CustomWriteOnLog("Realizar venta 1", "obj.PK_IM_Cod  = " + objDtoMoldura.PK_IM_Cod.ToString());
                 int valorRetornadoStoc = objCtrMoldura.StockMoldura_(objDtoMoldura);
                 _log.CustomWriteOnLog("Realizar venta 1", "valorRetornadoStoc = " + valorRetornadoStoc);
-        
+
                 int nuevostock = valorRetornadoStoc - int.Parse(cantidadMoldura);
                 objDtoMoldura.IM_Stock = nuevostock;
                 _log.CustomWriteOnLog("Realizar venta 1", "nuevostock = " + nuevostock);
@@ -174,35 +180,21 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
         if (txtIdentificadorUsuario.Text == "")
         {
             Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage4()");
+            return;
         }
-
         try
         {
-            string Select = "SELECT * from T_Usuario where PK_VU_Dni = @Dni";
-
-            SqlCommand unComando = new SqlCommand(Select, conexion);
-
-            unComando.Parameters.AddWithValue("@Dni", txtIdentificadorUsuario.Text);
-            _log.CustomWriteOnLog("Realizar venta 1", "txtIdentificadorUsuario.Text " + txtIdentificadorUsuario.Text);
-            conexion.Open();
-            SqlDataReader reader = unComando.ExecuteReader();
-            bool hayRegistros = reader.Read();
-            if (hayRegistros)
-            {
-                txtNombres.Text = reader["VU_Nombre"].ToString();
-                txtapellido.Text = reader["VU_Apellidos"].ToString();
-                txtcorreo.Text = reader["VU_Correo"].ToString();
-                txttelefono.Text = reader["IU_Celular"].ToString();
-            }
-
-            //divBodyResultsDNI.Visible = true;
-            conexion.Close();
+            objuser.PK_VU_Dni = txtIdentificadorUsuario.Text;
+            objctrusr.TraeData(objuser);
+            txtNombres.Text = objuser.VU_Nombre;
+            txtapellido.Text = objuser.VU_Apellidos ;
+            txtcorreo.Text = objuser.VU_Correo;
+            txttelefono.Text = Convert.ToString(objuser.IU_Celular);
             updPanel1.Update();
         }
         catch (Exception ex)
         {
-            _log.CustomWriteOnLog("Realizar venta 1", "Error  : " + ex.Message);
-
+            _log.CustomWriteOnLog("Realizar venta 1", "Error  search------: " + ex.Message);
         }
 
     }
@@ -220,23 +212,75 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
         if (txtcodigop.Text == "")
         {
             Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage5()");
+            return;
         }
 
         try
         {
-            DataTable dt = null;
-            conexion.Open();
-            SqlCommand command = new SqlCommand("SP_Listar_Moldura_x_Codigo_2", conexion);
-            command.Parameters.AddWithValue("@codigoMol", txtcodigop.Text);
-            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
-            command.CommandType = CommandType.StoredProcedure;
-            dt = new DataTable();
-            daAdaptador.Fill(dt);
-            conexion.Close();
-            gvdetalle.DataSource = dt;
+            objDtoMoldura.PK_IM_Cod = Convert.ToInt32(txtcodigop.Text);
+            gvdetalle.DataSource = objCtrMoldura.ObtenerMoldura2(objDtoMoldura, dtoTipoMoldura);
 
+            //string med = objDtoMoldura.DM_Medida.ToString() + dtoTipoMoldura.VTM_UnidadMetrica.ToString();
+            //med = Convert.ToString(objDtoMoldura.DM_Medida);
+     
+            //txtsubtotal.Text = Convert.ToString(objDtoMoldura.DM_Medida);
+            //objDtoMoldura.DM_Medida = Convert.ToDouble(txtsubtotal.Text);
+            //objDtoMoldura.DM_Medida = Convert.ToDouble(objdtomoldura.DM_Medida.ToString() + dtoTipoMoldura.VTM_UnidadMetrica.ToString());
+          
             updPanelGVDetalle.Update();
             gvdetalle.DataBind();
+
+            //1
+            //DataTable dt = null;
+            //conexion.Open();
+            ////SqlCommand command = new SqlCommand("SP_Listar_Moldura_x_Codigo_2", conexion);
+            //SqlCommand command = new SqlCommand("SP_Obtener_Moldura", conexion);
+            //command.Parameters.AddWithValue("@codMol", txtcodigop.Text);
+            //SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            //command.CommandType = CommandType.StoredProcedure;
+            //dt = new DataTable();
+            //daAdaptador.Fill(dt);
+            //conexion.Close();
+            //gvdetalle.DataSource = dt;
+            //updPanelGVDetalle.Update();
+            //gvdetalle.DataBind();
+
+            //2
+            //DataTable dt = null;
+            //SqlCommand command = new SqlCommand("SP_Obtener_Moldura", conexion);
+            //command.Parameters.AddWithValue("@codMol", txtcodigop.Text);
+            //SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            //command.CommandType = CommandType.StoredProcedure;
+            //dt = new DataTable();
+            //daAdaptador.Fill(dt);
+            //conexion.Open();
+            //SqlDataAdapter moldura = new SqlDataAdapter(command);
+            //SqlDataReader reader = command.ExecuteReader();
+            //while (reader.Read())
+            //{               
+            //    objDtoMoldura.PK_IM_Cod = int.Parse(reader[0].ToString());
+            //    objDtoMoldura.VM_Descripcion = reader[1].ToString();
+            //    dtoTipoMoldura.PK_ITM_Tipo = int.Parse(reader[2].ToString());
+            //    dtoTipoMoldura.VTM_Nombre = reader[3].ToString();
+            //    objDtoMoldura.DM_Medida = Convert.ToDouble(reader[4].ToString());
+            //    dtoTipoMoldura.VTM_UnidadMetrica = reader[5].ToString();
+            //    objDtoMoldura.IM_Estado = int.Parse(reader[6].ToString());
+            //    objDtoMoldura.IM_Stock = int.Parse(reader[7].ToString());
+            //    objDtoMoldura.DM_Precio = Convert.ToDouble(reader[8].ToString());
+            //    objDtoMoldura.VBM_Imagen = Encoding.ASCII.GetBytes(reader[9].ToString());
+            //}
+            //conexion.Close();
+            //gvdetalle.DataSource = dt;
+            //updPanelGVDetalle.Update();
+
+
+            //objdtomoldura.PK_IM_Cod = Convert.ToInt32(txtcodigop.Text);
+
+            //objCtrMoldura.ObtenerMoldura(objdtomoldura, dtoTipoMoldura);
+
+            //objDtoMoldura.DM_Medida = Convert.ToDouble(objdtomoldura.DM_Medida.ToString() + dtoTipoMoldura.VTM_UnidadMetrica.ToString());
+
+
         }
         catch (Exception ex)
         {
@@ -248,29 +292,58 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
     protected void btncalcular_Click(object sender, EventArgs e)
     {
-        if (txtcantidad.Text=="")
+        if (txtcantidad.Text == "")
         {
             Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage6()");
         }
-
+        //gvdetalle
         try
-
         {
             var colsNoVisible = gvdetalle.DataKeys[0].Values;
 
-            int IM_Stock = int.Parse(colsNoVisible[0].ToString());
-            double DM_Precio = double.Parse(colsNoVisible[1].ToString());
+            int IM_Stock = int.Parse(colsNoVisible[4].ToString());
+            double DM_Precio = double.Parse(colsNoVisible[5].ToString());
 
             int cantidad = int.Parse(txtcantidad.Text);
             double precioAprox = 0;
             _log.CustomWriteOnLog("Realizar venta 1", "STOCK DE MOLDURA  : " + IM_Stock.ToString());
             _log.CustomWriteOnLog("Realizar venta 1", "PRECIO DE MOLDURA    : " + DM_Precio.ToString());
+
+
+
             if (cantidad <= IM_Stock)
             {
+                //int sum = 0;
                 precioAprox = cantidad * DM_Precio;
                 _log.CustomWriteOnLog("Realizar venta 1", "PRECIO APROX DE COMPRA   : " + precioAprox.ToString());
+
+
+                //objDtoMoldura.PK_IM_Cod = Convert.ToInt32(txtcodigop.Text);
+                //gvdetalle.DataSource = objCtrMoldura.ObtenerMoldura2(objDtoMoldura, dtoTipoMoldura);
+                //string DM_Subtotal = precioAprox.ToString();
+                
+                updPanelGVDetalle.Update();
+                gvdetalle.DataBind();
+
                 txtsubtotal.Text = precioAprox.ToString();
                 updPanelSubTotal.Update();
+
+                //DataTable dt = (DataTable)ViewState["Customers"];
+                //dt.Rows.Add(txtsubtotal.Text.Trim());
+                //ViewState["Records"] = dt;
+                //this.BindGrid();
+
+
+                //for (int i = 0; i < gvdetalle.Rows.Count; i++)
+                //{
+                //    //_log.CustomWriteOnLog("Realizar venta 1", "gv2.Rows[i].Cells[4].Text  : " + gv2.Rows[i].Cells[4].Text);
+                //    gvdetalle.Columns[5].AccessibleHeaderText = "Subtotal";
+                //    dt.Rows.Add(gvdetalle);
+                //    //gvdetalle.Columns[5] = (txtsubtotal.Text);
+                //    //precioAprox = double.Parse(gvdetalle.Columns[6].ToString());
+                //}
+
+                //updPanelGVDetalle
 
                 //actualiza al importe total
                 txtimporttot.Text = precioAprox.ToString();
@@ -304,12 +377,13 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
         if (txtsubtotal.Text == "")
         {
             Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage7()");
+            return;
         }
         try
         {
             double sum = 0;
             var colsNoVisible = gvdetalle.DataKeys[0].Values;
-            double DM_Precio2 = double.Parse(colsNoVisible[1].ToString());
+            double DM_Precio2 = double.Parse(colsNoVisible[5].ToString());
 
             dt = (DataTable)ViewState["Records"];
             dt.Rows.Add(txtcodigop.Text, txtcantidad.Text, DM_Precio2, txtsubtotal.Text);
@@ -392,14 +466,17 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
         if (txtmedidaDP.Text == "")
         {
             Utils.AddScriptClientUpdatePanel(panelCalcPersonalizado, "showSuccessMessage8()");
+            return;
         }
         if (txtcantidadDP.Text == "")
         {
             Utils.AddScriptClientUpdatePanel(panelCalcPersonalizado, "showSuccessMessage9()");
+            return;
         }
-        if (ddlTipoMoldura.SelectedValue=="0")
+        if (ddlTipoMoldura.SelectedValue == "0")
         {
             Utils.AddScriptClientUpdatePanel(panelCalcPersonalizado, "showSuccessMessage11()");
+            return;
         }
         double aprox;
         if (ddlTipoMoldura.SelectedValue != "0")
@@ -424,6 +501,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
         if (txtIdentificadorUsuario.Text == "" | txtcodigop.Text == "" | txtcantidad.Text == "")
         {
             Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage7()");
+            return;
         }
         try
         {
@@ -458,9 +536,9 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 objDtoMolduraxUsuario.FK_IS_Cod = ValorDevuelto2;
                 objCtrMolduraxUsuario.actualizarMXUSol(objDtoMolduraxUsuario);
                 Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage3()");
-            } 
+            }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             _log.CustomWriteOnLog("Realizar venta 1", "btnboleta_Click error  : " + ex.Message);
 
@@ -472,15 +550,17 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
         if (txtIdentificadorUsuario.Text == "" | txtmedidaDP.Text == "" | txtcantidadDP.Text == "")
         {
             Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage7()");
+            return;
         }
-        if (FileUpload2.Value =="")
+        if (FileUpload2.Value == "")
         {
             Utils.AddScriptClientUpdatePanel(updBotonEnviar, "showSuccessMessage10()");
+            return;
         }
         try
         {
             if (valorObtenidoRBTN.Value == "2" && ddlPedidoPor.SelectedValue == "2")
-      
+
             {
                 _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
                 _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + ddlPedidoPor.SelectedValue);

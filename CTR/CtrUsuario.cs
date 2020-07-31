@@ -130,5 +130,22 @@ namespace CTR
         {
             objDaoUsuario.EnviarCorreoaVendedor(dtoUsuario);
         }
+
+        public void CambiarContrasenia(DtoUsuario dtoUsuario)
+        {
+            objDaoUsuario.CambiarContra(dtoUsuario);
+        }
+
+        public void TraePass(DtoUsuario dtoUsuario)
+        {
+            objDaoUsuario.TraeContra(dtoUsuario);
+        }
+
+        public void TraeData(DtoUsuario dtoUsuario)
+        {
+            objDaoUsuario.TraeData(dtoUsuario);
+        }
+
+
     }
 }

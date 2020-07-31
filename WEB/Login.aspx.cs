@@ -70,7 +70,7 @@ public partial class Login : System.Web.UI.Page
                 Session["id_perfil"] = usuarioDto.FK_ITU_Cod;
                 Session["FechaNacUsuario"] = usuarioDto.DTU_FechaNac;
                 Session["CelularUsuario"] = usuarioDto.IU_Celular;
-
+                Session["Contrasenia"] = pass;
 
                 log.CustomWriteOnLog("Login_V2", " Session['DNIUsuario'] " + Session["DNIUsuario"]);
                 log.CustomWriteOnLog("Login_V2", " Session['NombreUsuario'] " + Session["NombreUsuario"]);
@@ -79,6 +79,7 @@ public partial class Login : System.Web.UI.Page
                 log.CustomWriteOnLog("Login_V2", " Session['id_perfil'] " + Session["id_perfil"]);
                 log.CustomWriteOnLog("Login_V2", " Session['FechaNacUsuario'] " + Session["FechaNacUsuario"]);
                 log.CustomWriteOnLog("Login_V2", " Session['CelularUsuario'] " + Session["CelularUsuario"]);
+                log.CustomWriteOnLog("Login_V2", " Session['Contrasenia'] " + Session["Contrasenia"]);
                 log.CustomWriteOnLog("Login_V2", "--------------------------------------------Fin Login Aspx----------------------------------------------------");
 
 
