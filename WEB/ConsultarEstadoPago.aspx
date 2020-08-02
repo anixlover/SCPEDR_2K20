@@ -137,6 +137,73 @@
                 </div>
             </div>
 
+             <div class="modal fade" id="defaultmodal3" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <asp:UpdatePanel runat="server" ID="UpdatePanel2" UpdateMode="Always">
+                    <ContentTemplate>
+                        <div class="modal-header navbar">
+                            <h4 class="modal-title" id="tituloModal" runat="server">Detalles de voucher de la compra</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div>
+                                        <asp:Image ID="ImageV" Height="300px" Width="300px" runat="server" class="rounded" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                  
+                                    <div class="col-md-12">
+                                        <div class="row clearfix">
+                                            <div class="form-group form-float">
+                                                <label class="form-label">Emision de solicitud:</label>
+                                                <div class="form-line focused">
+                                                    <div class="form-line">
+                                                        <asp:TextBox ID="txtFechaEmision" class="form-control" runat="server" ReadOnly></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row clearfix">
+                                            <div class="form-group form-float">
+                                                <label class="form-label">Numero de operacion:</label>
+                                                <div class="form-line focused">
+                                                    <div class="form-line">
+                                                        <asp:TextBox ID="txtNroOpe" class="form-control" runat="server" ReadOnly></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row clearfix">
+                                            <div class="form-group form-float">
+                                                <label class="form-label">Importe:</label>
+                                                <div class="form-line focused">
+                                                    <div class="form-line">
+                                                        <asp:TextBox ID="txtImporte" class="form-control" runat="server" ReadOnly></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer btn-group-sm">
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </div>
         </div>
     </div>
     <%--<script>
