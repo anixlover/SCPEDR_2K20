@@ -11,7 +11,7 @@
             position: relative;
             min-height: 1px;
             top: 0px;
-            left: -15px;
+            left: 0px;
             float: left;
             width: 41.66666667%;
             padding-left: 15px;
@@ -70,41 +70,35 @@
                     </div>
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="cartilla">
+                            <div class="cartilla" id="catalogo" runat="server" hidden clientidmode="Static">
                                 <div class="header">
                                     <h2>Especificaciones</h2>
                                     <br />
                                 </div>
                                 <div class="body">
                                     <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="col-sm-9">
+                                        <div class="col-md-12">
+                                            <div class="col-sm-24">
                                                 <div class="auto-style1">
                                                     <asp:Label ID="Label1" runat="server" class="form-label"><b>Codigo Producto</b></asp:Label>
                                                     <div class="form-line">
-                                                        <asp:TextBox ID="txtcodigo" placeholder="Ej: 950" class="form-control" runat="server" type="text"
-                                                            pattern="[0-8]+" MinLength="8" MaxLength="8">
+                                                        <asp:TextBox ID="txtcodigo" placeholder="Ej: 950" class="form-control" runat="server" pattern="[0-9]+" type="text">
                                                         </asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <br />
                                                 <%--boton buscar--%>
-                                                <div class="col-sm-2">
-                                                    <asp:UpdatePanel runat="server">
+                                                <div class="col-sm-13">
+                                                    <asp:UpdatePanel runat="server" ID="buscar">
                                                         <ContentTemplate>
                                                             <asp:LinkButton runat="server" ID="btnBuscarProducto"
                                                                 CssClass="busqueda"
                                                                 OnClick="btnBuscarProducto_Click">
                                                     <i class="fas fa-search"></i>
                                                             </asp:LinkButton>
-                                                        </ContentTemplate>
-                                                    </asp:UpdatePanel>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
+                                                            <div class="row">
                                         <br />
+                                                                <br />
 
                                         <div class="col-md-3">
                                             <div class="col-sm-6">
@@ -131,6 +125,8 @@
                                                 </div>
                                             </div>
                                         </div>
+                                                                <asp:UpdatePanel runat="server" ID="calcular1">
+                                                    <ContentTemplate>
                                         <div class="col-md-3">
                                             <div class="col-sm-4">
                                                 <asp:Label ID="Label5" runat="server" class="form-label"><b>Importe:</b></asp:Label>
@@ -144,19 +140,26 @@
                                             <br />
                                             <br />
                                             <div class="col-sm-offset-5 right">
-                                                <asp:UpdatePanel runat="server">
-                                                    <ContentTemplate>
+                                                
                                                         <asp:LinkButton runat="server" ID="btnCalcular" CssClass="btn btn-primary btn-lg"
                                                             OnClick="btnCalcular_Click"> <i class="material-icons"></i> Calcular
                                                         </asp:LinkButton>
-                                                    </ContentTemplate>
-                                                </asp:UpdatePanel>
+                                                    
                                             </div>
                                         </div>
+                                            </ContentTemplate>
+                                                </asp:UpdatePanel>
                                         <div class="col-md-3 col-md-offset-9">
 
                                         </div>
                                     </div>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                     <br />
                                     <%--comentario--%>
                                     <div class="col-md-12">
@@ -195,9 +198,11 @@
                             </div>
                         </div>
                     </div>
+                     </div>
+                    </asp:Panel>
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="cartilla">
+                            <div class="cartilla" id="personalizado"  runat="server" hidden clientidmode="Static">
                                 <div class="header">
                                     <h2>Especificaciones</h2>
                                 </div>
@@ -212,9 +217,12 @@
                                     
                                     </div>
                                     <br />
+                                    <asp:UpdatePanel runat="server" ID="calcular2">
+                                                    <ContentTemplate>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="col-sm-12">
+                                                
                                                 <asp:Label ID="Label8" runat="server" class="form-label"><b>Seleccione tipo de moldura:</b></asp:Label>
                                                 <asp:DropDownList runat="server" ID="ddlTipoMoldura" CssClass=" bootstrap-select form-control"></asp:DropDownList>
                                             </div>
@@ -238,6 +246,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                         
                                         <div class="col-md-5">
                                             <div class="col-sm-8">
                                                 <asp:Label ID="Label11" runat="server" class="form-label"><b>Importe aprox:</b></asp:Label>
@@ -254,18 +263,16 @@
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>--%>
+                                            </div>
                                         <div class="col-sm-offset-9">
-                                            <asp:UpdatePanel runat="server">
-                                                    <ContentTemplate>
                                                         <asp:LinkButton runat="server" ID="btnCalcular2"  CssClass="btn btn-primary btn-lg"
                                                             OnClick="btnCalcular2_Click"> <i class="material-icons"></i>Calcular
                                                         </asp:LinkButton>
-                                                    </ContentTemplate>
-                                                </asp:UpdatePanel>
                                         </div>
                                         <div class="col-md-3 col-md-offset-9"></div>
                                         </div>
-                                        
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
                                     </div>
                                     <br />
                                     <%--comentario--%>
@@ -305,10 +312,8 @@
                             </div>
                         </div>
                     </div>
-
-                </asp:Panel>
+                
             </div>
-        </div>
     </section>
 
     <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
@@ -368,6 +373,13 @@
                 type: "error"
             });
         }
+        function showSuccessMessage7() {
+            swal({
+                title: "ERROR!",
+                text: "Codigo de producto no encontrado!!",
+                type: "error"
+            });
+        }
 
     </script>
     <%--    <script>
@@ -379,5 +391,6 @@
 </script>--%>
 
     <script src="js/Aplicacion/UploadFile.js"></script>
+    <script src="js/Aplicacion/RealizarPedidoPersonalizado.js"></script>
 </asp:Content>
 
