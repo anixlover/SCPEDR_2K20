@@ -55,6 +55,12 @@ namespace CTR
         {
             return objDaoSXM.listarMolduraxSxU(objDtoMolduraxUsuario);
         }
-        
+
+        public DataTable listarMolduraxusuarioxincidente(DtoMolduraxUsuario objDtoMolduraxUsuario)
+        {
+            return objDaoSXM.listarMolduraxusuarioxincidente(objDtoMolduraxUsuario);
+        }
+
+
     }
 }
