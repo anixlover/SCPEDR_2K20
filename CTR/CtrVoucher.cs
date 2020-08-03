@@ -24,5 +24,9 @@ namespace CTR
         {
             objvoucherdao.InsertarImagenVoucher(arreglo,ID);
         }
+        public bool hayVoucher(DtoVoucher voucher)
+        {
+            return objvoucherdao.SelectPagoVoucher(voucher);
+        }
     }
 }

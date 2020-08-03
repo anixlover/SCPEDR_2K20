@@ -199,6 +199,87 @@ namespace DAO
             conexion.Close();
             return dtsolicitudes;
         }
+        public DataTable ListaMoldurasSolicitud(DtoSolicitud objSol)
+        {
+            DataTable dtsolicitudes = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_Listar_Molduras_Solicitud", conexion);
+            command.Parameters.AddWithValue("@sol", objSol.PK_IS_Cod);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtsolicitudes = new DataTable();
+            daAdaptador.Fill(dtsolicitudes);
+            conexion.Close();
+            return dtsolicitudes;
+        }
+        public bool SelectSolicitud(DtoSolicitud objsol)
+        {
+            string Select = "SELECT * from T_Solicitud where PK_IS_Cod =" + objsol.PK_IS_Cod;
+            SqlCommand unComando = new SqlCommand(Select, conexion);
+            conexion.Open();
+            SqlDataReader reader = unComando.ExecuteReader();
+            bool hayRegistros = reader.Read();
+            if (hayRegistros)
+            {
+                objsol.VS_TipoSolicitud = (string)reader[1];
+                objsol.DS_ImporteTotal = Convert.ToDouble(reader[6].ToString());
+            }
+            else objsol.error = 1;
+            conexion.Close();
+            return hayRegistros;
+        }
+        public string SelectSolicitudPago(DtoSolicitud objsol)
+        {
+            string v = "";
+            SqlCommand unComando = new SqlCommand("SP_SelectPagos", conexion);
+            conexion.Open();
+            unComando.CommandType = CommandType.StoredProcedure;
+            unComando.Parameters.AddWithValue("@sol", objsol.PK_IS_Cod);
+            SqlDataReader reader = unComando.ExecuteReader();
+            bool hayRegistros = reader.Read();
+            if (hayRegistros)
+            {
+                v = (string)reader[0];  
+            }
+            conexion.Close();
+            return v;
+        }
+        public DataTable SelectSolicitudes() 
+        {
+            DataTable dtsolicitudes = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_Administrar_Solicitudes", conexion);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtsolicitudes = new DataTable();
+            daAdaptador.Fill(dtsolicitudes);
+            conexion.Close();
+            return dtsolicitudes;
+        }
 
+        public void UpdateSolicitudObservada(DtoSolicitud objsol) 
+        {
+            string update = "UPDATE T_Solicitud SET VS_Comentario='"+objsol.VS_Comentario+"', FK_ISE_Cod=7 where PK_IS_Cod =" + objsol.PK_IS_Cod;
+            SqlCommand unComando = new SqlCommand(update, conexion);
+            conexion.Open();
+            unComando.ExecuteNonQuery();
+            conexion.Close();
+        }
+        public void UpdateSolicitudFecha(DtoSolicitud objsol)
+        {
+            string update = "UPDATE T_Solicitud SET DTS_FechaRecojo='" + objsol.DTS_FechaRecojo + "', FK_ISE_Cod=3 where PK_IS_Cod =" + objsol.PK_IS_Cod;
+            SqlCommand unComando = new SqlCommand(update, conexion);
+            conexion.Open();
+            unComando.ExecuteNonQuery();
+            conexion.Close();
+        }
+        public void UpdateSolicitudPendiente(DtoSolicitud objsol)
+        {
+            string update = "UPDATE T_Solicitud SET DTS_FechaRegistro=GETDATE(),FK_ISE_Cod=9 where PK_IS_Cod =" + objsol.PK_IS_Cod;
+            SqlCommand unComando = new SqlCommand(update, conexion);
+            conexion.Open();
+            unComando.ExecuteNonQuery();
+            conexion.Close();
+        }
     }
 }

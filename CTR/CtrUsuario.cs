@@ -146,6 +146,9 @@ namespace CTR
             objDaoUsuario.TraeData(dtoUsuario);
         }
 
-
+        public bool ExisteUsuario(DtoUsuario objuser)
+        {
+           return objDaoUsuario.SelectUsuario(objuser);
+        }
     }
 }
