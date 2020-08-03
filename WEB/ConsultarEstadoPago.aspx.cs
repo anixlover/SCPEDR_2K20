@@ -18,6 +18,10 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
     DtoMolduraxUsuario dtoMolduraxUsuario = new DtoMolduraxUsuario();
     DtoSolicitudEstado objDtoSolicitudEstado = new DtoSolicitudEstado();
     CtrMolduraxUsuario objCtrMolduraxUsuario = new CtrMolduraxUsuario();
+    CtrVoucher objCtrVoucher = new CtrVoucher();
+    DtoVoucher objvoucherdao = new DtoVoucher();
+
+
     Log _log = new Log();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -66,15 +70,6 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
                     break;
 
                 case "Ver proceso": _log.CustomWriteOnLog("consultar estado pago", "paso");
-                    //int index2 = Convert.ToInt32(e.CommandArgument);
-                    //var columna2 = gvConsultar.DataKeys[index2].Values;
-                    //int id2 = Convert.ToInt32(columna2[0].ToString());
-                    //dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
-                    //dtoMolduraxUsuario.FK_IS_Cod = id2;
-                    //gvListaxMoldura.DataSource= objCtrMolduraxUsuario.listarMolduraxSxU(dtoMolduraxUsuario);
-                    //gvListaxMoldura.DataBind();
-                    //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('defaultmodal1').modal('show');</script>", false);
-                    //break;
                     dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
                     int index2 = Convert.ToInt32(e.CommandArgument);
                     var columna2 = gvConsultar.DataKeys[index2].Values;
@@ -95,6 +90,22 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
                     gvListaxMolduraxIncidencia.DataBind();
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#defaultmodal2').modal('show');</script>", false);
                     break;
+
+                case "Ver detalle":
+                    dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                    int index4 = Convert.ToInt32(e.CommandArgument);
+                    var columna4 = gvConsultar.DataKeys[index4].Values;
+                    string id4 = columna4[0].ToString();
+                    dtoMolduraxUsuario.FK_IS_Cod = int.Parse(id4);
+                    objCtrVoucher.DetallesVoucherSolicitudUsuario(objvoucherdao,objDtoSolicitud,dtoMolduraxUsuario);
+
+                    txtFechaEmision.Text = objDtoSolicitud.DTS_FechaEmicion.ToString();
+                    txtNroOpe.Text = objvoucherdao.PK_VV_NumVoucher.ToString();
+                    txtImporte.Text = objvoucherdao.DV_ImporteDepositado.ToString();
+                    
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#defaultmodal3').modal('show');</script>", false);
+                    break;
+
             }
         }
         catch (Exception ex)
