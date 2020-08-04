@@ -334,6 +334,7 @@
             }, function (isConfirm) {
                 if (isConfirm) {
                     window.location.href = `RealizarPedidoPersonalizado.aspx?id=${id}`;
+                    _log.CustomWriteOnLog("carrito de compra", "Valor ID enviada :  " + id);
                 } else {
                     $('#defaultmodal').modal('hide');
                 }

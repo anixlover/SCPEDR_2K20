@@ -92,18 +92,61 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
                     break;
 
                 case "Ver detalle":
-                    dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
+                    //dtoMolduraxUsuario.FK_VU_Cod = Session["DNIUsuario"].ToString();
                     int index4 = Convert.ToInt32(e.CommandArgument);
                     var columna4 = gvConsultar.DataKeys[index4].Values;
                     string id4 = columna4[0].ToString();
-                    dtoMolduraxUsuario.FK_IS_Cod = int.Parse(id4);
+                    objDtoSolicitud.PK_IS_Cod = int.Parse(id4);
                     objCtrVoucher.DetallesVoucherSolicitudUsuario(objvoucherdao,objDtoSolicitud,dtoMolduraxUsuario);
 
                     //imagen.....
+                    //string image = Convert.ToBase64String(objvoucherdao.VBV_Foto);
+                    //ImageV.ImageUrl = "data:Image/png;base64," + image;
                     txtFechaEmision.Text = objDtoSolicitud.DTS_FechaEmicion.ToString();
                     txtNroOpe.Text = objvoucherdao.PK_VV_NumVoucher.ToString();
-                    txtImporte.Text = objvoucherdao.DV_ImporteDepositado.ToString();
                     
+                    //string cs = ConfigurationManager.ConnectionStrings["conexion"].ConnectionString;
+                    //using (SqlConnection con = new SqlConnection(cs))
+                    //{
+                    //    SqlCommand cmd = new SqlCommand("SP_DetallesVoucherUsuarioxSolicitud", con);
+                    //    cmd.CommandType = CommandType.StoredProcedure;
+                    //    //SqlParameter paramId = new SqlParameter()
+                    //    //{
+                    //    //    ParameterName = "@Id",
+                    //    //    Value = objDtoMoldura.PK_IM_Cod
+                    //    //};
+                    //    //cmd.Parameters.Add(paramId);
+                    //    cmd.Parameters.AddWithValue("@dni", Session["DNIUsuario"].ToString());
+                    //    cmd.Parameters.AddWithValue("@idsol", id4);
+                    //    con.Open();
+                    //    byte[] bytes = (byte[])cmd.ExecuteScalar();
+                    //    con.Close();
+                    //    string strbase64 = Convert.ToBase64String(bytes);
+                    //    ImageV.ImageUrl = "data:Image/png;base64," + strbase64;
+                    //}
+                    string cs = ConfigurationManager.ConnectionStrings["conexion"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(cs))
+                    {
+                        SqlCommand cmd = new SqlCommand("SP_DVS", con);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlParameter paramId = new SqlParameter()
+                        {
+                            ParameterName = "@idsol",
+                            Value = id4
+                        };
+                        cmd.Parameters.Add(paramId);
+                        con.Open();
+                        byte[] bytes = (byte[])cmd.ExecuteScalar();
+                       
+
+                        con.Close();
+                        string strbase64 = Convert.ToBase64String(bytes);
+                        ImageV.ImageUrl = "data:Image/png;base64," + strbase64;
+                    }
+
+                    txtImporte.Text = objvoucherdao.DV_ImporteDepositado.ToString();
+
+
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#defaultmodal3').modal('show');</script>", false);
                     break;
 
