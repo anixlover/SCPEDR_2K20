@@ -42,14 +42,36 @@ namespace CTR
         {
             objDaoSXM.actualizarMXU(objdtoMolduraxUsuario);
         }
+
         public void actualizarMXUSol(DtoMolduraxUsuario objdtoMolduraxUsuario)
         {
             objDaoSXM.actualizarMXUSol(objdtoMolduraxUsuario);
+        }
+
+        public void actualizarMXUSolP(DtoMolduraxUsuario objdtoMolduraxUsuario)
+        {
+            objDaoSXM.actualizarMXUSolP(objdtoMolduraxUsuario);
         }
         public void registrarMXU (DtoMolduraxUsuario objDtoMolduraxUsuario)
         {
             objDaoSXM.registrarMXU(objDtoMolduraxUsuario); 
         }
-       
+
+        public void registrarMXUP(DtoMolduraxUsuario objDtoMolduraxUsuario)
+        {
+            objDaoSXM.registrarMXUP(objDtoMolduraxUsuario);
+        }
+
+        public DataTable listarMolduraxSxU(DtoMolduraxUsuario objDtoMolduraxUsuario)
+        {
+            return objDaoSXM.listarMolduraxSxU(objDtoMolduraxUsuario);
+        }
+
+        public DataTable listarMolduraxusuarioxincidente(DtoMolduraxUsuario objDtoMolduraxUsuario)
+        {
+            return objDaoSXM.listarMolduraxusuarioxincidente(objDtoMolduraxUsuario);
+        }
+
+
     }
 }

@@ -6,128 +6,314 @@
     <link href="../../plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
 
+    <style type="text/css">
+        .auto-style1 {
+            position: relative;
+            min-height: 1px;
+            top: 0px;
+            left: 0px;
+            float: left;
+            width: 41.66666667%;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <section class="seccion contenedor clearfix">
-        <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="3600"></asp:ScriptManager>
-        <%--<div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">--%>
-        <div class="pedido-personalizado">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="3600"></asp:ScriptManager>
+    <section>
+        <h2>REALIZAR PEDIDO PERSONALIZADO</h2>
+        <div>
+            <div class="pedido-propio">
+                <input type="hidden" runat="server" id="valorObtenidoRBTN" clientidmode="Static" />
+                <asp:Panel ID="Panel1" runat="server">
+                    <%-- seleccione tipo de pedido personalizado--%>
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-            <h2>Realizar Pedido Personalizado</h2>
-            <div class="cartilla">
+                            <div class="cartilla">
+                                <div class="header">
+                                    <h2>Tipo de Pedido</h2>
+                                    <br />
+                                </div>
+                                <div class="body">
+                                    <div class="row ">
+                                        <div class="form-group form-float">
+                                            <div class="form-group form-float">
+                                                <div class="col-lg-4"></div>
+                                                <div class="col-lg-3">
+                                                    <div class="demo-checkbox">
+                                                        <div class="demo-radio-button">
+                                                            <input type="radio" id="rbCatalogo" name="documento" class="radio-col-red" value="1" />
+                                                            <label for="cbx_Catalogo">Catalogo</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <div class="demo-checkbox">
+                                                        <div class="demo-radio-button">
+                                                            <input type="radio" id="rbPropio" name="documento" class="radio-col-red" value="2" />
+                                                            <label for="cbx_Personalizado">Diseño Propio</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
 
-                <h3>Tipo de Pedido</h3>
-                <div class="cuadrado">
-                    <%--<asp:RadioButton ID="rbCatalogo" Text="  Catalogo" runat="server" />
-                <asp:RadioButton ID="rbDiseño" Text="  Diseño Propio" runat="server" />--%>
-                    <asp:RadioButton ID="rbCatalogo" runat="server" Text="Catalogo" GroupName="pedido" AutoPostBack="True" OnCheckedChanged="rbCatalogo_CheckedChanged" EnableTheming="True" ForeColor="Black" />
-                    <asp:RadioButton ID="rbPropio" runat="server" Text="Diseño Propio" GroupName="pedido" AutoPostBack="True" OnCheckedChanged="rbPropio_CheckedChanged" ForeColor="Black" />
-                </div>
-            </div>
-            <div class="cartilla">
-                <h3>Especificaciones</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                <%--Catalogo--%>
-                <div class="conteniendo">
-                    <div class="conteniendo-separacion">
-                        <asp:Label ID="Label1" runat="server" Text="Codigo: "></asp:Label><asp:TextBox ID="txtcodigo" name="texto" runat="server" pattern="[0-9]+" TextMode="Number" Width="150px"></asp:TextBox>
-                        &nbsp;
-                <asp:LinkButton runat="server" ID="btnSearch" CssClass="busqueda" OnClick="btnSearch_Click" Style="width: 100px"> 
-                                            <i class="fas fa-search"></i>
-                </asp:LinkButton>
+                        </div>
                     </div>
-                </div>
-                <br />
-                <asp:Label ID="Label2" runat="server" Text="Medida: "></asp:Label><asp:TextBox ID="txtmedida" runat="server" Width="116px" Enabled="False"></asp:TextBox>
-                &nbsp;&nbsp;&nbsp;
-                <asp:Label ID="Label3" runat="server" Text="Precio(u): "></asp:Label><asp:TextBox ID="txtprecio" runat="server" Width="116px" Enabled="False"></asp:TextBox>
-                &nbsp;&nbsp;&nbsp;
-                <asp:Label ID="Label4" runat="server" Text="Cantidad: "></asp:Label><asp:TextBox ID="txtcantidad" runat="server" TextMode="Number" Width="116px"></asp:TextBox>
-                &nbsp;&nbsp;&nbsp;
-                <asp:Label ID="Label5" runat="server" Text="Importe: "></asp:Label><asp:TextBox ID="txtimporte" runat="server" Width="116px" Enabled="False"></asp:TextBox>
-                &nbsp;&nbsp;&nbsp;
-                <asp:HiddenField runat="server" ID="txtunidadmetrica" />
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="cartilla" id="catalogo" runat="server" hidden clientidmode="Static">
+                                <div class="header">
+                                    <h2>Especificaciones</h2>
+                                    <br />
+                                </div>
+                                <div class="body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-sm-24">
+                                                <div class="auto-style1">
+                                                    <asp:Label ID="Label1" runat="server" class="form-label"><b>Codigo Producto</b></asp:Label>
+                                                    <div class="form-line">
+                                                        <asp:TextBox ID="txtcodigo" placeholder="Ej: 950" class="form-control" runat="server" pattern="[0-9]+" type="text">
+                                                        </asp:TextBox>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <%--boton buscar--%>
+                                                <div class="col-sm-13">
+                                                    <asp:UpdatePanel runat="server" ID="buscar">
+                                                        <ContentTemplate>
+                                                            <asp:LinkButton runat="server" ID="btnBuscarProducto"
+                                                                CssClass="busqueda"
+                                                                OnClick="btnBuscarProducto_Click">
+                                                    <i class="fas fa-search"></i>
+                                                            </asp:LinkButton>
+                                                            <div class="row">
+                                        <br />
+                                                                <br />
 
-                <%--brn calcular--%>
-                <%--                <asp:LinkButton runat="server" ID="LinkButton1" CssClass="calcular" OnClick="btnCalcular_Click"> 
-                                            <i class="fas fa-calculator"></i> calcular
-                </asp:LinkButton>--%>
+                                        <div class="col-md-3">
+                                            <div class="col-sm-6">
+                                                <asp:Label ID="Label2" runat="server" class="form-label"><b>Medida:</b></asp:Label>
+                                                <%--<label class="form-label">Cantidad(u)</label>--%>
+                                                <div class="form-line">
+                                                    <asp:TextBox ID="txtmedida" placeholder="Ej: 1 Mt" class="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="col-sm-6">
+                                                <asp:Label ID="Label3" runat="server" class="form-label"><b>Precio(u):</b></asp:Label>
+                                                <div class="form-line">
+                                                    <asp:TextBox ID="txtprecio" placeholder="Ej: S/40.00" class="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="col-sm-6">
+                                                <asp:Label ID="Label4" runat="server" class="form-label"><b>Cantidad:</b></asp:Label>
+                                                <div class="form-line">
+                                                    <asp:TextBox ID="txtcantidad" placeholder="Ej: 50" class="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                                                <asp:UpdatePanel runat="server" ID="calcular1">
+                                                    <ContentTemplate>
+                                        <div class="col-md-3">
+                                            <div class="col-sm-4">
+                                                <asp:Label ID="Label5" runat="server" class="form-label"><b>Importe:</b></asp:Label>
+                                                <div class="form-line">
+                                                    <asp:TextBox ID="txtimporte" placeholder="Ej: S/2100.00" class="form-control" runat="server"></asp:TextBox>
+                                                    <asp:HiddenField runat="server" ID="txtunidadmetrica" />
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <div class="col-sm-offset-5 right">
+                                                
+                                                        <asp:LinkButton runat="server" ID="btnCalcular" CssClass="btn btn-primary btn-lg"
+                                                            OnClick="btnCalcular_Click"> <i class="material-icons"></i> Calcular
+                                                        </asp:LinkButton>
+                                                    
+                                            </div>
+                                        </div>
+                                            </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                        <div class="col-md-3 col-md-offset-9">
 
-                <%--                <asp:Label ID="Label6" runat="server" Text="Comentario: "></asp:Label><asp:TextBox ID="txtarea" runat="server" Height="64px" Width="856px" TextMode="MultiLine"></asp:TextBox>--%>
+                                        </div>
+                                    </div>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <br />
+                                    <%--comentario--%>
+                                    <div class="col-md-12">
+                                        <div class="col-sm-24">
+                                            <asp:Label ID="Label6" runat="server" class="form-label"><b>Comentario:</b></asp:Label>
+                                            <div class="form-line">
+                                                <asp:TextBox ID="txtarea" placeholder="Por favor escribir aqui algun detalle que desee para que el vendedor lo inspeccione..." class="form-control" runat="server" type="text" Rows="4"  Width="100%" Height="55px" TextMode="MultiLine"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div class="medio">
+                                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                                            <ContentTemplate>
+                                                <asp:Button ID="btnRegistrar" runat="server" class="btn btn-success btn-lg"  Text="Registrar" OnClick="btnRegistrar_Click"></asp:Button>
+                                            <%--</ContentTemplate>
+                                        </asp:UpdatePanel>
+                                        </div>
 
-
-                <%--personalizado--%>
-                <asp:Label ID="Label7" runat="server" Text="Imagen de la moldura"></asp:Label>
-
-                <br />
-
-                <asp:Image ID="Image1" Height="250px" Width="250px" runat="server" class="rounded" />
-                <br />
-                <input name="fileAnexo" type="file" id="FileUpload1" runat="server" accept=".png,.jpg" class="btn btn-warning" style="width: 50%;" onchange="ImagePreview(this);" />
-                <br />
-                <asp:Label ID="Label8" runat="server" Text="Tipo de moldura: "></asp:Label><asp:DropDownList ID="ddlTipoMoldura" class="form-control" runat="server" required Width="278px"></asp:DropDownList>
-                <br />
-
-                <asp:Label ID="Label9" runat="server" Text="Medida: "></asp:Label><asp:TextBox ID="txtmedidap" runat="server" Width="180px"></asp:TextBox>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Label ID="Label10" runat="server" Text="Cantidad: "></asp:Label><asp:TextBox ID="txtcantidadp" runat="server" TextMode="Number" Width="180px"></asp:TextBox>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Label ID="Label11" runat="server" Text="Importe Aprox: "></asp:Label>
-                &nbsp;&nbsp;<asp:TextBox ID="txtimporteaprox" runat="server" Width="180px"></asp:TextBox>
-
-                <%--<asp:LinkButton runat="server" ID="LinkButton2" CssClass="calcular" OnClick="btnCalcular_Click"> 
-                                            <i class="fas fa-calculator"></i> calcular
-                </asp:LinkButton>--%>
-                <br />
-                <br />
-                <div class="derecha">
-                    <asp:LinkButton runat="server" ID="LinkButton1" CssClass="calcular" OnClick="btnCalcular_Click"> 
-                                            <i class="fas fa-calculator"></i> calcular
-                    </asp:LinkButton>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </div>
-                <br />
-                <asp:Label ID="Label6" runat="server" Text="Comentario: "></asp:Label><asp:TextBox ID="txtarea" runat="server" Height="64px" Width="884px" TextMode="MultiLine"></asp:TextBox>
-
-                <%--<asp:Label ID="Label12" runat="server" Text="Comentario: "></asp:Label><asp:TextBox ID="txtcomentariop" runat="server" Height="64px" Width="856px" TextMode="MultiLine"></asp:TextBox>--%>
-                <br />
-                <br />
-                <div class="medio">
-                    
-                    <asp:UpdatePanel ID="upBotonEnviar" runat="server" UpdateMode="Conditional">
-                        
-                        <ContentTemplate>
-                            <asp:LinkButton ID="btncancelar" runat="server" CssClass="cancelar" OnClick="btncancelar_Click">
-                                <i class="fas fa-arrow-left"></i> Cancelar</asp:LinkButton>
-
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <asp:LinkButton runat="server" ID="btnenviar" CssClass="enviar" OnClick="btnEnviar_Click"> 
-                                            <i class="far fa-envelope"></i> Enviar
-                            </asp:LinkButton>
-
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-
-                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-                        
-                        <ContentTemplate>
-                            <asp:LinkButton ID="btncancelar2" runat="server" CssClass="cancelar">
-                                <i class="fas fa-arrow-left"></i> Cancelar</asp:LinkButton>
-
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <asp:LinkButton runat="server" ID="btnenviar2" CssClass="enviar" OnClick="btnenviar2_Click" > 
-                                            <i class="far fa-envelope"></i> Enviar
-                            </asp:LinkButton>
-
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                </div>
+                                        <div class="col-md-3 right">
+                                        <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
+                                            <ContentTemplate>
+                                                --%>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <asp:Button ID="btnCancelar" runat="server" class="btn btn-danger btn-lg"  Text="Cancelar" OnClick="btnCancelar_Click"></asp:Button>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+<%--                                        </div>--%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     </div>
+                    </asp:Panel>
+                    <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="cartilla" id="personalizado"  runat="server" hidden clientidmode="Static">
+                                <div class="header">
+                                    <h2>Especificaciones</h2>
+                                </div>
+                                <div class="body">
+                                    <br />
+                                    <div class="medio">
+                                        <asp:Label ID="Label7" runat="server" class="form-label"><b>Subir imagen de la moldura aqui:</b></asp:Label>
+                                    <br />
+                                    <asp:Image ID="Image1" Height="250px" Width="250px" runat="server" class="rounded" />
+                                    <input name="fileAnexo" type="file" id="FileUpload1" runat="server" accept=".png,.jpg"
+                                        class="btn btn-warning" style="width: 50%;" onchange="ImagePreview(this);" CssClass="centro" />
+                                    
+                                    </div>
+                                    <br />
+                                    <asp:UpdatePanel runat="server" ID="calcular2">
+                                                    <ContentTemplate>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col-sm-12">
+                                                
+                                                <asp:Label ID="Label8" runat="server" class="form-label"><b>Seleccione tipo de moldura:</b></asp:Label>
+                                                <asp:DropDownList runat="server" ID="ddlTipoMoldura" CssClass=" bootstrap-select form-control"></asp:DropDownList>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="col-sm-6">
+                                                <asp:Label ID="Label9" runat="server" class="form-label"><b>Medida:</b></asp:Label>
+                                                <div class="form-line">
+                                                    <asp:TextBox ID="txtmedidap" placeholder="Ej: 1 Mt" class="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="col-sm-6">
+                                                <asp:Label ID="Label10" runat="server" class="form-label"><b>Cantidad:</b></asp:Label>
+                                                <div class="form-line">
+                                                    <asp:TextBox ID="txtcantidadp" placeholder="Ej: 50" class="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         
+                                        <div class="col-md-5">
+                                            <div class="col-sm-8">
+                                                <asp:Label ID="Label11" runat="server" class="form-label"><b>Importe aprox:</b></asp:Label>
+                                                <div class="form-line">
+                                                    <asp:TextBox ID="txtimporteaprox" placeholder="Ej: S/2100.00" class="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                            <%--<div class="col-sm-4 right">
+                                                <asp:UpdatePanel runat="server">
+                                                    <ContentTemplate>
+                                                        <asp:LinkButton runat="server" ID="btnCalcular2"  CssClass="btn btn-primary btn-lg"
+                                                            OnClick="btnCalcular2_Click"> <i class="material-icons"></i>Calcular
+                                                        </asp:LinkButton>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </div>--%>
+                                            </div>
+                                        <div class="col-sm-offset-9">
+                                                        <asp:LinkButton runat="server" ID="btnCalcular2"  CssClass="btn btn-primary btn-lg"
+                                                            OnClick="btnCalcular2_Click"> <i class="material-icons"></i>Calcular
+                                                        </asp:LinkButton>
+                                        </div>
+                                        <div class="col-md-3 col-md-offset-9"></div>
+                                        </div>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                    </div>
+                                    <br />
+                                    <%--comentario--%>
+                                    <div class="col-md-12">
+                                        <div class="col-sm-24">
+                                            <asp:Label ID="Label12" runat="server" class="form-label"><b>Comentario:</b></asp:Label>
+                                            <div class="form-line">
+                                                <asp:TextBox ID="txtcomentario2" placeholder="Por favor escribir aqui algun detalle que desee para que el vendedor lo inspeccione..." class="form-control" runat="server" Rows="4" type="text" Width="100%" TextMode="MultiLine" Height="55px"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div class="medio">
+<%--                                            <div class="col-md-3">--%>
+                                                <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                                                    <ContentTemplate>
+                                                        <asp:Button ID="btnRegistrar2" runat="server" class="btn btn-success btn-lg" Text="Registrar" OnClick="btnRegistrar2_Click"></asp:Button>
+                                                    <%--</ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+                                                    <ContentTemplate>--%>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <asp:Button ID="btnCancelar2" runat="server" class="btn btn-danger btn-lg" Text="Cancelar" OnClick="btnCancelar2_Click"></asp:Button>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            <%--</div>--%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
             </div>
-
-            <%--                <asp:Button ID="btnenviar" runat="server" CssClass="enviar" Text="Enviar" <i class="far fa-envelope"></i>/>--%>
-        </div>
     </section>
 
     <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
@@ -150,7 +336,7 @@
                     text: "Pulsa el botón y se te redirigirá",
                     type: "success"
                 }, function () {
-                        window.location = "ConsultarEstadoPago.aspx";
+                    window.location = "ConsultarEstadoPago.aspx";
                 });
             }, 1000);
         }
@@ -187,6 +373,14 @@
                 type: "error"
             });
         }
+        function showSuccessMessage7() {
+            swal({
+                title: "ERROR!",
+                text: "Codigo de producto no encontrado!!",
+                type: "error"
+            });
+        }
+
     </script>
     <%--    <script>
         function cargarInformacion(PK_IS_Cod) {
@@ -197,5 +391,6 @@
 </script>--%>
 
     <script src="js/Aplicacion/UploadFile.js"></script>
+    <script src="js/Aplicacion/RealizarPedidoPersonalizado.js"></script>
 </asp:Content>
 

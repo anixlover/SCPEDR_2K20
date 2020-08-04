@@ -88,7 +88,6 @@
                         <asp:Button ID="btnCancelar" runat="server" class="btn btn-danger btn-lg" Text="Cancelar" OnClick="btnCancelar_Click"></asp:Button>
                         <asp:Button ID="btnEnviar" runat="server" class="btn btn-success btn-lg" Text="Enviar" OnClick="btnEnviar_Click"></asp:Button>
                         <input type="hidden" runat="server" id="hftxtimg" clientidmode="Static" value="vacio"/>
-                        <asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>

@@ -119,6 +119,16 @@ namespace DAO
             command.ExecuteNonQuery();
             conexion.Close();
         }
+        public void actualizarMXUSolP(DtoMolduraxUsuario objmxu)
+        {
+            SqlCommand command = new SqlCommand("SP_ActualizarSol_MXU_P", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@id", objmxu.PK_IMU_Cod);
+            command.Parameters.AddWithValue("@sol", objmxu.FK_IS_Cod);
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
+        }
         public void registrarMXU(DtoMolduraxUsuario objMolduraxUsuario)
         {
             SqlCommand command = new SqlCommand("SP_Registrar_MXU_P", conexion);
@@ -134,6 +144,51 @@ namespace DAO
                 objMolduraxUsuario.PK_IMU_Cod = Convert.ToInt32(command.Parameters["@NewId"].Value);
             }
             conexion.Close();
+        }
+
+        public void registrarMXUP(DtoMolduraxUsuario objMolduraxUsuario)
+        {
+            SqlCommand command = new SqlCommand("SP_Registrar_MXU_PP", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@idU", objMolduraxUsuario.FK_VU_Cod);
+            command.Parameters.AddWithValue("@cant", objMolduraxUsuario.IMU_Cantidad);
+            command.Parameters.Add("@NewId", SqlDbType.Int).Direction = ParameterDirection.Output;
+            conexion.Open();
+            using (SqlDataReader dr = command.ExecuteReader())
+            {
+                objMolduraxUsuario.PK_IMU_Cod = Convert.ToInt32(command.Parameters["@NewId"].Value);
+            }
+            conexion.Close();
+        }
+
+        public DataTable listarMolduraxSxU(DtoMolduraxUsuario dtoMolduraxUsuario)
+        {
+            DataTable dtList = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_listarmolduraxusuarioGV", conexion);
+            command.Parameters.AddWithValue("@dni", dtoMolduraxUsuario.FK_VU_Cod);
+            command.Parameters.AddWithValue("@idsol", dtoMolduraxUsuario.FK_IS_Cod);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtList = new DataTable();
+            daAdaptador.Fill(dtList);
+            conexion.Close();
+            return dtList;
+        }
+
+        public DataTable listarMolduraxusuarioxincidente(DtoMolduraxUsuario dtoMolduraxUsuario)
+        {
+            DataTable dtList = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_listarmolduraxusuarioxincidenteGV", conexion);
+            command.Parameters.AddWithValue("@dni", dtoMolduraxUsuario.FK_VU_Cod);
+            command.Parameters.AddWithValue("@idsol", dtoMolduraxUsuario.FK_IS_Cod);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtList = new DataTable();
+            daAdaptador.Fill(dtList);
+            conexion.Close();
+            return dtList;
         }
         
 

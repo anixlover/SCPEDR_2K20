@@ -889,7 +889,9 @@ div.pedido-personalizado a.cuadrado {
 /**ASPX REALIZAR PEDIDO PERSONALIZADO**/
 
 .medio {
+    padding: 0 27%;
     text-align: center;
+    align-items: center;
 }
 .derecha {
     text-align: right;
