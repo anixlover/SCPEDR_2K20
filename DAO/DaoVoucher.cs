@@ -40,9 +40,29 @@ namespace DAO
 
         public void DetallesVoucherSolicitudUsuario(DtoVoucher objdtoVoucher,DtoSolicitud objDtoSolicitud,DtoMolduraxUsuario objDtoMolduraxUsuario)
         {
-            SqlCommand command = new SqlCommand("SP_DetallesVoucherUsuarioxSolicitud", conexion);
+            //SqlCommand command = new SqlCommand("SP_DetallesVoucherUsuarioxSolicitud", conexion);
+            //command.CommandType = CommandType.StoredProcedure;
+            //command.Parameters.AddWithValue("@dni",objDtoMolduraxUsuario.FK_VU_Cod);
+            //command.Parameters.AddWithValue("@idsol", objDtoSolicitud.PK_IS_Cod);
+            //DataSet ds = new DataSet();
+            //conexion.Open();
+            //SqlDataAdapter moldura = new SqlDataAdapter(command);
+            //moldura.Fill(ds);
+            //moldura.Dispose();
+
+            //SqlDataReader reader = command.ExecuteReader();
+
+            //while (reader.Read())
+            //{
+            //    objDtoSolicitud.DTS_FechaEmicion = Convert.ToDateTime(reader[0].ToString());
+            //    objdtoVoucher.PK_VV_NumVoucher = reader[1].ToString();
+            //    objdtoVoucher.VBV_Foto = (byte[])reader[2];
+            //    objdtoVoucher.DV_ImporteDepositado = Convert.ToInt32(reader[3].ToString());
+            //}
+            //conexion.Close();
+            //conexion.Dispose();
+            SqlCommand command = new SqlCommand("SP_DVS", conexion);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@dni",objDtoMolduraxUsuario.FK_VU_Cod);
             command.Parameters.AddWithValue("@idsol", objDtoSolicitud.PK_IS_Cod);
             DataSet ds = new DataSet();
             conexion.Open();
@@ -56,7 +76,8 @@ namespace DAO
             {
                 objDtoSolicitud.DTS_FechaEmicion = Convert.ToDateTime(reader[0].ToString());
                 objdtoVoucher.PK_VV_NumVoucher = reader[1].ToString();
-                objdtoVoucher.DV_ImporteDepositado = Convert.ToInt32(reader[2].ToString());
+                objdtoVoucher.VBV_Foto = Encoding.ASCII.GetBytes(reader[2].ToString());
+                objdtoVoucher.DV_ImporteDepositado = Double.Parse(reader[3].ToString());
             }
             conexion.Close();
             conexion.Dispose();
