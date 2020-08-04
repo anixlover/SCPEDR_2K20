@@ -102,7 +102,7 @@
 
                                         <div class="col-md-3">
                                             <div class="col-sm-6">
-                                                <asp:Label ID="Label2" runat="server" class="form-label"><b>Medida:</b></asp:Label>
+                                                <asp:Label ID="Label2" runat="server" class="form-label"><b>Medida: </b></asp:Label> 
                                                 <%--<label class="form-label">Cantidad(u)</label>--%>
                                                 <div class="form-line">
                                                     <asp:TextBox ID="txtmedida" placeholder="Ej: 1 Mt" class="form-control" runat="server"></asp:TextBox>
@@ -232,7 +232,7 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="col-sm-6">
-                                                <asp:Label ID="Label9" runat="server" class="form-label"><b>Medida:</b></asp:Label>
+                                                <asp:Label ID="Label9" runat="server" class="form-label"><b>Medida: </b></asp:Label> 
                                                 <div class="form-line">
                                                     <asp:TextBox ID="txtmedidap" placeholder="Ej: 1 Mt" class="form-control" runat="server"></asp:TextBox>
                                                 </div>

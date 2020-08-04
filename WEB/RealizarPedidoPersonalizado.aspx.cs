@@ -95,6 +95,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
             }
             //Obtener moldura y unidad metrica
             objCtrMoldura.ObtenerMoldura(objDtoMoldura, objDtoTipoMoldura);
+
             txtmedida.Text = objDtoMoldura.DM_Medida.ToString() + objDtoTipoMoldura.VTM_UnidadMetrica.ToString();
             txtunidadmetrica.Value = objDtoTipoMoldura.VTM_UnidadMetrica.ToString();
             _log.CustomWriteOnLog("registrar pedido personalizado", " devolvio objDtoMoldura.DM_Medida y objDtoTipoMoldura.VTM_UnidadMetrica : " + objDtoMoldura.DM_Medida + " " + objDtoTipoMoldura.VTM_UnidadMetrica);
