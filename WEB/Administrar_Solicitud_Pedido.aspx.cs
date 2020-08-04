@@ -14,15 +14,7 @@ public partial class Administrar_Solicitud_Pedido : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            
         }
     }
 
