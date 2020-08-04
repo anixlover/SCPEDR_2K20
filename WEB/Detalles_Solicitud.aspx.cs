@@ -19,6 +19,7 @@ public partial class Detalles_Solicitud : System.Web.UI.Page
         {
             CargarCliente();
             CargarMolduras();
+            CargarMolduras2();
         }
     }
     public void CargarCliente()
@@ -35,12 +36,46 @@ public partial class Detalles_Solicitud : System.Web.UI.Page
     }
     public void CargarMolduras()
     {
-        objDtoSolicitud.PK_IS_Cod = Convert.ToInt32(Session["idSolicitudPago"]);
-        gvMolduras.DataSource = objCtrSolicitud.ListaMolduras(objDtoSolicitud);
-        gvMolduras.DataBind();
-        if (objCtrSolicitud.LeerSolicitud(objDtoSolicitud))
+        if (objCtrSolicitud.leerSolicitudDiseñoPersonal(objDtoSolicitud))
         {
-            lblcosto.Text = objDtoSolicitud.DS_ImporteTotal.ToString();
+            if (objDtoSolicitud.VS_TipoSolicitud == "Personalizado por diseño propio")
+            {
+                gvMolduras.Visible = false;
+                imgPersonal.Visible = true;
+                lblcosto.Text = objDtoSolicitud.DS_PrecioAprox.ToString();
+                string imagen = Convert.ToBase64String(objDtoSolicitud.VBS_Imagen);
+                imgPersonal.ImageUrl = "data:Image/png;base64," + imagen;
+                txtcomentario.Text = objDtoSolicitud.VS_Comentario;
+            }
+        }
+    }
+    public void CargarMolduras2() 
+    {
+        objDtoSolicitud.PK_IS_Cod = Convert.ToInt32(Session["idSolicitudPago"]);
+
+        if (objCtrSolicitud.leerSolicitudTipo(objDtoSolicitud))
+        {
+            if (objDtoSolicitud.VS_TipoSolicitud == "Personalizado por catalogo" || objDtoSolicitud.VS_TipoSolicitud == "Catalogo")
+            {
+                objCtrSolicitud.LeerSolicitud(objDtoSolicitud);
+                imgPersonal.Visible = false;
+                gvMolduras.Visible = true;
+                txtcomentario.Visible = false;
+                lblcosto.Text = "Aproximado: S/" + objDtoSolicitud.DS_ImporteTotal.ToString();
+                gvMolduras.DataSource = objCtrSolicitud.ListaMolduras(objDtoSolicitud);
+                gvMolduras.DataBind();
+            }
+            if (objDtoSolicitud.VS_TipoSolicitud == "Personalizado por diseño propio")
+            {
+                objCtrSolicitud.leerSolicitudDiseñoPersonal(objDtoSolicitud);
+                gvMolduras.Visible = false;
+                imgPersonal.Visible = true;
+                txtcomentario.Visible = true;
+                lblcosto.Text = "Aproximado: S/"+objDtoSolicitud.DS_PrecioAprox.ToString();
+                string imagen = Convert.ToBase64String(objDtoSolicitud.VBS_Imagen);
+                imgPersonal.ImageUrl = "data:Image/png;base64," + imagen;
+                txtcomentario.Text = objDtoSolicitud.VS_Comentario;
+            }
         }
     }
 }

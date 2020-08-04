@@ -115,6 +115,14 @@ namespace CTR
         {
             return objDaoSolicitud.SelectSolicitudPago(objsol);
         }
+        public bool leerSolicitudDiseñoPersonal(DtoSolicitud objsol)
+        {
+            return objDaoSolicitud.SelectSolicitudDiseñoPersonalizado(objsol);
+        }
+        public bool leerSolicitudTipo(DtoSolicitud objsol)
+        {
+            return objDaoSolicitud.SelectSolicitudTipo(objsol);
+        }
     }
 }
 

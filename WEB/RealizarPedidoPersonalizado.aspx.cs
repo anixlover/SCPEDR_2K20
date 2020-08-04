@@ -19,6 +19,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
     CtrMoldura objCtrMoldura = new CtrMoldura();
     DtoMoldura objDtoMoldura = new DtoMoldura();
     DtoTipoMoldura objDtoTipoMoldura = new DtoTipoMoldura();
+    CtrTipoMoldura objctrtipomoldura = new CtrTipoMoldura();
     CtrMolduraxUsuario objCtrMXU = new CtrMolduraxUsuario();
     DtoMolduraxUsuario objDtoMXU = new DtoMolduraxUsuario();
     DtoSolicitud objDtoSolicitud = new DtoSolicitud();
@@ -454,5 +455,12 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
         {
             _log.CustomWriteOnLog("registrar pedido personalizado", "Error  = " + ex.Message + "posicion" + ex.StackTrace);
         }
+    }
+
+    protected void ddlTipoMoldura_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        objDtoTipoMoldura.PK_ITM_Tipo = Convert.ToInt32(ddlTipoMoldura.SelectedValue);
+        objctrtipomoldura.leerUnidadMetrica(objDtoTipoMoldura);
+        unidad.Text = objDtoTipoMoldura.VTM_UnidadMetrica;
     }
 }

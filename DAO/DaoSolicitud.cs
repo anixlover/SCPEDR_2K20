@@ -228,6 +228,40 @@ namespace DAO
             conexion.Close();
             return hayRegistros;
         }
+        public bool SelectSolicitudTipo(DtoSolicitud objsol)
+        {
+            string Select = "SELECT * from T_Solicitud where PK_IS_Cod =" + objsol.PK_IS_Cod;
+            SqlCommand unComando = new SqlCommand(Select, conexion);
+            conexion.Open();
+            SqlDataReader reader = unComando.ExecuteReader();
+            bool hayRegistros = reader.Read();
+            if (hayRegistros)
+            {
+                objsol.PK_IS_Cod=(int)reader[0];
+                objsol.VS_TipoSolicitud = (string)reader[1];
+            }
+            else objsol.error = 1;
+            conexion.Close();
+            return hayRegistros;
+        }
+        public bool SelectSolicitudDiseñoPersonalizado(DtoSolicitud objsol)
+        {
+            string Select = "SELECT * from T_Solicitud where PK_IS_Cod =" + objsol.PK_IS_Cod;
+            SqlCommand unComando = new SqlCommand(Select, conexion);
+            conexion.Open();
+            SqlDataReader reader = unComando.ExecuteReader();
+            bool hayRegistros = reader.Read();
+            if (hayRegistros)
+            {
+                objsol.VS_TipoSolicitud = (string)reader[1];
+                objsol.DS_PrecioAprox = Convert.ToDouble(reader[5].ToString());
+                objsol.VBS_Imagen = (byte[])reader[2];
+                objsol.VS_Comentario = (string)reader[7];
+            }
+            else objsol.error = 1;
+            conexion.Close();
+            return hayRegistros;
+        }
         public string SelectSolicitudPago(DtoSolicitud objsol)
         {
             string v = "";

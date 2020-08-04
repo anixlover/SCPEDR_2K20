@@ -39,8 +39,6 @@
                         <ContentTemplate>
                             Observación:<br />
                             <asp:TextBox ID="txtComentario" runat="server" TextMode="MultiLine" Width="100%"></asp:TextBox><br /><br />
-                            <asp:Label ID="Label1" runat="server" Text="Asignar Fecha:"></asp:Label><br />
-                            <asp:Calendar ID="cal1" runat="server"></asp:Calendar>
                             <asp:Button ID="btnObservar" runat="server" Text="Mandar Observación" class="btn btn-danger btn-lg" OnClick="btnObservar_Click" />
                             <asp:Button ID="btnRegistrar" runat="server" Text="Aprobar" class="btn btn-success btn-lg" OnClick="btnRegistrar_Click"/>
                         </ContentTemplate>

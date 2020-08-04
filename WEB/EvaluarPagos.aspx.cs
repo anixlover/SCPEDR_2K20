@@ -24,19 +24,6 @@ public partial class EvaluarPagos : System.Web.UI.Page
         
         sol.PK_IS_Cod = Convert.ToInt32(Session["idSolicitudPago"]);
         v.PK_VV_NumVoucher= ctrsol.HayPago(sol);
-        if (ctrsol.LeerSolicitud(sol)) 
-        {
-            if (sol.VS_TipoSolicitud == "Catalogo")
-            {
-                cal1.Visible = false;
-                Label1.Visible = false;
-            }
-            else
-            {
-                cal1.Visible = true;
-                Label1.Visible = true;
-            }
-        }
         if (ctrv.hayVoucher(v))
         {
             string image = Convert.ToBase64String(v.VBV_Foto);

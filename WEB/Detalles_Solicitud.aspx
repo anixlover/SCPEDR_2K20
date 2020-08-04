@@ -49,6 +49,7 @@
                     </ul>
                 </div>
                 <div class="body">
+                    <asp:Image ID="imgPersonal" runat="server" />
                     <asp:GridView ID="gvMolduras" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" AutoGenerateColumns="false">
                         <Columns>
                             <asp:BoundField DataField="PK_IM_Cod" ItemStyle-HorizontalAlign="Center" HeaderText="Coóigo de Moldura" />
@@ -59,8 +60,9 @@
                             <asp:BoundField DataField="DMU_Precio" ItemStyle-HorizontalAlign="Center" HeaderText="Precio" />
                         </Columns>
                     </asp:GridView>
+                    <asp:TextBox ID="txtcomentario" runat="server" CssClass="form-control" Width="100%"></asp:TextBox>
                 </div>
-                <span class="auto-style1">&nbsp;&nbsp;&nbsp;&nbsp; Costo Total: <span class="auto-style2">S/
+                <span class="auto-style1">&nbsp;&nbsp;&nbsp;&nbsp; Costo Total <span class="auto-style2">
                 <asp:Label ID="lblcosto" runat="server" Text="0.00"></asp:Label>
                 </span>
                 <br />
