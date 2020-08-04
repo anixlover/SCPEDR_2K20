@@ -56,6 +56,9 @@
             $("#CardTipoComprobante").fadeIn();
             $("#CardPayment").fadeIn();
             $("#DivCodigoSubtotal").fadeIn();
+            $("#btnadd").fadeIn();
+
+            
 
             $("#ddlPedidoMuestra").fadeOut();
             $("#IdCalendar").fadeOut();
@@ -73,6 +76,7 @@
 
             $("#CardTipoComprobante").fadeOut();
             $("#CardPayment").fadeOut();
+            $("#btnadd").fadeOut();
         }
     });
 
@@ -84,21 +88,20 @@
             $("#idMostrarbtnEnviar").fadeIn();
             $("#DivCodigoSubtotal").fadeIn();
 
-
             $("#divSubAddGv").fadeOut();
             $("#idTipoMoldura").fadeOut();
-
-
+            $("#btnagregar").fadeOut();
+            $("#btnadd").fadeOut();
 
         } else if (ddlPedidopor == "2") {
             $("#divSubAddGv").fadeIn();
             $("#idTipoMoldura").fadeIn();
 
-
-
             $("#IdCalendar").fadeOut();
             $("#idMostrarbtnEnviar").fadeOut();
             $("#DivCodigoSubtotal").fadeOut();
+            $("#btnadd").fadeOut();
+
         }
     });
 
@@ -131,6 +134,7 @@
             $("#lbldni").fadeOut();
         }
     });
+
 
 
 

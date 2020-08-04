@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Ideas.aspx.cs" Inherits="Ideas" %>
+﻿<%@ Page Language="C#"  AutoEventWireup="true" CodeFile="Ideas.aspx.cs" Inherits="Ideas" %>
 
 <%--<!DOCTYPE html>
 
@@ -86,6 +86,8 @@
                     <a href="Ideas.apsx">Ideas</a>
                     <a href="Login.aspx">Iniciar Sesion</a>
                     <a href="RegistrarClienteUE_1.aspx">Registrate</a>
+                    <%--<asp:Literal ID="Literal1" runat="server"></asp:Literal>--%>
+
                 </nav>
             </div>
             <!--.contenedor-->

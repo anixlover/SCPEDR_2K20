@@ -37,6 +37,12 @@ namespace CTR
         {
             objDaoMoldura.ObtenerMoldura(objmoldura, objtipo);
         }
+        public DataTable CalcularSubtotal(DtoMoldura objmoldura, DtoTipoMoldura objtipo, double cant)
+        {
+            return objDaoMoldura.CalcularSubtotal(objmoldura, objtipo, cant);
+            
+        }
+
         public DataTable ObtenerMoldura2(DtoMoldura objmoldura, DtoTipoMoldura objtipo)
         {
             return objDaoMoldura.ObtenerMoldura2(objmoldura, objtipo);

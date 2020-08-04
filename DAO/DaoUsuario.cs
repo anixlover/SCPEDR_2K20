@@ -122,13 +122,9 @@ namespace DAO
 
             DtoUsuario usuarioDto = new DtoUsuario();
             DtoTipoUsuario tipousuarioDto = new DtoTipoUsuario();
-
-
-
             conexion.Open();
 
             SqlDataReader reader = cmd.ExecuteReader();
-
             if (reader.Read())
             {
                 tipousuarioDto.PK_ITU_Cod = int.Parse(reader[0].ToString());
@@ -142,7 +138,6 @@ namespace DAO
 
             }
             conexion.Close();
-
             return (usuarioDto);
         }
 
@@ -195,6 +190,71 @@ namespace DAO
                 smtp.Send(mail);
             }
         }
+        //public void EnviarBoletaxCorreo(DtoMoldura objmoldura, DtoTipoMoldura objtipo)
+        //{
+        //    //DataTable dt = null;
+        //    conexion.Open();
+        //    SqlCommand command = new SqlCommand("SP_Obtener_Moldura2", conexion);
+        //    command.Parameters.AddWithValue("@codMol", objmoldura.PK_IM_Cod);
+        //    SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+        //    command.CommandType = CommandType.StoredProcedure;
+        //    //dt = new DataTable();
+        //    //daAdaptador.Fill(dt);
+
+        //    SqlDataReader reader = command.ExecuteReader();
+        //    while (reader.Read())
+        //    {
+        //        objmoldura.PK_IM_Cod = int.Parse(reader["PK_IM_Cod"].ToString());
+        //        objmoldura.VBM_Imagen = Encoding.ASCII.GetBytes(reader["VBM_Imagen"].ToString());
+        //        objtipo.VTM_Nombre = reader["VTM_Nombre"].ToString();
+        //        objtipo.VTM_UnidadMetrica = reader["MedidaUM"].ToString();
+        //        objmoldura.IM_Stock = int.Parse(reader["IM_Stock"].ToString());
+        //        objmoldura.DM_Precio = Convert.ToDouble(reader["DM_Precio"].ToString());
+
+        //        string senderr = "decormoldurassac@gmail.com";
+        //        string senderrPass = "decormolduras";
+        //        string displayName = "DECORMOLDURAS & ROSETONES SAC - Confirmacion de compra";
+
+        //        var recipient = reader["VU_Correo"].ToString();
+        //        var pass = reader["VU_Contrasenia"].ToString();
+        //        var nombre = reader["VU_Nombre"].ToString();
+        //        var nombremoldura = objtipo.VTM_UnidadMetrica;
+
+        //        string body =
+        //            "<body>" +
+        //                "<h1>DECORMOLDURAS & ROSETONES SAC</h1>" +
+        //                "<h2>Resumen del pedido</h2>" +
+        //                "<h4>Bienvenid@ " + nombre + "</h4>" +
+        //                "<span>No comparta esto con nadie." +
+        //                "<br></br><span>Su contraseña es: " + pass + "</span>" +
+        //                "<br></br><span> Saludos cordiales.<span>" +
+        //            "</body>";
+
+        //        MailMessage mail = new MailMessage();
+        //        mail.Subject = "Bienvenido";
+        //        mail.From = new MailAddress(senderr.Trim(), displayName);
+        //        mail.Body = body;
+        //        mail.To.Add(recipient.Trim());
+        //        mail.IsBodyHtml = true;
+        //        //mail.Priority = MailPriority.Normal;
+
+        //        SmtpClient smtp = new SmtpClient();
+        //        smtp.Host = "smtp.gmail.com";
+        //        smtp.Port = 587;
+        //        smtp.UseDefaultCredentials = false;
+        //        smtp.EnableSsl = true;
+        //        smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+        //        //smtp.Credentials = new System.Net.NetworkCredential(senderr.Trim(), senderrPass.Trim());
+        //        NetworkCredential nc = new NetworkCredential(senderr, senderrPass);
+        //        smtp.Credentials = nc;
+
+        //        smtp.Send(mail);
+        //    }
+        //    conexion.Close();
+        //    //return dt;
+        //}
+
+
 
         public void CambiarContra(DtoUsuario ojbusr)
         {

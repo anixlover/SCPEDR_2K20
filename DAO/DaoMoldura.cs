@@ -152,7 +152,7 @@ namespace DAO
         {
             DataTable dt = null;
             conexion.Open();
-            SqlCommand command = new SqlCommand("SP_Obtener_Moldura", conexion);
+            SqlCommand command = new SqlCommand("SP_Obtener_Moldura2", conexion);
             command.Parameters.AddWithValue("@codMol", objmoldura.PK_IM_Cod);
             SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
             command.CommandType = CommandType.StoredProcedure;
@@ -165,8 +165,7 @@ namespace DAO
                 objmoldura.PK_IM_Cod = int.Parse(reader["PK_IM_Cod"].ToString());
                 objmoldura.VBM_Imagen = Encoding.ASCII.GetBytes(reader["VBM_Imagen"].ToString());
                 objtipo.VTM_Nombre = reader["VTM_Nombre"].ToString();
-                objmoldura.DM_Medida = Convert.ToDouble(reader["DM_Medida"].ToString());
-                objtipo.VTM_UnidadMetrica = (reader["DM_Medida"].ToString() + reader["VTM_UnidadMetrica"].ToString());
+                objtipo.VTM_UnidadMetrica = reader["MedidaUM"].ToString();
                 objmoldura.IM_Stock = int.Parse(reader["IM_Stock"].ToString());
                 objmoldura.DM_Precio = Convert.ToDouble(reader["DM_Precio"].ToString());
             }
@@ -276,7 +275,7 @@ namespace DAO
         {
             try
             {
-                SqlConnection con = new SqlConnection("data source=(Local); initial catalog=BD_SCPEDR; integrated security=SSPI;");
+                SqlConnection con = new SqlConnection("data source=DESKTOP-IAELG6V\\SQLEXPRESS; initial catalog=BD_SCPEDR; integrated security=SSPI;");
                 int valor_retornado = 0;
                 SqlCommand cmd = new SqlCommand("SELECT IM_Stock FROM T_Moldura WHERE PK_IM_Cod=" + objMoldura.PK_IM_Cod, con);
 
@@ -348,6 +347,38 @@ namespace DAO
             command.ExecuteNonQuery();
             conexion.Close();
         }
+
+        public DataTable CalcularSubtotal(DtoMoldura objmoldura, DtoTipoMoldura objtipo, double cant)
+        {
+            DataTable dt = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_CalcularSubtotal", conexion);
+            command.Parameters.AddWithValue("@codMol", objmoldura.PK_IM_Cod);
+            command.Parameters.AddWithValue("@cantidad", cant);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dt = new DataTable();
+            daAdaptador.Fill(dt);
+
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                objmoldura.PK_IM_Cod = int.Parse(reader["PK_IM_Cod"].ToString());
+                objmoldura.VBM_Imagen = Encoding.ASCII.GetBytes(reader["VBM_Imagen"].ToString());
+                objtipo.VTM_Nombre = reader["VTM_Nombre"].ToString();
+                objtipo.VTM_UnidadMetrica = reader["MedidaUM"].ToString();
+                objmoldura.IM_Stock = int.Parse(reader["IM_Stock"].ToString());
+                objmoldura.DM_Precio = Convert.ToDouble(reader["DM_Precio"].ToString());
+                objmoldura.DM_Medida = Double.Parse(reader["Subtotal"].ToString());
+
+            }
+            conexion.Close();
+            return dt;
+        }
+
+
+
+
 
     }
 }

@@ -46,6 +46,14 @@
                 </div>
             </div>
 
+
+
+
+
+
+
+
+
             <%--datos cliente--%>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -254,7 +262,9 @@
                                 <div class="2" id="idTipoMoldura" runat="server" hidden clientidmode="Static">
                                     <div class="row">
                                         <div class="col-md-6">
+
                                             <div class="col-sm-12">
+                                            <asp:Label ID="Label11" runat="server" class="form-label"><b>Tipo moldura :</b></asp:Label>
                                                 <div class="form-group form-float">
                                                     <asp:DropDownList runat="server" ID="ddlTipoMoldura" CssClass=" bootstrap-select form-control"></asp:DropDownList>
                                                 </div>
@@ -349,11 +359,13 @@
                                                     <div class="col-sm-10">
                                                         <asp:Label ID="txtcodproducto" runat="server" class="form-label"><b>Codigo Producto</b></asp:Label>
                                                         <div class="form-line">
-
-
-                                                            <asp:TextBox ID="txtcodigop" placeholder="Ej: 950" class="form-control" runat="server" type="text"
-                                                                pattern="[0-8]+" MinLength="8" MaxLength="8">
-                                                            </asp:TextBox>
+                                                            <asp:UpdatePanel ID="upcodigo" runat="server" UpdateMode="Conditional">
+                                                                <ContentTemplate>
+                                                                    <asp:TextBox ID="txtcodigop" placeholder="Ej: 950" class="form-control" runat="server" type="text"
+                                                                        pattern="[0-8]+" MinLength="8" MaxLength="8">
+                                                                    </asp:TextBox>
+                                                                </ContentTemplate>
+                                                            </asp:UpdatePanel>
                                                         </div>
                                                     </div>
                                                     <%--search product button--%>
@@ -380,7 +392,11 @@
                                                         <div class="col-sm-10">
                                                             <label class="form-label">Cantidad(u)</label>
                                                             <div class="form-line">
-                                                                <asp:TextBox ID="txtcantidad" placeholder="Ej: 2" class="form-control" runat="server"></asp:TextBox>
+                                                                <asp:UpdatePanel ID="uptxtcantidad" runat="server" UpdateMode="Conditional">
+                                                                    <ContentTemplate>
+                                                                        <asp:TextBox ID="txtcantidad" placeholder="Ej: 2" class="form-control" runat="server"></asp:TextBox>
+                                                                    </ContentTemplate>
+                                                                </asp:UpdatePanel>
                                                             </div>
                                                         </div>
 
@@ -406,28 +422,47 @@
                                                     <div class="row">
                                                         <asp:UpdatePanel runat="server" ID="updPanelGVDetalle" UpdateMode="Conditional">
                                                             <ContentTemplate>
-                                                                <asp:GridView ID="gvdetalle" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" DataKeyNames="PK_IM_Cod,VBM_Imagen,VTM_Nombre,DM_Medida,IM_Stock,DM_Precio"
+                                                                <asp:GridView ID="gvdetalle" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server"
+                                                                    DataKeyNames="PK_IM_Cod,VBM_Imagen,VTM_Nombre,MedidaUM,IM_Stock,DM_Precio"
                                                                     OnRowDataBound="gvdetalle_RowDataBound" OnRowCommand="gvdetalle_RowCommand" ShowHeaderWhenEmpty="True" AutoGenerateColumns="False">
                                                                     <Columns>
                                                                         <asp:BoundField DataField="PK_IM_Cod" HeaderText="Codigo" Visible="false" />
-                                                                        <asp:BoundField DataField="VBM_Imagen" HeaderText="Imagen" />
+                                                                        <asp:BoundField DataField="VBM_Imagen" HeaderText="Imagen" Visible="false" />
                                                                         <asp:BoundField DataField="VTM_Nombre" HeaderText="Tipo Moldura" />
-                                                                        <asp:BoundField DataField="DM_Medida" HeaderText="Medida" />
-                                                                        <asp:BoundField DataField="VTM_UnidadMetrica" HeaderText="Unidad Metrica" />
+                                                                        <asp:BoundField DataField="MedidaUM" HeaderText="Medida" />
                                                                         <asp:BoundField DataField="IM_Stock" HeaderText="Stock(u)" />
                                                                         <asp:BoundField DataField="DM_Precio" HeaderText="Precio(u) S/" />
-                                                                        <asp:BoundField DataField="DM_Subtotal" HeaderText="Subtotal S/" />
                                                                     </Columns>
                                                                 </asp:GridView>
                                                             </ContentTemplate>
                                                         </asp:UpdatePanel>
+
+                                                        <asp:UpdatePanel runat="server" ID="UpdatePanel1" UpdateMode="Conditional">
+                                                            <ContentTemplate>
+                                                                <asp:GridView ID="gvdetalle2" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server"
+                                                                    DataKeyNames="PK_IM_Cod,VBM_Imagen,VTM_Nombre,MedidaUM,IM_Stock,DM_Precio,Subtotal"
+                                                                    OnRowDataBound="gvdetalle_RowDataBound" OnRowCommand="gvdetalle_RowCommand" ShowHeaderWhenEmpty="True" AutoGenerateColumns="False">
+                                                                    <Columns>
+                                                                        <asp:BoundField DataField="PK_IM_Cod" HeaderText="Codigo" Visible="false" />
+                                                                        <asp:BoundField DataField="VBM_Imagen" HeaderText="Imagen" Visible="false" />
+                                                                        <asp:BoundField DataField="VTM_Nombre" HeaderText="Tipo Moldura" />
+                                                                        <asp:BoundField DataField="MedidaUM" HeaderText="Medida" />
+                                                                        <asp:BoundField DataField="IM_Stock" HeaderText="Stock(u)" />
+                                                                        <asp:BoundField DataField="DM_Precio" HeaderText="Precio(u) S/" />
+                                                                        <asp:BoundField DataField="Subtotal" HeaderText="Subtotal S/" />
+                                                                    </Columns>
+                                                                </asp:GridView>
+                                                            </ContentTemplate>
+                                                        </asp:UpdatePanel>
+
+
                                                     </div>
                                                 </div>
                                             </div>
                                             <br />
                                             <br />
                                             <%--btn agregar--%>
-                                            <div class="col-12">
+                                            <div class="col-12" id="btnadd" runat="server" hidden clientidmode="Static">
                                                 <asp:UpdatePanel runat="server">
                                                     <ContentTemplate>
                                                         <asp:LinkButton runat="server" ID="btnagregar"
@@ -459,7 +494,7 @@
                                         <div class="col-sm-12" id="divSubAddGv" runat="server" hidden clientidmode="Static">
                                             <asp:HiddenField runat="server" ID="HiddenField2" ClientIDMode="Static" />
 
-                                            <div class="col-md-6">
+                                            <%--       <div class="col-md-6">
                                                 <div class="col-sm-8">
                                                     <div class="form-group form-float">
                                                         <div class="form-group form-float">
@@ -473,40 +508,24 @@
                                                                             </asp:TextBox>
                                                                         </ContentTemplate>
                                                                     </asp:UpdatePanel>
-
                                                                 </div>
                                                             </div>
-
-
-
-                                                            <%--btn add--%>
-
-
-                                                            <%--                                                            <div class="col-sm-2 right">
-                                                                <asp:UpdatePanel runat="server">
-                                                                    <ContentTemplate>
-                                                                        <asp:LinkButton runat="server" ID="btnagregar"
-                                                                            CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float"
-                                                                            OnClick="btnagregar_Click">
-                                                                            <i class="material-icons">add</i>
-                                                                        </asp:LinkButton>
-                                                                    </ContentTemplate>
-                                                                </asp:UpdatePanel>
-                                                            </div>--%>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>--%>
 
                                             <%--2nd gridv--%>
 
                                             <%--producto agregados--%>
                                             <div class="col-md-12">
+                                                <asp:Label ID="Label2" runat="server" class="form-label"><b>Productos agregados :</b></asp:Label>
                                                 <div class="body table-responsive ">
+
                                                     <asp:UpdatePanel ID="updPanelGV2" runat="server" UpdateMode="Always">
                                                         <ContentTemplate>
                                                             <asp:GridView ID="gv2" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server"
-                                                                OnSelectedIndexChanged="gv2_SelectedIndexChanged" OnRowDeleting="gv2_RowDeleting" DataKeyNames="Codigo,Cantidad,Precio,Subtotal">
+                                                                OnSelectedIndexChanged="gv2_SelectedIndexChanged" OnRowDeleting="gv2_RowDeleting" DataKeyNames="Codigo Producto,Cantidad,Precio(u) S/.,Subtotal S/.">
                                                                 <Columns>
                                                                     <asp:ButtonField ButtonType="button" HeaderText="Accion" CommandName="delete" Text="Borrar">
                                                                         <ControlStyle CssClass="btn btn-warning" />
@@ -584,8 +603,9 @@
                                             <asp:Label ID="lblmontopagado" runat="server" class="form-label"><b>Monto pagado S/.</b></asp:Label>
 
                                             <div class="form-line ">
-                                                <input type="number" placeholder="Ej: 100" id="txtmontopagado" class="form-control" runat="server"
-                                                    onkeyup="CalcularVuelto()" clientidmode="Static" />
+                                                <asp:TextBox type="number" placeholder="Ej: 100" ID="txtmontopagado" class="form-control" runat="server"
+                                                    onkeyup="CalcularVuelto()" ClientIDMode="Static"></asp:TextBox>
+
                                             </div>
                                         </div>
 
@@ -629,12 +649,12 @@
                                         </asp:UpdatePanel>
 
                                         <%--btn send n print factura--%>
-                                        <%--<div runat="server" id="btnfactura1" class="col-sm-12 right">
+                                        <div runat="server" id="btnfactura1" class="col-sm-12 right">
                                             <asp:LinkButton ID="btnfactura" runat="server" CssClass="btn bg-indigo waves-effect"
                                                 Style="float: right" Width="100%" Text="Imprimir"
                                                 OnClick="btnfactura_Click">
                                             </asp:LinkButton>
-                                        </div>--%>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -658,15 +678,21 @@
         function CalcularVuelto() {
             var textboxpago = $('#txtmontopagado').val();
             var textboximporte = $('#txtimporteigv').val();
+
             var valuevuelto = parseFloat(textboxpago) - parseFloat(textboximporte);
             $('#txtvuelto').val(valuevuelto);
 
         }
+
         function showSuccessMessage2() {
             swal({
                 title: "Todo guardado",
                 text: "Pulsa el botón y se te redirigirá",
                 type: "success"
+            }, function (redirect) {
+                if (redirect) {
+                    window.location.href = "RealizarVenta_Marcial.aspx"
+                }
             });
         }
         function showSuccessMessage3() {
@@ -674,12 +700,16 @@
                 title: "Enviado Correctamente",
                 text: "Pulsa el botón y se te redirigirá",
                 type: "success"
+            }, function (redirect) {
+                if (redirect) {
+                    window.location.href = "RealizarVenta_Marcial.aspx"
+                }
             });
         }
         function showSuccessMessage4() {
             swal({
                 title: "ERROR!",
-                text: "Ingresar DNI del cliente!!",
+                text: "Identificar al cliente!!",
                 type: "error"
             });
         }
@@ -743,6 +773,13 @@
             swal({
                 title: "ERROR!",
                 text: "Monto insuficiente!!",
+                type: "error"
+            });
+        }
+        function showSuccessMessage14() {
+            swal({
+                title: "ERROR!",
+                text: "Monto pagado incorrecto!!",
                 type: "error"
             });
         }

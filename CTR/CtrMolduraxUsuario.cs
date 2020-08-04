@@ -50,6 +50,6 @@ namespace CTR
         {
             objDaoSXM.registrarMXU(objDtoMolduraxUsuario); 
         }
-        
+       
     }
 }
