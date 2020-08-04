@@ -90,8 +90,8 @@
 
             $("#divSubAddGv").fadeOut();
             $("#idTipoMoldura").fadeOut();
-            $("#btnagregar").fadeOut();
-            $("#btnadd").fadeOut();
+            //$("#btnagregar").fadeOut();
+            //$("#btnadd").fadeOut();
 
         } else if (ddlPedidopor == "2") {
             $("#divSubAddGv").fadeIn();
@@ -100,7 +100,7 @@
             $("#IdCalendar").fadeOut();
             $("#idMostrarbtnEnviar").fadeOut();
             $("#DivCodigoSubtotal").fadeOut();
-            $("#btnadd").fadeOut();
+            //$("#btnadd").fadeOut();
 
         }
     });
