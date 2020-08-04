@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
 
     <meta name="theme-color" content="#fafafa">
+
 </head>
 
 <body>
@@ -72,7 +73,8 @@
         <div class="barra">
             <div class="contenedor clearfix">
                 <div class="logo">
-                    <a href="Home.aspx"><img loading="lazy" src="img/logo1.svg" alt="logo decormolduras"></a>
+                    <a href="Home.aspx">
+                        <img loading="lazy" src="img/logo1.svg" alt="logo decormolduras"></a>
                 </div>
                 <div class="menu-movil">
                     <span></span>
@@ -80,71 +82,79 @@
                     <span></span>
                 </div>
                 <nav class="navegacion-principal clearfix">
-                    <a href="Nosotros.html">Nosotros</a>
-                    <a href="InspeccionarCatalogoU.aspx">Catalogo</a>
-                    <a href="ideas.html">Ideas</a>
-                    <a href="Login.aspx">Iniciar Sesion</a>
+                    <div class="btn-group clearfix right" role="group">
+                        <a href="Nosotros.html">Nosotros</a>
+                        <a href="InspeccionarCatalogoU.aspx">Catalogo</a>
+                        <a href="ideas.html">Ideas</a>
+                        <a href="Login.aspx">Iniciar Sesion</a>
                     <a href="RegistrarClienteUE_1.aspx">Registrate</a>
+                        <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+                    </div>
                 </nav>
             </div>
             <!--.contenedor-->
         </div>
         <!--.barra-->
         <main class="contenedor">
-    <h2>La Empresa</h2>
+            <h2>La Empresa</h2>
 
-    <div class="contenido-nosotros">
-        <div class="imagen">
-            <img src="img/Nosotros_Imagen_Negocio.jpg" alt="Imagen Sobre Nosotros" height="370px" width="450px" >
-        </div>
-        <div class="texto-nosotros">
-            <p></p>
-            <span>15 Años de Experiencia</span>
+            <div class="contenido-nosotros">
+                <div class="imagen">
+                    <img src="img/Nosotros_Imagen_Negocio.jpg" alt="Imagen Sobre Nosotros" height="370px" width="450px">
+                </div>
+                <div class="texto-nosotros">
+                    <p></p>
+                    <span>15 Años de Experiencia</span>
 
-           <p>La empresa Decormolduras & Rosetones S.A.C. y se halla ubicada en la urbanización de San Juan de Miraflores.
-Es una empresa que se especializa en el rubro de la fabricación de piezas decorativas el cual se dedica a la venta por mayor de las molduras.
-Actualmente brinda dos servicios. Venta de stock y venta por diseño personalizado. 
-Esta empresa se diferencia de las otras debido a que fabrica diseños de acuerdo al cliente desee.
-</p>
-
-           
-        </div>
-    </div>
-</main>
+                    <p>
+                        La empresa Decormolduras & Rosetones S.A.C. y se halla ubicada en la urbanización de San Juan de Miraflores.
+                        Es una empresa que se especializa en el rubro de la fabricación de piezas decorativas el cual se dedica a la venta por mayor de las molduras.
+                        Actualmente brinda dos servicios. Venta de stock y venta por diseño personalizado. 
+                        Esta empresa se diferencia de las otras debido a que fabrica diseños de acuerdo al cliente desee.
+                    </p>
 
 
-
+                </div>
+            </div>
+        </main>
 
 
 
-  <section class="nosotros contenedor seccion">
-    <div class="programa-nosotros"></div>
-      <h2>Sobre nosotros</h2>
-      <div class="icono-nosotros clearfix">
-        <div class="detalle">
-          <i class="fas fa-award"></i>
-          <h3>CALIDAD</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis aut cupiditate nobis, quia totam dignissimos iusto. Ab, velit! Ab rem fuga repellat hic autem velit harum quibusdam doloribus facilis nulla?</p>
-        </div>
 
-        <div class="detalle">
-          <i class="fas fa-hand-holding-usd"></i>
-          <h3>MEJOR PRECIO</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque iste culpa consequuntur? Iusto molestias
+
+
+        <section class="nosotros contenedor seccion">
+            <div class="programa-nosotros"></div>
+            <h2>Sobre nosotros</h2>
+            <div class="icono-nosotros clearfix">
+                <div class="detalle">
+                    <i class="fas fa-award"></i>
+                    <h3>CALIDAD</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis aut cupiditate nobis, quia totam dignissimos iusto. Ab, velit! Ab rem fuga repellat hic autem velit harum quibusdam doloribus facilis nulla?</p>
+                </div>
+
+                <div class="detalle">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h3>MEJOR PRECIO</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque iste culpa consequuntur? Iusto molestias
             porro ad excepturi illum nulla quam magni aperiam doloribus, quas veritatis labore laudantium,
-            necessitatibus illo culpa.</p>
-        </div>
+            necessitatibus illo culpa.
+                    </p>
+                </div>
 
-        <div class="detalle">
-          <i class="far fa-clock"></i>
-          <h3>A TIEMPO</h3>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis a sunt corrupti eius laborum molestias adipisci asperiores! Vero, id corporis dolorem, vitae praesentium saepe, commodi soluta ratione voluptate nobis optio?</p>
-        </div>
-      </div><!--Icono nosotros-->
-    </div><!--Propgrama nosotros-->
-  </section> <!--Nosotros-->
+                <div class="detalle">
+                    <i class="far fa-clock"></i>
+                    <h3>A TIEMPO</h3>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis a sunt corrupti eius laborum molestias adipisci asperiores! Vero, id corporis dolorem, vitae praesentium saepe, commodi soluta ratione voluptate nobis optio?</p>
+                </div>
+            </div>
+            <!--Icono nosotros-->
+            </div><!--Propgrama nosotros-->
+        </section>
+        <!--Nosotros-->
 
-        
+
         <footer class="site-footer">
             <div class="contenedor clearfix">
                 <div class="footer-informacion">
@@ -187,6 +197,6 @@ Esta empresa se diferencia de las otras debido a que fabrica diseños de acuerdo
         <script src="https://www.google-analytics.com/analytics.js" async></script>
     </form>
 </body>
-    
+
 </html>
 

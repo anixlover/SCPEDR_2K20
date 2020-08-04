@@ -130,7 +130,12 @@ namespace CTR
         {
             objDaoUsuario.EnviarCorreoaVendedor(dtoUsuario);
         }
+        //public void EnviarBoletaxCorreo(DtoMoldura objmoldura, DtoTipoMoldura objtipo)
+        //{
+        //    objDaoUsuario.EnviarBoletaxCorreo( objmoldura, objtipo);
+        //}
 
+        
         public void CambiarContrasenia(DtoUsuario dtoUsuario)
         {
             objDaoUsuario.CambiarContra(dtoUsuario);
