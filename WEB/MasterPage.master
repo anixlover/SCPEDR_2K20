@@ -160,6 +160,12 @@
                             <span>Registrar Cliente</span>
                         </a>
                     </li>
+                    <li class="active">
+                        <a href="AdministrarPedidos.aspx">
+                            <i class="material-icons">check</i>
+                            <span>Solicitudes</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <!-- #Menu -->

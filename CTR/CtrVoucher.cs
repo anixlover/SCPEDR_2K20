@@ -29,5 +29,9 @@ namespace CTR
         {
             objvoucherdao.DetallesVoucherSolicitudUsuario(objdtoVoucher,objDtoSolicitud,objDtoMolduraxUsuario);
         }
+        public bool hayVoucher(DtoVoucher voucher)
+        {
+            return objvoucherdao.SelectPagoVoucher(voucher);
+        }
     }
 }

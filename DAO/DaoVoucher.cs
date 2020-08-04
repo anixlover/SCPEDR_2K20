@@ -37,6 +37,21 @@ namespace DAO
             cmd.ExecuteNonQuery();
             conexion.Close();
         }
+        public bool SelectPagoVoucher(DtoVoucher v)
+        {
+            string Select = "SELECT * from T_Voucher where PK_VV_NumVoucher ='" +  v.PK_VV_NumVoucher+"'";
+            SqlCommand unComando = new SqlCommand(Select, conexion);
+            conexion.Open();
+            SqlDataReader reader = unComando.ExecuteReader();
+            bool hayRegistros = reader.Read();
+            if (hayRegistros)
+            {
+                v.VBV_Foto = (byte[])reader[1];
+                v.DV_ImporteDepositado = Convert.ToDouble(reader[2].ToString());
+            }
+            conexion.Close();
+            return hayRegistros;
+        }
 
         public void DetallesVoucherSolicitudUsuario(DtoVoucher objdtoVoucher,DtoSolicitud objDtoSolicitud,DtoMolduraxUsuario objDtoMolduraxUsuario)
         {
