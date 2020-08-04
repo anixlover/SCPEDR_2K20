@@ -99,6 +99,7 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
                     dtoMolduraxUsuario.FK_IS_Cod = int.Parse(id4);
                     objCtrVoucher.DetallesVoucherSolicitudUsuario(objvoucherdao,objDtoSolicitud,dtoMolduraxUsuario);
 
+                    //imagen.....
                     txtFechaEmision.Text = objDtoSolicitud.DTS_FechaEmicion.ToString();
                     txtNroOpe.Text = objvoucherdao.PK_VV_NumVoucher.ToString();
                     txtImporte.Text = objvoucherdao.DV_ImporteDepositado.ToString();
