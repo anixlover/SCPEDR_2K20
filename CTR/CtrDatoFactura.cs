@@ -30,6 +30,13 @@ namespace CTR
                 objfactura.error = 2;
                 return;
             }
+            correcto =10<objfactura.IDF_RUC.Length &&objfactura.IDF_RUC.Length< 12;
+            if (!correcto) { objfactura.error = 3; return; }
+            for (int i = 0; i < objfactura.IDF_RUC.Length; i++)
+            {
+                correcto = char.IsDigit(objfactura.IDF_RUC.Trim()[i]);
+            }
+            if (!correcto) { objfactura.error = 4; return; }
             objfactura.error = 77;
             factura.InsertarDatoFactura(objfactura);
         }
