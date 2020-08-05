@@ -175,7 +175,13 @@ public partial class Realizar_compra : System.Web.UI.Page
         switch (d.error)
         {
             case 2:
-                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'RUC DUPLICADA!!!'});", true);
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({type: 'error',title: 'ERROR!',text: 'RUC DUPLICADA!!!'});", true);
+                break;
+            case 3:
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({type: 'error',title: 'ERROR!',text: 'No tiene el tamaño CORRECTO!!!'});", true);
+                break;
+            case 4:
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({type: 'error',title: 'ERROR!',text: 'El RUC no admite LETRAS!!!'});", true);
                 break;
         }
     }
