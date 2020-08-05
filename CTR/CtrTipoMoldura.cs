@@ -24,5 +24,9 @@ namespace CTR
         {
             objDaoTipoMoldura.InspeccionarMolduraByTipoMoldura(objtipo, objmoldura);
         }
+        public void leerUnidadMetrica(DtoTipoMoldura dtoTipo)
+        {
+            objDaoTipoMoldura.DetallesTipoMoldura(dtoTipo);
+        }
     }
 }

@@ -135,7 +135,6 @@ public partial class GestionCatalogo : System.Web.UI.Page
         ddl_TipoMoldura.DataValueField = "PK_ITM_Tipo";
         ddl_TipoMoldura.DataBind();
         ddl_TipoMoldura.Items.Insert(0, new ListItem("Seleccione", "0"));
-
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)

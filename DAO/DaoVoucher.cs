@@ -37,12 +37,47 @@ namespace DAO
             cmd.ExecuteNonQuery();
             conexion.Close();
         }
+        public bool SelectPagoVoucher(DtoVoucher v)
+        {
+            string Select = "SELECT * from T_Voucher where PK_VV_NumVoucher ='" +  v.PK_VV_NumVoucher+"'";
+            SqlCommand unComando = new SqlCommand(Select, conexion);
+            conexion.Open();
+            SqlDataReader reader = unComando.ExecuteReader();
+            bool hayRegistros = reader.Read();
+            if (hayRegistros)
+            {
+                v.VBV_Foto = (byte[])reader[1];
+                v.DV_ImporteDepositado = Convert.ToDouble(reader[2].ToString());
+            }
+            conexion.Close();
+            return hayRegistros;
+        }
 
         public void DetallesVoucherSolicitudUsuario(DtoVoucher objdtoVoucher,DtoSolicitud objDtoSolicitud,DtoMolduraxUsuario objDtoMolduraxUsuario)
         {
-            SqlCommand command = new SqlCommand("SP_DetallesVoucherUsuarioxSolicitud", conexion);
+            //SqlCommand command = new SqlCommand("SP_DetallesVoucherUsuarioxSolicitud", conexion);
+            //command.CommandType = CommandType.StoredProcedure;
+            //command.Parameters.AddWithValue("@dni",objDtoMolduraxUsuario.FK_VU_Cod);
+            //command.Parameters.AddWithValue("@idsol", objDtoSolicitud.PK_IS_Cod);
+            //DataSet ds = new DataSet();
+            //conexion.Open();
+            //SqlDataAdapter moldura = new SqlDataAdapter(command);
+            //moldura.Fill(ds);
+            //moldura.Dispose();
+
+            //SqlDataReader reader = command.ExecuteReader();
+
+            //while (reader.Read())
+            //{
+            //    objDtoSolicitud.DTS_FechaEmicion = Convert.ToDateTime(reader[0].ToString());
+            //    objdtoVoucher.PK_VV_NumVoucher = reader[1].ToString();
+            //    objdtoVoucher.VBV_Foto = (byte[])reader[2];
+            //    objdtoVoucher.DV_ImporteDepositado = Convert.ToInt32(reader[3].ToString());
+            //}
+            //conexion.Close();
+            //conexion.Dispose();
+            SqlCommand command = new SqlCommand("SP_DVS", conexion);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@dni",objDtoMolduraxUsuario.FK_VU_Cod);
             command.Parameters.AddWithValue("@idsol", objDtoSolicitud.PK_IS_Cod);
             DataSet ds = new DataSet();
             conexion.Open();
@@ -56,7 +91,8 @@ namespace DAO
             {
                 objDtoSolicitud.DTS_FechaEmicion = Convert.ToDateTime(reader[0].ToString());
                 objdtoVoucher.PK_VV_NumVoucher = reader[1].ToString();
-                objdtoVoucher.DV_ImporteDepositado = Convert.ToInt32(reader[2].ToString());
+                objdtoVoucher.VBV_Foto = Encoding.ASCII.GetBytes(reader[2].ToString());
+                objdtoVoucher.DV_ImporteDepositado = Double.Parse(reader[3].ToString());
             }
             conexion.Close();
             conexion.Dispose();

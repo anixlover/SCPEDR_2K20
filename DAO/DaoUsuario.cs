@@ -42,11 +42,12 @@ namespace DAO
             SqlDataReader reader = unComando.ExecuteReader();
             bool hayRegistros = reader.Read();
             if (hayRegistros)
-            {
-                
+            {                
                 objuser.PK_VU_Dni = (string)reader[0];
-                
+                objuser.VU_Nombre = (string)reader[1];
+                objuser.VU_Apellidos = (string)reader[2];
                 objuser.IU_Celular = (int)reader[3];
+                objuser.VU_Correo = (string)reader[5];                
             }
             else objuser.error = 1;
             conexion.Close();

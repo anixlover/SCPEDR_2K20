@@ -39,6 +39,18 @@ namespace DAO
             conexion.Close();
             conexion.Dispose();
         }
+        public void DetallesTipoMoldura(DtoTipoMoldura objtipo)
+        {
+            string select = "SELECT*FROM T_Tipo_Moldura where PK_ITM_Tipo=" + objtipo.PK_ITM_Tipo;
+            SqlCommand command = new SqlCommand(select, conexion);
+            conexion.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                objtipo.VTM_UnidadMetrica = (string)reader[2];
+            }
+            conexion.Close();
+        }
         public void InspeccionarMolduraByTipoMoldura(DtoTipoMoldura objtipo, DtoMoldura objmoldura)
         {
             SqlCommand command = new SqlCommand("SP_Inspeccionar_Moldura_by_TipoMoldura", conexion);

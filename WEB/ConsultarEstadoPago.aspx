@@ -161,7 +161,7 @@
                                                 <label class="form-label">Emision de solicitud:</label>
                                                 <div class="form-line focused">
                                                     <div class="form-line">
-                                                        <asp:TextBox ID="txtFechaEmision" class="form-control" runat="server" ReadOnly></asp:TextBox>
+                                                        <asp:TextBox ID="txtFechaEmision" class="form-control" runat="server" ReadOnly="true"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -173,7 +173,7 @@
                                                 <label class="form-label">Numero de operacion:</label>
                                                 <div class="form-line focused">
                                                     <div class="form-line">
-                                                        <asp:TextBox ID="txtNroOpe" class="form-control" runat="server" ReadOnly></asp:TextBox>
+                                                        <asp:TextBox ID="txtNroOpe" class="form-control" runat="server" ReadOnly="true"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -185,7 +185,7 @@
                                                 <label class="form-label">Importe:</label>
                                                 <div class="form-line focused">
                                                     <div class="form-line">
-                                                        <asp:TextBox ID="txtImporte" class="form-control" runat="server" ReadOnly></asp:TextBox>
+                                                        <asp:TextBox ID="txtImporte" class="form-control" runat="server" ReadOnly="true"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -197,7 +197,7 @@
 
                         </div>
                         <div class="modal-footer btn-group-sm">
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Cerrar</button>
+                            <%--<button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Cerrar</button>--%>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>

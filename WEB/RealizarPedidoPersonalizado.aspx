@@ -99,10 +99,11 @@
                                                             <div class="row">
                                         <br />
                                                                 <br />
-
+                                                                <asp:UpdatePanel runat="server" ID="calcular1">
+                                                    <ContentTemplate>
                                         <div class="col-md-3">
                                             <div class="col-sm-6">
-                                                <asp:Label ID="Label2" runat="server" class="form-label"><b>Medida:</b></asp:Label>
+                                                <asp:Label ID="Label2" runat="server" class="form-label"><b>Medida: </b></asp:Label> 
                                                 <%--<label class="form-label">Cantidad(u)</label>--%>
                                                 <div class="form-line">
                                                     <asp:TextBox ID="txtmedida" placeholder="Ej: 1 Mt" class="form-control" runat="server"></asp:TextBox>
@@ -113,7 +114,7 @@
                                             <div class="col-sm-6">
                                                 <asp:Label ID="Label3" runat="server" class="form-label"><b>Precio(u):</b></asp:Label>
                                                 <div class="form-line">
-                                                    <asp:TextBox ID="txtprecio" placeholder="Ej: S/40.00" class="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="txtprecio" placeholder="Ej: S/40.00" class="form-control" runat="server"  ></asp:TextBox>
                                                 </div>
                                             </div>
                                         </div>
@@ -121,20 +122,21 @@
                                             <div class="col-sm-6">
                                                 <asp:Label ID="Label4" runat="server" class="form-label"><b>Cantidad:</b></asp:Label>
                                                 <div class="form-line">
-                                                    <asp:TextBox ID="txtcantidad" placeholder="Ej: 50" class="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="txtcantidad" placeholder="Ej: 50" class="form-control" runat="server" ></asp:TextBox>
                                                 </div>
                                             </div>
                                         </div>
-                                                                <asp:UpdatePanel runat="server" ID="calcular1">
-                                                    <ContentTemplate>
+                                                                
                                         <div class="col-md-3">
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-12">
                                                 <asp:Label ID="Label5" runat="server" class="form-label"><b>Importe:</b></asp:Label>
                                                 <div class="form-line">
                                                     <asp:TextBox ID="txtimporte" placeholder="Ej: S/2100.00" class="form-control" runat="server"></asp:TextBox>
                                                     <asp:HiddenField runat="server" ID="txtunidadmetrica" />
+                                                    <asp:Label ID="Label13" runat="server" class="form-label"  ForeColor="Red" Font-Bold="true"> </asp:Label>
                                                 </div>
                                             </div>
+                                            <br />
                                             <br />
                                             <br />
                                             <br />
@@ -232,7 +234,7 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="col-sm-6">
-                                                <asp:Label ID="Label9" runat="server" class="form-label"><b>Medida:</b></asp:Label>
+                                                <asp:Label ID="Label9" runat="server" class="form-label"><b>Medida: </b></asp:Label> 
                                                 <div class="form-line">
                                                     <asp:TextBox ID="txtmedidap" placeholder="Ej: 1 Mt" class="form-control" runat="server"></asp:TextBox>
                                                 </div>
@@ -380,6 +382,7 @@
                 type: "error"
             });
         }
+
 
     </script>
     <%--    <script>
