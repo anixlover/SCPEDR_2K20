@@ -57,7 +57,7 @@
             $("#CardPayment").fadeIn();
             $("#DivCodigoSubtotal").fadeIn();
             $("#btnadd").fadeIn();
-
+            $("#txtimportetotal").fadeIn();
             
 
             $("#ddlPedidoMuestra").fadeOut();
@@ -77,6 +77,8 @@
             $("#CardTipoComprobante").fadeOut();
             $("#CardPayment").fadeOut();
             $("#btnadd").fadeOut();
+            $("#txtimportetotal").fadeOut();
+            
         }
     });
 
