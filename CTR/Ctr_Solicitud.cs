@@ -123,6 +123,10 @@ namespace CTR
         {
             return objDaoSolicitud.SelectSolicitudTipo(objsol);
         }
+        public DataTable Listar_Solicitud_Personalizado()
+        {
+            return objDaoSolicitud.Listar_Solicitud_Personalizado();
+        }
     }
 }
 

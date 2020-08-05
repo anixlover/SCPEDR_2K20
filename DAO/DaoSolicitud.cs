@@ -315,5 +315,17 @@ namespace DAO
             unComando.ExecuteNonQuery();
             conexion.Close();
         }
+        public DataTable Listar_Solicitud_Personalizado()
+        {
+            DataTable dtsolicitudes = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_Listar_Solicitud_Personalizado", conexion);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtsolicitudes = new DataTable();
+            daAdaptador.Fill(dtsolicitudes);
+            conexion.Close();
+            return dtsolicitudes;
+        }
     }
 }

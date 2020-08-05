@@ -93,6 +93,7 @@ public partial class Login : System.Web.UI.Page
                                   </script>";
                         ScriptManager.RegisterStartupScript(this, typeof(Page), "alert", script, false);
                     }
+
                     else
                     {
                         HttpCookie deleteCookie = new HttpCookie("returnUrl");
@@ -100,14 +101,45 @@ public partial class Login : System.Web.UI.Page
                         Response.Cookies.Add(deleteCookie);
                         Response.Redirect(returnCookie.Value);
                     }
-                                        
+
                 }
-                else
+                else if (Session["id_perfil"].ToString() == "2")
                 {
-                    string script = @"<script type='text/javascript'>
+                    HttpCookie returnCookie = Request.Cookies["returnUrl"];
+                    if ((returnCookie == null) || string.IsNullOrEmpty(returnCookie.Value))
+                    {
+                        string script = @"<script type='text/javascript'>
+                                      location.href='../GestionCatalogo.aspx';
+                                  </script>";
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "alert", script, false);
+                    }
+
+                    else
+                    {
+                        HttpCookie deleteCookie = new HttpCookie("returnUrl");
+                        deleteCookie.Expires = DateTime.Now.AddDays(-1);
+                        Response.Cookies.Add(deleteCookie);
+                        Response.Redirect(returnCookie.Value);
+                    }
+                }
+                else if (Session["id_perfil"].ToString() == "3")
+                {
+                    HttpCookie returnCookie = Request.Cookies["returnUrl"];
+                    if ((returnCookie == null) || string.IsNullOrEmpty(returnCookie.Value))
+                    {
+                        string script = @"<script type='text/javascript'>
                                       location.href='../RealizarVenta_Marcial.aspx';
                                   </script>";
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "alert", script, false);
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "alert", script, false);
+                    }
+
+                    else
+                    {
+                        HttpCookie deleteCookie = new HttpCookie("returnUrl");
+                        deleteCookie.Expires = DateTime.Now.AddDays(-1);
+                        Response.Cookies.Add(deleteCookie);
+                        Response.Redirect(returnCookie.Value);
+                    }
                 }
 
             }
