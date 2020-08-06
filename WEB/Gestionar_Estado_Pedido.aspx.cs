@@ -28,7 +28,7 @@ public partial class Gestionar_Estado_Pedido : System.Web.UI.Page
             try
             {
                 UpdatePanel.Update();
-                gvCatalogo.DataSource = objctrSolicitud.ListaSolicitudesGestion();
+                //gvCatalogo.DataSource = objctrSolicitud.ListaSolicitudesGestion();
                 gvCatalogo.DataBind();
             }
             catch (Exception ex)
@@ -60,7 +60,7 @@ public partial class Gestionar_Estado_Pedido : System.Web.UI.Page
                 if (Nombre == "Personalizado por Diseño Propio")
                 {
                     objdtosol.PK_IS_Cod = Convert.ToInt32(id);
-                    objctrSolicitud.ModalPXDP(objdtosol);
+                    //objctrSolicitud.ModalPXDP(objdtosol);
 
                     txtcodigosolicitud.Text = objdtosol.PK_IS_Cod.ToString();
                     txttiposolicitud.Text = objdtosol.VS_TipoSolicitud;
@@ -101,7 +101,7 @@ public partial class Gestionar_Estado_Pedido : System.Web.UI.Page
                 else 
                 {
                     objdtosol.PK_IS_Cod = Convert.ToInt32(id);
-                    objctrSolicitud.ModalAllmDP(objdtosol);
+                    //objctrSolicitud.ModalAllmDP(objdtosol);
 
                     txtcod2.Text = objdtosol.PK_IS_Cod.ToString();
                     txttiposol2.Text = objdtosol.VS_TipoSolicitud;
