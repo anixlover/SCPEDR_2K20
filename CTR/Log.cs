@@ -20,7 +20,6 @@ namespace CTR
                 }
             }
         }
-
         public void WriteOnLog(string strMessage)
         {
             if (EnableLog)
