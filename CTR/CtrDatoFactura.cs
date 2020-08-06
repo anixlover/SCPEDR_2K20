@@ -24,6 +24,7 @@ namespace CTR
             bool correcto = true;
             DtoDatoFactura objfactura2 = new DtoDatoFactura();
             objfactura2.FK_VU_DNI = objfactura.FK_VU_DNI;
+            objfactura2.IDF_RUC = objfactura.IDF_RUC;
             correcto = !factura.selectRUC(objfactura2);
             if (!correcto)
             {

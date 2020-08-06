@@ -99,31 +99,6 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
                     objDtoSolicitud.PK_IS_Cod = int.Parse(id4);
                     objCtrVoucher.DetallesVoucherSolicitudUsuario(objvoucherdao,objDtoSolicitud,dtoMolduraxUsuario);
 
-                    //imagen.....
-                    //string image = Convert.ToBase64String(objvoucherdao.VBV_Foto);
-                    //ImageV.ImageUrl = "data:Image/png;base64," + image;
-                    txtFechaEmision.Text = objDtoSolicitud.DTS_FechaEmicion.ToString();
-                    txtNroOpe.Text = objvoucherdao.PK_VV_NumVoucher.ToString();
-                    
-                    //string cs = ConfigurationManager.ConnectionStrings["conexion"].ConnectionString;
-                    //using (SqlConnection con = new SqlConnection(cs))
-                    //{
-                    //    SqlCommand cmd = new SqlCommand("SP_DetallesVoucherUsuarioxSolicitud", con);
-                    //    cmd.CommandType = CommandType.StoredProcedure;
-                    //    //SqlParameter paramId = new SqlParameter()
-                    //    //{
-                    //    //    ParameterName = "@Id",
-                    //    //    Value = objDtoMoldura.PK_IM_Cod
-                    //    //};
-                    //    //cmd.Parameters.Add(paramId);
-                    //    cmd.Parameters.AddWithValue("@dni", Session["DNIUsuario"].ToString());
-                    //    cmd.Parameters.AddWithValue("@idsol", id4);
-                    //    con.Open();
-                    //    byte[] bytes = (byte[])cmd.ExecuteScalar();
-                    //    con.Close();
-                    //    string strbase64 = Convert.ToBase64String(bytes);
-                    //    ImageV.ImageUrl = "data:Image/png;base64," + strbase64;
-                    //}
                     string cs = ConfigurationManager.ConnectionStrings["conexion"].ConnectionString;
                     using (SqlConnection con = new SqlConnection(cs))
                     {
@@ -132,22 +107,53 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
                         SqlParameter paramId = new SqlParameter()
                         {
                             ParameterName = "@idsol",
-                            Value = id4
+                            Value = objDtoSolicitud.PK_IS_Cod
                         };
                         cmd.Parameters.Add(paramId);
                         con.Open();
                         byte[] bytes = (byte[])cmd.ExecuteScalar();
-                       
-
                         con.Close();
                         string strbase64 = Convert.ToBase64String(bytes);
                         ImageV.ImageUrl = "data:Image/png;base64," + strbase64;
                     }
-
+                    txtFechaEmision.Text = objDtoSolicitud.DTS_FechaEmicion.ToString();
+                    txtNroOpe.Text = objvoucherdao.PK_VV_NumVoucher.ToString();
                     txtImporte.Text = objvoucherdao.DV_ImporteDepositado.ToString();
 
 
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#defaultmodal3').modal('show');</script>", false);
+                    break;
+
+                case "Actualizar":
+                    ImageVo.Visible = true;
+                    
+                    int index5 = Convert.ToInt32(e.CommandArgument);
+                    var columna5 = gvConsultar.DataKeys[index5].Values;
+                    string id5 = columna5[0].ToString();
+                    objDtoSolicitud.PK_IS_Cod = int.Parse(id5);
+                    objCtrVoucher.DetallesVoucherSolicitudUsuario(objvoucherdao, objDtoSolicitud, dtoMolduraxUsuario);
+
+                    string ac = ConfigurationManager.ConnectionStrings["conexion"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(ac))
+                    {
+                        SqlCommand cmd = new SqlCommand("SP_DVS", con);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlParameter paramId = new SqlParameter()
+                        {
+                            ParameterName = "@idsol",
+                            Value = objDtoSolicitud.PK_IS_Cod
+                        };
+                        cmd.Parameters.Add(paramId);
+                        con.Open();
+                        byte[] bytes = (byte[])cmd.ExecuteScalar();
+                        con.Close();
+                        string strbase64 = Convert.ToBase64String(bytes);
+                        ImageVo.ImageUrl = "data:Image/png;base64," + strbase64;
+                    }
+                    txtFechaEmisionA.Text = objDtoSolicitud.DTS_FechaEmicion.ToString();
+                    txtNroOpeA.Text = objvoucherdao.PK_VV_NumVoucher.ToString();
+                    txtImporteA.Text = objvoucherdao.DV_ImporteDepositado.ToString();
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "none", "<script>$('#defaultmodal4').modal('show');</script>", false);
                     break;
 
             }
@@ -300,5 +306,19 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
 
             throw;
         }
+    }
+
+    protected void btnActualizar_Click(object sender, EventArgs e)
+    {
+        
+
+        objDtoSolicitud.PK_IS_Cod= Convert.ToInt32(txtcodSol.Text);
+        //objvoucherdao.VBV_Foto = Convert.ToBase64String(ImageVo.ImageUrl);
+        //////// Double.Parse(txtMedida.Text);
+        ////////Encoding.ASCII.GetBytes(reader[0].ToString());
+        //////objvoucherdao.VBV_Foto = Convert.ToBase64String(ImageVo.ImageUrl);/* Encoding.ASCII.GetBytes(reader[0].ToString());*/
+        //////ImageVo.ImageUrl = "data:Image/png;base64," + strbase64; 
+        objCtrVoucher.ActualizarVoucher(objDtoSolicitud);
+        //_log.CustomWriteOnLog("PropiedadMoldura", "Actualizado");
     }
 }

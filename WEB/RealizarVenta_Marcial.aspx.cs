@@ -693,6 +693,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + valorObtenidoRBTN.Value);
                 _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + ddlPedidoPor.SelectedValue);
 
+
                 objDtoSolicitud.VS_TipoSolicitud = "Personalizado por Catalogo";
                 objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidad.Text);
                 objDtoSolicitud.DS_ImporteTotal = int.Parse(txtimporttot.Text);
@@ -701,7 +702,7 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
 
                 for (int i = 0; i < gvdetalle.Rows.Count; i++)
                 {
-                    string subtotalMoldura = gvdetalle.Rows[i].Cells[6].Text;
+                    string subtotalMoldura = gvdetalle2.Rows[i].Cells[6].Text;
                     _log.CustomWriteOnLog("Realizar venta 1", "subtotalMoldura = " + subtotalMoldura);
 
                     objDtoMolduraxUsuario.FK_VU_Cod = txtIdentificadorUsuario.Text; //dni

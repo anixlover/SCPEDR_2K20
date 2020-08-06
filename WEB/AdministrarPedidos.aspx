@@ -14,10 +14,12 @@
                 <ul class="header-dropdown m-r--5">
                 </ul>
             </div>
+            <input type="hidden" runat="server" id="valorObtenido" clientidmode="Static" />
             <div class="card">
                 <div class="body">
                     <asp:UpdatePanel ID="UpdateSolicitudes" runat="server">
                         <ContentTemplate>
+                            <asp:DropDownList ID="ddltipo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddltipo_SelectedIndexChanged"></asp:DropDownList>
                             <asp:GridView ID="gvSolicitudes" DataKeyNames="PK_IS_Cod,V_SE_Nombre,PK_VU_Dni" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" AutoGenerateColumns="false" OnRowCommand="gvSolicitudes_RowCommand">
                                 <Columns>
                                     <asp:BoundField DataField="PK_IS_Cod" ItemStyle-HorizontalAlign="Center" HeaderText="Codigo de solicitud" />
@@ -29,6 +31,7 @@
                                         <ItemTemplate>
                                             <asp:Button runat="server" Text=" Evaluar" ItemStyle-HorizontalAlign="Center"  Visible='<%# ValidacionEstado(Eval("V_SE_Nombre").ToString()) %>' CommandName="Evaluar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning"/>
                                             <asp:Button runat="server" Text=" Ver" ItemStyle-HorizontalAlign="Center" CommandName="Ver detalles" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning"/>
+                                            <%--<asp:Button runat="server" Text="Asignar Fecha" ItemStyle-HorizontalAlign="Center" CommandName="asignar fecha" Visible='<%# ValidacionEstado2(Eval("V_SE_Nombre").ToString()) %>' CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning" data-toggle="modal" data-target="#exampleModal"/>--%>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
