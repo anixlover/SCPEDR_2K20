@@ -91,7 +91,6 @@ public partial class Prueba : System.Web.UI.Page
             byte[] ByteArray = (byte[])cmd.ExecuteScalar();
             con.Close();
             string strbase64 = Convert.ToBase64String(ByteArray);
-
             Image1.ImageUrl = "data:Image/png;base64," + strbase64;
         }
         #endregion

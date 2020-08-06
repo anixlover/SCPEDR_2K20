@@ -8,14 +8,14 @@
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div class="block-header  align-center">
-            <h1>EVALUZAR PEDIDO PERSONALIZADO</h1>
+            <h1>EVALUAR PEDIDO PERSONALIZADO</h1>
             <ul class="header-dropdown m-r--5">
-                </ul>
+            </ul>
         </div>
 
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                
+
                 <asp:UpdatePanel ID="UpdatePanel" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                     <ContentTemplate>
                         <div class="card">
@@ -32,16 +32,14 @@
                                             <%--<i class="material-icons">drafts</i> <span>Cotizar<span>--%>
                                             <ControlStyle CssClass="btn btn-warning" />
                                         </asp:ButtonField>
-                                        <asp:TemplateField HeaderText="Cotizar">
+                                        <%--<asp:TemplateField HeaderText="Cotizar">
                                             <ItemTemplate>
                                                 <asp:LinkButton Text="Cotizar" ButtonType="button" CommandName="Cotizar" runat="server"><i class="material-icons">drafts</i></asp:LinkButton>
                                             </ItemTemplate>
-                                            </asp:TemplateField>
-                                        <%--<asp:ButtonField ButtonType="button" runat="server"  CommandName="Cotizar" Text="Cotizar">--%>
-                                            <%--<i class="material-icons">drafts</i> <span>Cotizar<span>--%>
-                                            <%--<ControlStyle CssClass="btn btn-warning" />
-                                        </asp:ButtonField>--%>
-
+                                        </asp:TemplateField>--%>
+                                        <asp:ButtonField ButtonType="button" runat="server" HeaderText="Cotizar"  CommandName="Cotizar" Text="Cotizar">
+                                        <ControlStyle CssClass="btn btn-warning" />
+                                        </asp:ButtonField>
                                     </Columns>
 
                                 </asp:GridView>
@@ -52,10 +50,81 @@
                 </asp:UpdatePanel>
             </div>
         </div>
+
+        <%--MODAL--%>
+
+        <div class="modal fade" id="defaultmodal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <asp:UpdatePanel runat="server" ID="updPanelModal" UpdateMode="Always">
+                        <ContentTemplate>
+                            <div class="modal-header navbar">
+                                <h4 class="modal-title" id="tituloModal" runat="server" style="color: white;"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="text-center">
+                                        <asp:Image ID="Image1" Height="400px" Width="400px" runat="server" class="rounded" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="row clearfix">
+                                            <div class="form-group form-float">
+                                                <label class="form-label">Tipo: </label>
+                                                <div class="form-line focused">
+                                                    <div class="form-line">
+                                                        <asp:TextBox ID="txt_tipo" class="form-control" runat="server" ReadOnly="false"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row clearfix">
+                                            <div class="form-group form-float">
+                                                <label class="form-label">Medida: </label>
+                                                <div class="form-line focused">
+                                                    <div class="form-line">
+                                                        <asp:TextBox ID="txt_medida" class="form-control" runat="server" ReadOnly="false"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row clearfix">
+                                            <div class="form-group form-float">
+                                                <label class="form-label">Cantidad: </label>
+                                                <div class="form-line focused">
+                                                    <div class="form-line">
+                                                        <asp:TextBox ID="TextBox1" class="form-control" runat="server" ReadOnly="false"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Registrar</button>
+                                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
     </form>
-
-
-
 
 
 

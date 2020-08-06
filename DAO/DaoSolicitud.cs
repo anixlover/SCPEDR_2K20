@@ -42,7 +42,7 @@ namespace DAO
             command.Parameters.AddWithValue("@tipos", objsolicitud.VS_TipoSolicitud);
             var binary1 = command.Parameters.Add("@imagen", SqlDbType.VarBinary, -1);
             binary1.Value = DBNull.Value;
-            command.Parameters.AddWithValue("@medida", objsolicitud.DS_Medida);
+            command.Parameters.AddWithValue("@medida", objsolicitud.VS_Medida);
             command.Parameters.AddWithValue("@cantidad", objsolicitud.IS_Cantidad);
             command.Parameters.AddWithValue("@aprox", objsolicitud.DS_PrecioAprox);
             command.Parameters.AddWithValue("@comen", objsolicitud.VS_Comentario);
@@ -164,7 +164,7 @@ namespace DAO
 
             //var binary1 = command.Parameters.Add("@img", SqlDbType.VarBinary, -1);
             //binary1.Value = DBNull.Value;
-            command.Parameters.AddWithValue("@medida", objsolicitud.DS_Medida);
+            command.Parameters.AddWithValue("@medida", objsolicitud.VS_Medida);
             command.Parameters.AddWithValue("@cant", objsolicitud.IS_Cantidad);
             command.Parameters.AddWithValue("@precioaprox", objsolicitud.DS_PrecioAprox);
             command.Parameters.Add("@NewId", SqlDbType.Int).Direction = ParameterDirection.Output;
@@ -339,6 +339,34 @@ namespace DAO
             daAdaptador.Fill(dtsolicitudes);
             conexion.Close();
             return dtsolicitudes;
+        }
+        public void ObtenerSolicitudPersonalizado(DtoSolicitud objsol, DtoSolicitudEstado objtiposol)
+        {
+            SqlCommand command = new SqlCommand("SP_Detalle_Solicitud_P", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Cod", objsol.PK_IS_Cod);
+            DataSet ds = new DataSet();
+            conexion.Open();
+            SqlDataAdapter solicitud = new SqlDataAdapter(command);
+            solicitud.Fill(ds);
+            solicitud.Dispose();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                objsol.VBS_Imagen = Encoding.ASCII.GetBytes(reader[0].ToString());
+                objsol.VS_TipoSolicitud = reader[1].ToString();
+                objsol.PK_IS_Cod = int.Parse(reader[2].ToString());
+                objsol.VS_Medida = Convert.ToDouble(reader[3].ToString());
+                objsol.IS_Cantidad = int.Parse(reader[4].ToString());
+                objsol.DS_PrecioAprox = Convert.ToDouble(reader[5].ToString());
+                objsol.VS_Comentario = reader[6].ToString();
+                objsol.IS_EstadoPago = int.Parse(reader[7].ToString());
+                objtiposol.V_SE_Nombre = reader[8].ToString();
+            }
+            conexion.Close();
+            conexion.Dispose();
         }
     }
 }

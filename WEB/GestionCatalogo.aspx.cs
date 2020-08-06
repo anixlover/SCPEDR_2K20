@@ -30,18 +30,14 @@ public partial class GestionCatalogo : System.Web.UI.Page
             catch (Exception ex)
             {
                 _log.CustomWriteOnLog("GestionCatalogo", "Error = " + ex.Message + "Stac" + ex.StackTrace);
-
                 throw;
             }
-
         }
     }
-
     protected void btnRegistrar_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/PropiedadMoldura.aspx");
     }
-
     protected void gvCatalogo_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         if (e.CommandName == "Ver")
@@ -98,7 +94,6 @@ public partial class GestionCatalogo : System.Web.UI.Page
             catch (Exception ex)
             {
                 _log.CustomWriteOnLog("GestionCatalogo", "Error = " + ex.Message + "Stac" + ex.StackTrace);
-
             }
 
         }
@@ -110,7 +105,6 @@ public partial class GestionCatalogo : System.Web.UI.Page
             Response.Redirect("~/PropiedadMoldura.aspx?ID=" + id);
         }
     }
-
     protected void gvCatalogo_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
@@ -136,7 +130,6 @@ public partial class GestionCatalogo : System.Web.UI.Page
         ddl_TipoMoldura.DataBind();
         ddl_TipoMoldura.Items.Insert(0, new ListItem("Seleccione", "0"));
     }
-
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         try
@@ -167,8 +160,5 @@ public partial class GestionCatalogo : System.Web.UI.Page
         }
         
     }
-
-
-
     
 }

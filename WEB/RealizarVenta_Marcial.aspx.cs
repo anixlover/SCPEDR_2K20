@@ -750,8 +750,8 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
                 _log.CustomWriteOnLog("valorObtenidoRBTNValue", "valorObtenidoRBTN.Value   : " + ddlPedidoPor.SelectedValue);
 
                 objDtoSolicitud.VS_TipoSolicitud = "Personalizado por Diseño Propio";
-                objDtoSolicitud.DS_Medida = int.Parse(txtmedidaDP.Text);
-                _log.CustomWriteOnLog("Realizar venta 1", "objDtoSolicitud.DS_Medida " + objDtoSolicitud.DS_Medida);
+                objDtoSolicitud.VS_Medida = int.Parse(txtmedidaDP.Text);
+                _log.CustomWriteOnLog("Realizar venta 1", "objDtoSolicitud.DS_Medida " + objDtoSolicitud.VS_Medida);
                 objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidadDP.Text);
                 _log.CustomWriteOnLog("Realizar venta 1", "objDtoSolicitud.IS_Cantidad " + objDtoSolicitud.IS_Cantidad);
                 objDtoSolicitud.DS_PrecioAprox = double.Parse(txtpriceaprox.Text);
@@ -783,7 +783,6 @@ public partial class RealizarVenta_Marcial : System.Web.UI.Page
         catch (Exception ex)
         {
             _log.CustomWriteOnLog("Realizar venta 1", "btnEnviar1_Click error  : " + ex.Message);
-
         }
     }
 }

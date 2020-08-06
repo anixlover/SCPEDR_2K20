@@ -38,7 +38,19 @@ public partial class Evaluar_Pedido_Personalizado : System.Web.UI.Page
     {
         if (e.CommandName=="Ver")
         {
+            try
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                var colsNoVisible = gvPersonalizado.DataKeys[index].Values;
+                string id = colsNoVisible[0].ToString();
+                string Nombre = colsNoVisible[1].ToString();
+                objDtoSolicitud.PK_IS_Cod = int.Parse(id);
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
         }
         else if (e.CommandName=="Cotizar")
         {

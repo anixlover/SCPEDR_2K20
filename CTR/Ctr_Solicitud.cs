@@ -131,6 +131,11 @@ namespace CTR
         {
             return objDaoSolicitud.SelectSolicitudes2(tipo);
         }
+        public void ObtenerSolicitudPersonalizado(DtoSolicitud objsolicitud, DtoSolicitudEstado objSolicitudEstado)
+        {
+            objDaoSolicitud.ObtenerSolicitudPersonalizado(objsolicitud, objSolicitudEstado);
+        }
+
     }
 }
 
