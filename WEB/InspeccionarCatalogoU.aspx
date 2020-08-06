@@ -11,7 +11,7 @@
                     <asp:UpdatePanel runat="server" ID="updOpcionesMolduras">
                         <ContentTemplate>
                             <asp:LinkButton runat="server" ID="btnTodos" OnClick="btnTodos_Click">Todos</asp:LinkButton>
-                            <asp:LinkButton runat="server" ID="btnBaquetonClasico" OnClick="btnBaquetonClasico_Click">Baqueton Calsico</asp:LinkButton>
+                            <asp:LinkButton runat="server" ID="btnBaquetonClasico" OnClick="btnBaquetonClasico_Click">Baqueton Clasico</asp:LinkButton>
                             <asp:LinkButton runat="server" ID="btnBaquetonDecorado" OnClick="btnBaquetonDecorado_Click">Baqueton Decorado</asp:LinkButton>
                             <asp:LinkButton runat="server" ID="btnRosetonClasico" OnClick="btnRosetonClasico_Click">Roseton Clasico</asp:LinkButton>
                             <asp:LinkButton runat="server" ID="btnRosetonDecorado" OnClick="btnRosetonDecorado_Click">Roseton Decorado</asp:LinkButton>

@@ -80,11 +80,6 @@ namespace CTR
         {
             return objDaoSolicitud.SelectSolicitudes();
         }
-
-        public DataTable ListaSolicitudesGestion()
-        {
-            return objDaoSolicitud.SelectSolicitudesGestion();
-        }
         public DataTable ListaMolduras(DtoSolicitud objsol)
         {
             return objDaoSolicitud.ListaMoldurasSolicitud(objsol);
@@ -132,21 +127,9 @@ namespace CTR
         {
             return objDaoSolicitud.Listar_Solicitud_Personalizado();
         }
-        public void ModalPXDP(DtoSolicitud objsol)
+        public DataTable Listar_Solicitud_tipo(string tipo)
         {
-            objDaoSolicitud.ModalPXDP(objsol);
-        }
-        public void ModalAllmDP(DtoSolicitud objsol)
-        {
-            objDaoSolicitud.ModalAllmDP(objsol);
-        }
-        public DataSet OpcionesEstadoSolicitud()
-        {
-            return objDaoSolicitud.OpcionesEstadoSolicitud();
-        }
-        public void ObtenerSolicitud(DtoSolicitud objsol, DtoMoldura objmol)
-        {
-            objDaoSolicitud.ObtenerSolicitud(objsol, objmol);
+            return objDaoSolicitud.SelectSolicitudes2(tipo);
         }
     }
 }

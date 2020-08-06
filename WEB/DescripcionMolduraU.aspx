@@ -63,6 +63,7 @@
 
                                 <button type="button" class="btn btn-link waves-effect button" data-dismiss="modal">Cerrar</button>
                             </div>
+                         
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>

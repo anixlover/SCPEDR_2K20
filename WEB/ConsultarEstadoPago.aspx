@@ -33,8 +33,8 @@
                     <asp:DropDownList runat="server" ID="ddl_SolicitudEstado" OnSelectedIndexChanged="ddl_SolicitudEstado_SelectedIndexChanged" CssClass=" bootstrap-select form-control"></asp:DropDownList>
                 </div>
                 <div class="col-sm-2">
-                    <asp:LinkButton runat="server" ID="btnSearch" CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float" OnClick="btnSearch_Click">
-                                            <i class="material-icons">search</i>
+                    <asp:LinkButton runat="server" ID="btnSearch" width="100px" CssClass="btn btn-danger btn-circle-lg waves-effect waves-circle waves-float" OnClick="btnSearch_Click">
+                                            <i class="material-icons">Buscar</i>
                     </asp:LinkButton>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                      <asp:GridView ID="gvConsultar" DataKeyNames="PK_IS_Cod,V_SE_Nombre" CssClass="table table-bordered table-hover js-basic-example dataTable" runat="server" AutoGenerateColumns="false" OnRowCommand="gvConsultar_RowCommand" OnSelectedIndexChanged="gvConsultar_SelectedIndexChanged" OnRowDataBound="gvConsultar_RowDataBound">
                 <Columns>
                     <asp:BoundField DataField="PK_IS_Cod" ItemStyle-HorizontalAlign="Center" HeaderText="Codigo de solicitud" />
-                    <asp:BoundField DataField="DTS_FechaEmicion" ItemStyle-HorizontalAlign="Center" HeaderText="Fecha" />
+                    <asp:BoundField DataField="DTS_FechaEmicion" ItemStyle-HorizontalAlign="Center" HeaderText="Fecha de emision del pago" />
                     <asp:BoundField DataField="VS_TipoSolicitud" ItemStyle-HorizontalAlign="Center" HeaderText="Tipo" />
                     <asp:BoundField DataField="DS_ImporteTotal" ItemStyle-HorizontalAlign="Center" HeaderText="Importe" />
                     <asp:BoundField DataField="V_SE_Nombre" ItemStyle-HorizontalAlign="Center" HeaderText="Estado" />
@@ -198,6 +198,84 @@
                         </div>
                         <div class="modal-footer btn-group-sm">
                             <%--<button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Cerrar</button>--%>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </div>
+
+            <div class="modal fade" id="defaultmodal4" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <asp:UpdatePanel runat="server" ID="UpdatePanel3" UpdateMode="Always">
+                    <ContentTemplate>
+                        <div class="modal-header navbar">
+                            <h4 class="modal-title" id="H2" runat="server">Detalles de voucher de la compra</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div>
+                                        <asp:Image ID="ImageVo" Height="300px" Width="300px" runat="server" class="rounded" />
+                                        <input name="fileAnexo" type="file" id="FileUpload1" runat="server" accept=".png,.jpg" class="btn btn-warning" style="width: 100%;" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                  
+                                    <div class="col-md-12">
+                                        <div class="row clearfix">
+                                            <div class="form-group form-float">
+                                                <label class="form-label">Emision de solicitud:</label>
+                                                <div class="form-line focused">
+                                                    <div class="form-line">
+                                                        <asp:TextBox ID="txtcodSol" class="form-control" runat="server" Visible="false"></asp:TextBox>
+                                                        <asp:TextBox ID="txtFechaEmisionA" class="form-control" runat="server" ReadOnly="true"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row clearfix">
+                                            <div class="form-group form-float">
+                                                <label class="form-label">Numero de operacion:</label>
+                                                <div class="form-line focused">
+                                                    <div class="form-line">
+                                                        <asp:TextBox ID="txtNroOpeA" class="form-control" runat="server" ReadOnly="true"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row clearfix">
+                                            <div class="form-group form-float">
+                                                <label class="form-label">Importe:</label>
+                                                <div class="form-line focused">
+                                                    <div class="form-line">
+                                                        <asp:TextBox ID="txtImporteA" class="form-control" runat="server" ReadOnly="true"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer btn-group-sm">
+                            <%--<button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Cerrar</button>--%>
+                            <%--<asp:LinkButton ID="btnGuardar" runat="server" CssClass="btn bg-red waves-effect" Style="float: right" Width="100%" Text="Cancelar" OnClick="btnGuardar_Click">
+												<i class="material-icons">arrow_back</i>Regresar
+                            </asp:LinkButton>--%>
+                             <asp:UpdatePanel ID="UpdatePanelA" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:Button ID="btnActualizar" runat="server" Text="Actualizar" CssClass="btn btn-success btn-group-sm" OnClick="btnActualizar_Click" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>

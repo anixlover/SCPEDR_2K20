@@ -18,7 +18,6 @@ public partial class Detalles_Solicitud : System.Web.UI.Page
         if (!IsPostBack)
         {
             CargarCliente();
-            CargarMolduras();
             CargarMolduras2();
         }
     }
@@ -34,21 +33,6 @@ public partial class Detalles_Solicitud : System.Web.UI.Page
             lblcorreo.Text = user.VU_Correo;
         }
     }
-    public void CargarMolduras()
-    {
-        if (objCtrSolicitud.leerSolicitudDiseñoPersonal(objDtoSolicitud))
-        {
-            if (objDtoSolicitud.VS_TipoSolicitud == "Personalizado por diseño propio")
-            {
-                gvMolduras.Visible = false;
-                imgPersonal.Visible = true;
-                lblcosto.Text = objDtoSolicitud.DS_PrecioAprox.ToString();
-                string imagen = Convert.ToBase64String(objDtoSolicitud.VBS_Imagen);
-                imgPersonal.ImageUrl = "data:Image/png;base64," + imagen;
-                txtcomentario.Text = objDtoSolicitud.VS_Comentario;
-            }
-        }
-    }
     public void CargarMolduras2() 
     {
         objDtoSolicitud.PK_IS_Cod = Convert.ToInt32(Session["idSolicitudPago"]);
@@ -61,7 +45,7 @@ public partial class Detalles_Solicitud : System.Web.UI.Page
                 imgPersonal.Visible = false;
                 gvMolduras.Visible = true;
                 txtcomentario.Visible = false;
-                lblcosto.Text = "Aproximado: S/" + objDtoSolicitud.DS_ImporteTotal.ToString();
+                lblcosto.Text = "S/" + objDtoSolicitud.DS_ImporteTotal.ToString();
                 gvMolduras.DataSource = objCtrSolicitud.ListaMolduras(objDtoSolicitud);
                 gvMolduras.DataBind();
             }
