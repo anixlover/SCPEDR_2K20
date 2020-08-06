@@ -291,6 +291,18 @@ namespace DAO
             return dtsolicitudes;
         }
 
+        public DataTable SelectSolicitudesGestion()
+        {
+            DataTable dtsolicitudes = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_GestionarSolicitudes", conexion);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.CommandType = CommandType.StoredProcedure;
+            dtsolicitudes = new DataTable();
+            daAdaptador.Fill(dtsolicitudes);
+            conexion.Close();
+            return dtsolicitudes;
+        }
         public void UpdateSolicitudObservada(DtoSolicitud objsol) 
         {
             string update = "UPDATE T_Solicitud SET VS_Comentario='"+objsol.VS_Comentario+"', FK_ISE_Cod=7 where PK_IS_Cod =" + objsol.PK_IS_Cod;
@@ -326,6 +338,92 @@ namespace DAO
             daAdaptador.Fill(dtsolicitudes);
             conexion.Close();
             return dtsolicitudes;
+        }
+        public void ModalPXDP(DtoSolicitud objsol)
+        {
+            SqlCommand command = new SqlCommand("SP_TraeSolPersonalizadoxDP", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@codigo", objsol.PK_IS_Cod);
+            //DataSet ds = new DataSet();
+            conexion.Open();
+            SqlDataAdapter moldura = new SqlDataAdapter(command);
+            //moldura.Fill(ds);
+            moldura.Dispose();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                objsol.PK_IS_Cod = Convert.ToInt32(reader["PK_IS_Cod"].ToString());
+                objsol.VS_TipoSolicitud = reader["VS_TipoSolicitud"].ToString();
+                //objsol.DTS_FechaRegistro = Convert.ToDateTime(reader["DTS_FechaRegistro"].toString());
+                objsol.VS_Comentario = reader["NombreSolDP"].ToString();
+                objsol.VBS_Imagen = Encoding.ASCII.GetBytes(reader["VBS_Imagen"].ToString());
+            }
+            conexion.Close();
+            conexion.Dispose();
+        }
+        public void ModalAllmDP(DtoSolicitud objsol)
+        {
+            SqlCommand command = new SqlCommand("SP_TraeSolmenosXDP", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@codigo", objsol.PK_IS_Cod);
+            //DataSet ds = new DataSet();
+            conexion.Open();
+            SqlDataAdapter moldura = new SqlDataAdapter(command);
+            //moldura.Fill(ds);
+            moldura.Dispose();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                objsol.PK_IS_Cod = Convert.ToInt32(reader["PK_IS_Cod"]);
+                objsol.VS_TipoSolicitud = reader["VS_TipoSolicitud"].ToString();
+                //objsol.DTS_FechaRegistro = Convert.ToDateTime(reader["DTS_FechaRegistro"].ToString());
+                objsol.VS_Comentario = reader["NombreSol"].ToString();
+            }
+            conexion.Close();
+            conexion.Dispose();
+        }
+
+        public DataSet OpcionesEstadoSolicitud()
+        {
+            SqlDataAdapter tipomol = new SqlDataAdapter("SP_Desplegable_Estado_Solicitud", conexion);
+            tipomol.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataSet DS = new DataSet();
+            tipomol.Fill(DS);
+            return DS;
+        }
+        public void ObtenerSolicitud(DtoSolicitud objsol,DtoMoldura objmol)
+        {
+            SqlCommand command = new SqlCommand("SP_Obtener_Solicitud", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@codsol", objsol.PK_IS_Cod);
+            DataSet ds = new DataSet();
+            conexion.Open();
+            SqlDataAdapter moldura = new SqlDataAdapter(command);
+            moldura.Fill(ds);
+            moldura.Dispose();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                objsol.PK_IS_Cod = int.Parse(reader["PK_IS_Cod"].ToString());
+                objsol.VS_TipoSolicitud = reader["VS_TipoSolicitud"].ToString();
+                objsol.IS_Cantidad = int.Parse(reader["IS_Cantidad"].ToString());
+                objmol.IM_Stock = int.Parse(reader["EstadoNombre"].ToString());
+                //objsol.VS_Comentario = reader["EstadoNombre"].ToString();
+                //objmoldura.PK_IM_Cod = int.Parse(reader[0].ToString());
+                //objmoldura.VM_Descripcion = reader[1].ToString();
+                //objtipo.PK_ITM_Tipo = int.Parse(reader[2].ToString());
+                //objtipo.VTM_Nombre = reader[3].ToString();
+                //objmoldura.DM_Medida = Convert.ToDouble(reader[4].ToString());
+                //objtipo.VTM_UnidadMetrica = reader[5].ToString();
+                //objmoldura.IM_Estado = int.Parse(reader[6].ToString());
+                //objmoldura.IM_Stock = int.Parse(reader[7].ToString());
+                //objmoldura.DM_Precio = Convert.ToDouble(reader[8].ToString());
+                //objmoldura.VBM_Imagen = Encoding.ASCII.GetBytes(reader[9].ToString());
+            }
+            conexion.Close();
+            conexion.Dispose();
         }
     }
 }
