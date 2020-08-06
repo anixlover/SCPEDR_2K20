@@ -49,7 +49,7 @@
             <div class="contenedor clearfix">
                 <div class="logo">
                     <a href="Home.aspx">
-                        <img loading="lazy" src="img/logo1.svg" alt="logo decormolduras"></a>
+                        <img  src="img/logo1.svg" alt="logo decormolduras"></a>
                 </div>
                 <div class="menu-movil">
                     <span></span>
@@ -100,7 +100,6 @@
         </footer>
 
         <!--programa-->
-
 
         <!-- Jquery Core Js -->
 

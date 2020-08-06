@@ -72,7 +72,7 @@
         <div class="barra">
             <div class="contenedor clearfix">
                 <div class="logo">
-                    <a href="Home.aspx"><img loading="lazy" src="img/logo1.svg" alt="logo decormolduras"></a>
+                    <a href="Home.aspx"><img src="img/logo1.svg" alt="logo decormolduras"></a>
                 </div>
                 <div class="menu-movil">
                     <span></span>
@@ -127,7 +127,7 @@
                 </div>
             </div>
             <!--Icono nosotros-->
-            </div><!--Propgrama nosotros-->
+            <!--Propgrama nosotros-->
         </section>
         <!--Nosotros-->
 
@@ -136,19 +136,19 @@
             <ul class="lista-moldura clearfix">
                 <li>
                     <div class="moldura">
-                        <img loading="lazy" src="img/RC_1.jpg" alt="imagen roseton" class="tamaño">
+                        <img  src="img/RC_1.jpg" alt="imagen roseton" class="tamaño">
                         <p>Roseton Clasico</p>
                     </div>
                 </li>
                 <li>
                     <div class="moldura">
-                        <img loading="lazy" src="img/CC_1.JPG" alt="imagen roseton" class="tamaño">
+                        <img src="img/CC_1.JPG" alt="imagen roseton" class="tamaño">
                         <p>Cornisa Clasico</p>
                     </div>
                 </li>
                 <li>
                     <div class="moldura">
-                        <img loading="lazy" src="img/BC_1.JPG" alt="imagen roseton" class="tamaño">
+                        <img  src="img/BC_1.JPG" alt="imagen roseton" class="tamaño">
                         <p>Baquetón Clasico</p>
                     </div>
                 </li>
