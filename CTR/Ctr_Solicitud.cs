@@ -73,7 +73,7 @@ namespace CTR
 
         public DataSet OpcionesSolicitudEstado()
         {
-            return objDaoSolicitud.desplegableSolicitudEstado();
+            return objDaoSolicitud.OpcionesEstadoSolicitud();
         }
 
         public DataTable ListaSolicitudes()
@@ -131,11 +131,22 @@ namespace CTR
         {
             return objDaoSolicitud.SelectSolicitudes2(tipo);
         }
-        public void ObtenerSolicitudPersonalizado(DtoSolicitud objsolicitud, DtoSolicitudEstado objSolicitudEstado)
+        public void ObtenerSolicitud(DtoSolicitud objsol, DtoMoldura objmol)
         {
-            objDaoSolicitud.ObtenerSolicitudPersonalizado(objsolicitud, objSolicitudEstado);
+            objDaoSolicitud.ObtenerSolicitud(objsol, objmol);
         }
-
+        public void ModalPXDP(DtoSolicitud objsol)
+        {
+            objDaoSolicitud.ModalPXDP(objsol);
+        }
+        public void ModalAllmDP(DtoSolicitud objsol)
+        {
+            objDaoSolicitud.ModalAllmDP(objsol);
+        }
+        public DataTable ListaSolicitudesGestion()
+        {
+            return objDaoSolicitud.SelectSolicitudesGestion();
+        }
     }
 }
 
