@@ -165,6 +165,6 @@ public partial class DescripcionMolduraU : System.Web.UI.Page
 
     protected void btnAceptarPP_Click(object sender, EventArgs e)
     {
-
+        Response.Redirect("~/RealizarPedidoPersonalizado.aspx");
     }
 }

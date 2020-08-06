@@ -483,7 +483,7 @@
                                                         <asp:Label ID="Label4" runat="server" class="form-label"><b>Fecha de entrega:</b></asp:Label>
                                                         <asp:HiddenField runat="server" ID="HiddenField3" ClientIDMode="Static" />
                                                         <div class="body table-responsive ">
-                                                            <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+                                                            <asp:Calendar ID="Calendar1" runat="server" TodayDayStyle-BackColor ="Wheat"></asp:Calendar>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -539,11 +539,11 @@
                                         </div>
 
                                         <%--importe total--%>
-                                        <div class="col-md-6">
-                                            <div class="col-sm-8">
+                                        <div class="col-md-4 right" id="txtimportetotal" runat="server" hidden clientidmode="Static">
+                                            <div class="col-sm-12 ">
                                                 <div class="form-group form-float">
                                                     <div class="form-group form-float">
-                                                        <div class="col-sm-10">
+                                                        <div class="col-sm-12" >
                                                             <asp:Label ID="Label1" runat="server" class="form-label"><b>Importe total S/</b></asp:Label>
                                                             <div class="form-line">
                                                                 <asp:UpdatePanel ID="panelImpoTot" runat="server" UpdateMode="Always">

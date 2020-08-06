@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group form-float">
-                                            <label class="form-label">Precio aproximado :</label>
+                                            <label class="form-label">Importe:</label>
                                             <div class="form-line focused">
                                                 <div class="form-line">
                                                     <asp:UpdatePanel runat="server">

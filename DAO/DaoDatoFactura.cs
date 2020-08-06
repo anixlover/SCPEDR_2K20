@@ -37,7 +37,7 @@ namespace DAO
         }
         public bool selectRUC(DtoDatoFactura objfactura)
         {
-            string Select = "SELECT * from T_DatoFactura where FK_VU_Dni ='" + objfactura.FK_VU_DNI + "'";
+            string Select = "SELECT * from T_DatoFactura where FK_VU_Dni ='" + objfactura.FK_VU_DNI + "' and VDF_Ruc='"+objfactura.IDF_RUC+"'";
             SqlCommand unComando = new SqlCommand(Select, conexion);
             conexion.Open();
             SqlDataReader reader = unComando.ExecuteReader();

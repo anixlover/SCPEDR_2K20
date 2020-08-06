@@ -63,7 +63,7 @@
                     <asp:TextBox ID="txtcomentario" runat="server" CssClass="form-control" Width="100%"></asp:TextBox>
                 </div>
                 <span class="auto-style1">&nbsp;&nbsp;&nbsp;&nbsp; Costo Total <span class="auto-style2">
-                <asp:Label ID="lblcosto" runat="server" Text="0.00"></asp:Label>
+                <asp:Label ID="lblcosto" runat="server" Text="0.00" style="font-weight: 700; font-size: xx-large; color: #009900"></asp:Label>
                 </span>
                 <br />
                 <br />
