@@ -45,7 +45,7 @@ public partial class Actualizar_Proceso : System.Web.UI.Page
     public void OpcionesTipoMoldura()
     {
         DataSet ds = new DataSet();
-        ds = objCtrSolicitud.OpcionesEstadoSolicitud();
+        ds = objCtrSolicitud.OpcionesSolicitudEstado();
         ddlestadosolicitud.DataSource = ds; 
         ddlestadosolicitud.DataTextField = "V_SE_Nombre";
         ddlestadosolicitud.DataValueField = "PK_ISE_Cod";
@@ -59,7 +59,7 @@ public partial class Actualizar_Proceso : System.Web.UI.Page
         _log.CustomWriteOnLog("Actualizar_Proceso", "-------------------------------------------------- Entro a actualización ----------------------------------------");
         objdtosol.PK_IS_Cod = int.Parse(id);
         objCtrSolicitud.ObtenerSolicitud(objdtosol, objDtoMoldura);
-
+        
         txtCodigo.Text = objdtosol.PK_IS_Cod.ToString();
         txttiposolicitud.Text = objdtosol.VS_TipoSolicitud;
         txtcantidad.Text = objdtosol.IS_Cantidad.ToString();
