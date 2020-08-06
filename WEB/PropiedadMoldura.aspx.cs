@@ -129,7 +129,7 @@ public partial class Prueba : System.Web.UI.Page
                 objDtoMoldura.DM_Medida = Double.Parse(txtMedida.Text);
                 objCtrMoldura.ActualizarRegistroMoldura(objDtoMoldura);
                 _log.CustomWriteOnLog("PropiedadMoldura", "Actualizado");
-                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "uploadFileDocuments(" + Request.Params["Id"] + ");");
+                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "uploadFileImagenVoucher(" + Request.Params["Id"] + ");");
 
                 Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage2()");
 
