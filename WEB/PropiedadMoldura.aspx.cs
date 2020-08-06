@@ -91,7 +91,6 @@ public partial class Prueba : System.Web.UI.Page
             byte[] ByteArray = (byte[])cmd.ExecuteScalar();
             con.Close();
             string strbase64 = Convert.ToBase64String(ByteArray);
-
             Image1.ImageUrl = "data:Image/png;base64," + strbase64;
         }
         #endregion
@@ -130,7 +129,7 @@ public partial class Prueba : System.Web.UI.Page
                 objDtoMoldura.DM_Medida = Double.Parse(txtMedida.Text);
                 objCtrMoldura.ActualizarRegistroMoldura(objDtoMoldura);
                 _log.CustomWriteOnLog("PropiedadMoldura", "Actualizado");
-                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "uploadFileDocuments(" + Request.Params["Id"] + ");");
+                Utils.AddScriptClientUpdatePanel(upBotonEnviar, "uploadFileImagenVoucher(" + Request.Params["Id"] + ");");
 
                 Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage2()");
 

@@ -82,7 +82,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
             if (txtcodigo.Text == "")
             {
                 ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Ingrese codigo de moldura!!', type: 'error'});", true);
-                //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'Ingrese codigo de moldura!!'})</script>");
+                
                 return;
             }
             _log.CustomWriteOnLog("registrar pedido personalizado", "entro a busqueda");
@@ -96,11 +96,11 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
             }
             //Obtener moldura y unidad metrica
             objCtrMoldura.ObtenerMoldura(objDtoMoldura, objDtoTipoMoldura);
-
-            txtmedida.Text = objDtoMoldura.DM_Medida.ToString() + objDtoTipoMoldura.VTM_UnidadMetrica.ToString();
+            txt_descripcion.Text = objDtoMoldura.VM_Descripcion.ToString();
+            txt_medida.Text = objDtoMoldura.DM_Medida.ToString() + objDtoTipoMoldura.VTM_UnidadMetrica.ToString();
             txtunidadmetrica.Value = objDtoTipoMoldura.VTM_UnidadMetrica.ToString();
             _log.CustomWriteOnLog("registrar pedido personalizado", " devolvio objDtoMoldura.DM_Medida y objDtoTipoMoldura.VTM_UnidadMetrica : " + objDtoMoldura.DM_Medida + " " + objDtoTipoMoldura.VTM_UnidadMetrica);
-            txtprecio.Text = objDtoMoldura.DM_Precio.ToString();
+            txt_precio.Text = objDtoMoldura.DM_Precio.ToString();
             _log.CustomWriteOnLog("registrar pedido personalizado", "devolvio objDtoMoldura.DM_Precio : " + objDtoMoldura.DM_Precio);
             buscar.Update();
 
@@ -116,34 +116,12 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
         try
         {
-            if (txtcodigo.Text == "" | txtcantidad.Text == "" | txtarea.Text == "" | txtimporte.Text == "" | txtmedida.Text == "" | txtprecio.Text == "")
+            if (txtcodigo.Text == "" | txt_cantidad.Text == "" | txtarea.Text == "" | txt_importe.Text == "" | txt_medida.Text == "" | txt_precio.Text == "")
             {
                 //Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage6()");
                 //ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Registro Exitoso!','Solicitud ENVIADA!!','success')</script>");
                 //return;
             }
-
-            //if (rbPropio.Checked == true)
-            //{
-            //    _log.CustomWriteOnLog("registrar pedido personalizado", "La función es de creación");
-            //    objDtoSolicitud.VS_TipoSolicitud = "Personalizado por diseño propio";
-            //    objDtoSolicitud.DS_Medida = double.Parse(txtmedidap.Text);
-            //    objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidadp.Text);
-            //    objDtoSolicitud.DS_PrecioAprox = double.Parse(txtimporteaprox.Text);
-            //    objDtoSolicitud.VS_Comentario = txtarea.Text;
-            //    objDtoSolicitud.IS_EstadoPago = 1; //estado pendiente
-            //    msjeRegistrar(objDtoSolicitud);
-            //    objCtrSolicitud.RegistrarSolcitud_PP(objDtoSolicitud);
-
-            //    int Nsolicitud = objDtoSolicitud.PK_IS_Cod;
-            //    Utils.AddScriptClientUpdatePanel(upBotonEnviar, "uploadFileDocumentsSolicitud(" + objDtoSolicitud.PK_IS_Cod + ");");
-            //    //Utils.AddScriptClient("showSuccessMessage2()");
-            //    _log.CustomWriteOnLog("registrar pedido personalizado", "PK_IS_Cod valor retornado " + objDtoSolicitud.PK_IS_Cod);
-            //    _log.CustomWriteOnLog("registrar pedido personalizado", "Agregado");
-            //    _log.CustomWriteOnLog("registrar pedido personalizado", "Completado");
-            //    Utils.AddScriptClientUpdatePanel(upBotonEnviar, "showSuccessMessage2()");
-            //}
-
         }
         catch (Exception ex)
         {
@@ -158,12 +136,13 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
         try
         {
-            int x = int.Parse(txtcantidad.Text);
-            double y = double.Parse(txtprecio.Text);
-            double z = x * y;
-            int cant = int.Parse(txtcantidad.Text);
+            double y = double.Parse(txt_precio.Text);
+            int cant = int.Parse(txt_cantidad.Text);
+
+            double importe = cant * y;
             if (txtunidadmetrica.Value == "Mt" && cant < 150)
             {
+
                 ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Ingrese mas de 150 unidades!!', type: 'error'});", true);
                 return;
             }
@@ -181,12 +160,14 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
 
 
-            double aprox;
             _log.CustomWriteOnLog("registrar pedido personalizado", "valor del txtunidadmetrica" + txtunidadmetrica.Value);
 
-            if (txtcantidad.Text == "")
+            if (txt_cantidad.Text == "0")
             {
-                Utils.AddScriptClientUpdatePanel(calcular1, "showSuccessMessage4()");
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Ingresar cantidad del producto!!', type: 'error'});", true);
+
+                return;
+                //Utils.AddScriptClientUpdatePanel(calcular1, "showSuccessMessage4()");
             }
             if (txtcodigo.Text == "")
             {
@@ -196,74 +177,23 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
             if (txtunidadmetrica.Value == "Mt" && cant > 149 || txtunidadmetrica.Value == "Cm" && cant > 29 || txtunidadmetrica.Value == "M2" && cant > 39)
             {
-                double a = (z * 5) / 100;
-                double descuento = z - a;
-                Label13.Text = "- S/" + Convert.ToString(a) + " de descuento";
-                txtimporte.Text = Convert.ToString(descuento);
+
+                txt_importe.Text = "S/" + Convert.ToString(importe);
+                double descuento = (importe * 5) / 100;
+                txt_descuento.Text = "S/" + Convert.ToString(descuento);
+                double total = importe - descuento;
+                txt_subtotal.Text = "S/" + Convert.ToString(total);
 
             }
             else
             {
-                txtimporte.Text = Convert.ToString(z);
+                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'Llene los datos correctamente!!', type: 'error'});", true);
+                //return;
+                txt_importe.Text = Convert.ToString(importe);
             }
             calcular1.Update();
 
 
-
-            //if (rbCatalogo.Checked == true)
-            //{
-            //    if (txtcantidad.Text == "")
-            //    {
-            //        Utils.AddScriptClientUpdatePanel(UpdatePanel1, "showSuccessMessage4()");
-            //    }
-            //    if (txtcodigo.Text == "")
-            //    {
-            //        Utils.AddScriptClientUpdatePanel(UpdatePanel1, "showSuccessMessage5()");
-            //    }
-            //    int x = int.Parse(txtcantidad.Text);
-            //    double y = double.Parse(txtprecio.Text);
-            //    double z = x * y;
-            //    int cant = int.Parse(txtcantidad.Text);
-            //    if (txtunidadmetrica.Value == "Mt" && cant > 150 || txtunidadmetrica.Value == "Cm" && cant > 30 || txtunidadmetrica.Value == "M2" && cant > 40)
-            //    {
-
-            //        double descuento = z - ((z * 5) / 100);
-
-            //        txtimporte.Text = Convert.ToString(descuento);
-            //    }
-            //    else
-            //    {
-            //        txtimporte.Text = Convert.ToString(z);
-            //    }
-            //}
-            //if (rbPropio.Checked == true)
-            //{
-            //    if (txtcantidadp.Text == "")
-            //    {
-            //        Utils.AddScriptClientUpdatePanel(UpdatePanel1, "showSuccessMessage4()");
-            //    }
-            //    if (ddlTipoMoldura.SelectedValue != "0")
-            //    {
-            //        //objDtoTipoMoldura.PK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
-            //        objDtoMoldura.FK_ITM_Tipo = int.Parse(ddlTipoMoldura.SelectedValue);
-            //        aprox = objCtrMoldura.Aprox(objDtoMoldura);
-            //        //txtimporteaprox.Text = Convert.ToString(objCtrMoldura.PrecioAprox(objDtoMoldura));
-            //        //double precio;
-            //        //txtimporteaprox.Text = Convert.ToString(aprox);
-
-            //        int cantp = int.Parse(txtcantidadp.Text);
-            //        double a = aprox * cantp;
-            //        txtimporteaprox.Text = Convert.ToString(a);
-
-
-            //        if (aprox == 0)
-            //        {
-            //            txtimporteaprox.Text = "";
-            //            ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal({icon: 'error',title: 'ERROR!',text: 'No hay tipo de moldura seleccionado!!'})</script>");
-            //            return;
-            //        }
-            //    }
-            //}
         }
         catch (Exception ex)
         {
@@ -340,7 +270,7 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
     protected void btnRegistrar_Click(object sender, EventArgs e)
     {
-        if (txtcodigo.Text == "" | txtcantidad.Text == "")
+        if (txtcodigo.Text == "" | txt_cantidad.Text == "")
         {
             Utils.AddScriptClientUpdatePanel(UpdatePanel1, "showSuccessMessage6()");
         }
@@ -359,9 +289,9 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
             _log.CustomWriteOnLog("registrar pedido personalizado", "entro a pedido personalizado por catalogo");
             objDtoSolicitud.VS_TipoSolicitud = "Personalizado por catalogo";
             _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.VS_TipoSolicitud : " + objDtoSolicitud.VS_TipoSolicitud);
-            objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidad.Text);
+            objDtoSolicitud.IS_Cantidad = int.Parse(txt_cantidad.Text);
             _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.VS_TipoSolicitud : " + objDtoSolicitud.VS_TipoSolicitud);
-            objDtoSolicitud.DS_ImporteTotal = double.Parse(txtimporte.Text);
+            objDtoSolicitud.DS_ImporteTotal = double.Parse(txt_importe.Text);
             _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.VS_TipoSolicitud : " + objDtoSolicitud.DS_ImporteTotal);
             objDtoSolicitud.VS_Comentario = txtarea.Text;
             _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.VS_TipoSolicitud : " + objDtoSolicitud.VS_Comentario);
@@ -376,9 +306,9 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
             objDtoMXU.FK_IM_Cod = int.Parse(txtcodigo.Text);
             _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoMXU.FK_IM_Cod : " + objDtoMXU.FK_IM_Cod);
-            objDtoMXU.IMU_Cantidad = int.Parse(txtcantidad.Text);
+            objDtoMXU.IMU_Cantidad = int.Parse(txt_cantidad.Text);
             _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoMXU.FK_IM_Cod : " + objDtoMXU.IMU_Cantidad);
-            objDtoMXU.DMU_Precio = double.Parse(txtprecio.Text);
+            objDtoMXU.DMU_Precio = double.Parse(txt_precio.Text);
             _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoMXU.FK_IM_Cod : " + objDtoMXU.DMU_Precio);
             objDtoMXU.FK_VU_Cod = Session["DNIUsuario"].ToString();
             _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoMXU.FK_IM_Cod : " + objDtoMXU.FK_VU_Cod);
@@ -421,8 +351,8 @@ public partial class RealizarPedidoPersonalizado : System.Web.UI.Page
 
             _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.VS_TipoSolicitud : " + objDtoSolicitud.VS_TipoSolicitud);
             objDtoSolicitud.VS_TipoSolicitud = "Personalizado por diseño propio";
-            _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.DS_Medida : " + objDtoSolicitud.DS_Medida);
-            objDtoSolicitud.DS_Medida = double.Parse(txtmedidap.Text);
+            _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.DS_Medida : " + objDtoSolicitud.VS_Medida);
+            objDtoSolicitud.VS_Medida = double.Parse(txtmedidap.Text);
             _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.IS_Cantidad : " + objDtoSolicitud.IS_Cantidad);
             objDtoSolicitud.IS_Cantidad = int.Parse(txtcantidadp.Text);
             _log.CustomWriteOnLog("registrar pedido personalizado", "objDtoSolicitud.DS_PrecioAprox : " + objDtoSolicitud.DS_PrecioAprox);

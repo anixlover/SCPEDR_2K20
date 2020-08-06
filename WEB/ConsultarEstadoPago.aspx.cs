@@ -133,23 +133,27 @@ public partial class ConsultarEstadoPago : System.Web.UI.Page
                     objDtoSolicitud.PK_IS_Cod = int.Parse(id5);
                     objCtrVoucher.DetallesVoucherSolicitudUsuario(objvoucherdao, objDtoSolicitud, dtoMolduraxUsuario);
 
-                    string ac = ConfigurationManager.ConnectionStrings["conexion"].ConnectionString;
-                    using (SqlConnection con = new SqlConnection(ac))
-                    {
-                        SqlCommand cmd = new SqlCommand("SP_DVS", con);
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        SqlParameter paramId = new SqlParameter()
-                        {
-                            ParameterName = "@idsol",
-                            Value = objDtoSolicitud.PK_IS_Cod
-                        };
-                        cmd.Parameters.Add(paramId);
-                        con.Open();
-                        byte[] bytes = (byte[])cmd.ExecuteScalar();
-                        con.Close();
-                        string strbase64 = Convert.ToBase64String(bytes);
-                        ImageVo.ImageUrl = "data:Image/png;base64," + strbase64;
-                    }
+                    //string ac = ConfigurationManager.ConnectionStrings["conexion"].ConnectionString;
+                    //using (SqlConnection con = new SqlConnection(ac))
+                    //{
+                    //    SqlCommand cmd = new SqlCommand("SP_DVS", con);
+                    //    cmd.CommandType = CommandType.StoredProcedure;
+                    //    SqlParameter paramId = new SqlParameter()
+                    //    {
+                    //        ParameterName = "@idsol",
+                    //        Value = objDtoSolicitud.PK_IS_Cod
+                    //    };
+                    //    cmd.Parameters.Add(paramId);
+                    //    con.Open();
+                    //    byte[] bytes = (byte[])cmd.ExecuteScalar();
+                    //    con.Close();
+                    //    string strbase64 = Convert.ToBase64String(bytes);
+                    //    ImageVo.ImageUrl = "data:Image/png;base64," + strbase64;
+                    //}
+
+                    Utils.AddScriptClientUpdatePanel(UpdatePanelA, "uploadFileDocuments(" + Request.Params["Id"] + ");");
+
+
                     txtFechaEmisionA.Text = objDtoSolicitud.DTS_FechaEmicion.ToString();
                     txtNroOpeA.Text = objvoucherdao.PK_VV_NumVoucher.ToString();
                     txtImporteA.Text = objvoucherdao.DV_ImporteDepositado.ToString();
