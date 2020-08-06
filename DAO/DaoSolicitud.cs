@@ -290,6 +290,19 @@ namespace DAO
             conexion.Close();
             return dtsolicitudes;
         }
+        public DataTable SelectSolicitudes2(string tipo)
+        {
+            DataTable dtsolicitudes = null;
+            conexion.Open();
+            SqlCommand command = new SqlCommand("SP_Administrar_Solicitudes_Filtro", conexion);
+            SqlDataAdapter daAdaptador = new SqlDataAdapter(command);
+            command.Parameters.AddWithValue("@tipo",tipo);
+            command.CommandType = CommandType.StoredProcedure;
+            dtsolicitudes = new DataTable();
+            daAdaptador.Fill(dtsolicitudes);
+            conexion.Close();
+            return dtsolicitudes;
+        }
 
         public void UpdateSolicitudObservada(DtoSolicitud objsol) 
         {
@@ -309,7 +322,7 @@ namespace DAO
         }
         public void UpdateSolicitudPendiente(DtoSolicitud objsol)
         {
-            string update = "UPDATE T_Solicitud SET DTS_FechaRegistro=GETDATE(),FK_ISE_Cod=9 where PK_IS_Cod =" + objsol.PK_IS_Cod;
+            string update = "UPDATE T_Solicitud SET DTS_FechaRegistro=GETDATE(),FK_ISE_Cod=9, DTS_FechaRecojo='"+DateTime.Today.AddDays(15)+"' where PK_IS_Cod =" + objsol.PK_IS_Cod;
             SqlCommand unComando = new SqlCommand(update, conexion);
             conexion.Open();
             unComando.ExecuteNonQuery();

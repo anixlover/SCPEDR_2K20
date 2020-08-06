@@ -45,23 +45,23 @@ public partial class EvaluarPagos : System.Web.UI.Page
     {
         if (txtComentario.Text == "")
         {
-            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({icon: 'error',title: 'ERROR!',text: 'No inserto ninguna OBSERVACIÓN!!'});", true);
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({type: 'error',title: 'ERROR!',text: 'No inserto ninguna OBSERVACIÓN!!'});", true);
             return;
         }
         sol.VS_Comentario = txtComentario.Text;
         sol.PK_IS_Cod = Convert.ToInt32(Session["idSolicitudPago"]);
         ctrsol.actualizarEstadoObservacion(sol);
-
+        mostrarmsjPAGO(sol);
     }
     public void mostrarmsjPAGO(DtoSolicitud p)
     {
         switch (p.error)
         {
-            case 55:
-                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({title:'Ob servación  HECHA!',text:'Datos ENVIADOS!',icon:'success'}, function(){window.location.href='AdministrarPedidos.aspx'});", true);
+            case 2:
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({type: 'error',title: 'ERROR!',text: 'Fecha INVALIDA!!'});", true);
                 break;
             case 77:
-                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({title:'Pago APORBADO!',text:'Datos ENVIADOS!',icon:'success'}, function(){window.location.href='AdministrarPedidos.aspx'});", true);
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "mensaje", "swal({title:'Pago APORBADO!',text:'Datos ENVIADOS!',type:'success'}, function(){window.location.href='AdministrarPedidos.aspx'});", true);
                 break;
         }
     }

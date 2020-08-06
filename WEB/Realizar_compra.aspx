@@ -35,6 +35,7 @@
         <input type="hidden" runat="server" id="valorObtenidoRBTN" clientidmode="Static" />
         <input type="hidden" runat="server" id="valorCheck" clientidmode="Static" />
         <div class="registrar-cliente">
+            <asp:Label ID="lblcosto" runat="server" Text="..." style="font-weight: 700; color: #000000; font-size: xx-large; background-color: #66FF33"></asp:Label>
             <div class="custom-file">
                     Imagen del voucher:<br />
                     &nbsp;<asp:Image ID="Image1" runat="server" class="rounded" />
