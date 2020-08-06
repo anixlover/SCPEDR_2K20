@@ -33,5 +33,10 @@ namespace CTR
         {
             return objvoucherdao.SelectPagoVoucher(voucher);
         }
+
+        public void ActualizarVoucher(DtoSolicitud objDtoSolicitud)
+        {
+            objvoucherdao.ActualizarVoucher(objDtoSolicitud);
+        }
     }
 }

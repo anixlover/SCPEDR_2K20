@@ -89,13 +89,26 @@ namespace DAO
 
             while (reader.Read())
             {
-                objDtoSolicitud.DTS_FechaEmicion = Convert.ToDateTime(reader[0].ToString());
-                objdtoVoucher.PK_VV_NumVoucher = reader[1].ToString();
-                objdtoVoucher.VBV_Foto = Encoding.ASCII.GetBytes(reader[2].ToString());
+                objdtoVoucher.VBV_Foto = Encoding.ASCII.GetBytes(reader[0].ToString()); 
+                objDtoSolicitud.DTS_FechaEmicion = Convert.ToDateTime(reader[1].ToString());
+                objdtoVoucher.PK_VV_NumVoucher = reader[2].ToString();
                 objdtoVoucher.DV_ImporteDepositado = Double.Parse(reader[3].ToString());
             }
             conexion.Close();
             conexion.Dispose();
+        }
+
+        public void ActualizarVoucher(DtoSolicitud objDtoSolicitud)
+        { 
+            SqlCommand command = new SqlCommand("[SP_ActualizarVoucher", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@idsol", objDtoSolicitud.PK_IS_Cod);
+            var binary1 = command.Parameters.Add("@imagen", SqlDbType.VarBinary, -1);
+            binary1.Value = DBNull.Value;
+            //command.Parameters.AddWithValue("@imagen", objdtoVoucher.VBV_Foto);
+            conexion.Open();
+            command.ExecuteNonQuery();
+            conexion.Close();
         }
     }
 }
